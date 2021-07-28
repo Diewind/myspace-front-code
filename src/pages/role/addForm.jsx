@@ -5,7 +5,7 @@
  * @version: 1.0.0
  */
 import React, { Component } from 'react'
-import { Input, Form } from 'antd'
+import { Form,Input } from 'antd';
 import PropsTypes from 'prop-types'
 const Item = Form.Item;
 class AddForm extends Component {

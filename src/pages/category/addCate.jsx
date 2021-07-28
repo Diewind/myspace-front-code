@@ -1,5 +1,5 @@
 import React,{Component} from 'react'
-import { TreeSelect,Input, Form } from 'antd'
+import { TreeSelect, Input, Form } from 'antd';
 import PropsTypes from 'prop-types'
 const Item = Form.Item;
 class AddCate extends Component {

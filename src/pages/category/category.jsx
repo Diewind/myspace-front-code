@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {Card,Table,Input, InputNumber,Button,Icon,Form,message,Popconfirm,Modal} from 'antd'
+import { PlusOutlined } from '@ant-design/icons';
+import { Card, Table, Input, InputNumber, Button, message, Popconfirm, Modal, Form } from 'antd';
 import LinkButton from '../../components/link-button/index'
 import {PAGE_SIZE} from '../../utils/constants'
 // 可编辑单元格组件
@@ -291,7 +292,7 @@ class Category extends Component {
         // card的右侧
         const extra = (
             <Button type='primary' onClick={this.showAddCate}>
-                <Icon type='plus' />
+                <PlusOutlined />
                 添加
             </Button>
         )

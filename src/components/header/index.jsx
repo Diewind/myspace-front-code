@@ -1,7 +1,8 @@
 import React,{Component} from 'react'
 import {withRouter} from 'react-router-dom'
 import Cookies from 'js-cookie'
-import {Modal,Icon} from 'antd'
+import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
+import { Modal } from 'antd';
 import { connect } from 'react-redux'
 import LinkButton from '../link-button/index'
 import memoryUtils from '../../utils/memoryUtils'
@@ -109,7 +110,9 @@ class Header extends Component{
         return (
             <div className='header'>
                 <div className='header-top'>
-                    <span className='collapse' onClick={this.toggle}><Icon type={collapsed ? 'menu-unfold' : 'menu-fold'} /></span>
+                    <span className='collapse' onClick={this.toggle}>
+                        {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
+                    </span>
                     <span>欢迎，{username || '游客'}</span>
                     <LinkButton onClick={this.logout}>退出</LinkButton>
                 </div>
@@ -124,7 +127,7 @@ class Header extends Component{
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 

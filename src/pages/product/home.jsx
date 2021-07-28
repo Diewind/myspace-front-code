@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
-import {
-    Select,
-    Input,
-    Button,
-    Card,
-    Icon,
-    Table,
-    message
-} from 'antd'
+import { PlusOutlined } from '@ant-design/icons';
+import { Select, Input, Button, Card, Table, message } from 'antd';
 import LinkButton from '../../components/link-button'
 import {reqProducts,reqSearchProducts,reqUpdateStatus,delProduct} from '../../api'
 import {PAGE_SIZE} from '../../utils/constants'
@@ -173,7 +166,7 @@ export default class Home extends Component {
 
         const extra = (
             <Button type='primary' onClick={()=>{this.props.history.push('/product/addupdate')}}>
-                <Icon type='plus' />
+                <PlusOutlined />
                 添加
             </Button>
         )

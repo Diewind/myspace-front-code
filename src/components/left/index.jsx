@@ -1,7 +1,7 @@
 import React,{Component} from 'react'
 import {Link,withRouter} from 'react-router-dom'
 import {connect} from 'react-redux'
-import { Menu, Icon } from 'antd'
+import { Menu } from 'antd';
 import menuList from '../../config/menu.config'
 import './index.less'
 import logo from '../../assets/images/logo.png'
@@ -88,7 +88,7 @@ class LeftNav extends Component{
                     pre.push((
                         <Menu.Item key={item.key}>
                             <Link to={item.key} onClick={()=>this.props.setHeadTitle(item.title)}>
-                                <Icon type={item.icon} />
+                                {item.icon}
                                 <span>{item.title}</span>
                             </Link>
                         </Menu.Item>
@@ -105,7 +105,7 @@ class LeftNav extends Component{
                             key={item.key}
                             title={
                                 <span>
-                                <Icon type={item.icon} />
+                                {item.icon}
                                 <span>{item.title}</span>
                                 </span>
                             }

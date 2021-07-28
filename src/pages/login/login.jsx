@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {Redirect} from 'react-router-dom'
-import { Form, Icon, Input, Button, message } from 'antd';
+import { LockOutlined, UserOutlined } from '@ant-design/icons';
+import { Form,Input, Button, message } from 'antd';
 import Cookies from 'js-cookie'
 import './login.less'
 import logo from '../../assets/images/logo.png'
@@ -96,7 +97,7 @@ class Login extends Component {
                                     initialValue:'admin',//初始值
                                 })(
                                     <Input
-                                        prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         placeholder="用户名"
                                     />
                                 )
@@ -110,7 +111,7 @@ class Login extends Component {
                                     ]
                                 })(
                                     <Input
-                                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                                        prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
                                         type="password"
                                         placeholder="默认密码admin"
                                     />
@@ -125,7 +126,7 @@ class Login extends Component {
                     </Form>
                 </section>
             </div>
-        )
+        );
     }
 }
 

@@ -5,15 +5,8 @@
  * @version: 1.0.0
  */
 import React, { Component } from 'react'
-import {
-  Card,
-  Button,
-  Table,
-  Modal,
-  message,
-  Popconfirm,
-  Icon
-} from 'antd'
+import { QuestionCircleOutlined } from '@ant-design/icons';
+import { Card, Button, Table, Modal, message, Popconfirm } from 'antd';
 import { PAGE_SIZE } from '../../utils/constants'
 import { reqRoles, reqAddRole, reqUpdateRole, reqDeleteRole } from '../../api'
 import memoryUtils from '../../utils/memoryUtils'
@@ -150,7 +143,7 @@ class Role extends Component {
         }}>创建角色</Button>
         <Popconfirm
           title="确定要删除吗？"
-          icon={<Icon type="question-circle-o" style={{ color: 'red' }} />}
+          icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
           onConfirm={this.deleteRole}
           placement="bottomLeft"
           disabled={!role.id}

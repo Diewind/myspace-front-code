@@ -1,13 +1,6 @@
 import React, { Component } from 'react'
-import {
-    Card,
-    Form,
-    Input,
-    Cascader,
-    Button,
-    Icon,
-    message
-} from 'antd'
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Form,Card, Input, Cascader, Button, message } from 'antd';
 import LinkButton from '../../components/link-button'
 import {reqCategory,addProduct,reqCurCategory} from '../../api/index'
 import PicturesWall from './picturesWall'
@@ -227,7 +220,7 @@ class AddUpdate extends Component {
         const title = (
             <span>
                 <LinkButton onClick={()=>{this.props.history.goBack()}}>
-                    <Icon type='arrow-left' />
+                    <ArrowLeftOutlined />
                 </LinkButton>
         <span>{isUpdate ? '修改商品' : '添加商品'}</span>
             </span>
