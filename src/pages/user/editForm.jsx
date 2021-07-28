@@ -5,7 +5,7 @@
  * @version: 1.0.0
  */
 import React, { PureComponent } from 'react'
-import { Input, Form, Select } from 'antd'
+import { Form,Input, Select } from 'antd';
 import PropsTypes from 'prop-types'
 const Item = Form.Item;
 const Option = Select.Option;

@@ -1,12 +1,6 @@
 import React, { Component } from 'react'
-import {
-    Card,
-    Icon,
-    List,
-    Row,
-    Col,
-    message
-} from 'antd'
+import { ArrowLeftOutlined } from '@ant-design/icons';
+import { Card, List, Row, Col, message } from 'antd';
 import Item from 'antd/lib/list/Item'
 import LinkButton from '../../components/link-button'
 import {reqCurCategory} from '../../api/index'
@@ -39,11 +33,9 @@ export default class Detail extends Component {
         const title = (
             <span>
                 <LinkButton>
-                    <Icon 
-                        type='arrow-left' 
+                    <ArrowLeftOutlined
                         style={{color:'green',marginRight:15,fontSize:20}}
-                        onClick={()=>this.props.history.goBack()}
-                    />
+                        onClick={()=>this.props.history.goBack()} />
                 </LinkButton>
                 <span>商品详情</span>
             </span>

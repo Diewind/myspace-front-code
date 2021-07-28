@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {Row,Icon,Button,Form,Input,Card,Menu,Dropdown,Select} from 'antd'
+import { ArrowLeftOutlined, DownOutlined } from '@ant-design/icons';
+import { Form,Row, Button, Input, Card, Menu, Dropdown, Select } from 'antd';
 import {FOEM_ITEM_LAYOUT} from '../../../utils/constants'
 import G6Editor from '@antv/g6-editor';
 import mindDatas from './mindDatas.json'
@@ -158,11 +159,9 @@ class MindDetail extends Component {
         const title = (
             <span>
                 <LinkButton>
-                    <Icon 
-                        type='arrow-left' 
+                    <ArrowLeftOutlined
                         style={{marginRight:15,fontSize:20}}
-                        onClick={()=>this.props.history.goBack()}
-                    />
+                        onClick={()=>this.props.history.goBack()} />
                 </LinkButton>
                 <span>导图详情</span>
             </span>
@@ -175,7 +174,7 @@ class MindDetail extends Component {
                         <Button onClick={this.importFile}>导入</Button>
                         <Dropdown overlay={menu}>
                             <Button>
-                                导出 <Icon type="down" />
+                                导出 <DownOutlined />
                             </Button>
                         </Dropdown>
                         <Button onClick={this.save} type='primary'>保存</Button>
@@ -381,7 +380,7 @@ class MindDetail extends Component {
                 </div>
                 </Card>
             </div>
-        )
+        );
     }
 }
 

@@ -1,6 +1,7 @@
 import React, { Component }  from 'react'
 import PropTypes from 'prop-types'
-import { Upload, Icon, Modal, message } from 'antd';
+import { PlusOutlined } from '@ant-design/icons';
+import { Upload, Modal, message } from 'antd';
 import {reqDeleteImg} from '../../api/index'
 import './picturesWall.less'
 function getBase64(file) {
@@ -91,7 +92,7 @@ class PicturesWall extends Component {
     const { previewVisible, previewImage, fileList } = this.state;
     const uploadButton = (
       <div>
-        <Icon type="plus" />
+        <PlusOutlined />
         <div>Upload</div>
       </div>
     );

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {Row,Icon,Tooltip,Button,Form,Input,Card,Menu,Dropdown,Select} from 'antd'
+import { DownOutlined } from '@ant-design/icons';
+import { Form,Row, Tooltip, Button, Input, Card, Menu, Dropdown, Select } from 'antd';
 import {FOEM_ITEM_LAYOUT} from '../../../utils/constants'
 import G6Editor from '@antv/g6-editor';
 import '../mind/index.less';
@@ -216,7 +217,7 @@ class Index extends Component {
                         <Button onClick={this.importFile}>导入</Button>
                         <Dropdown overlay={menu}>
                             <Button>
-                                导出 <Icon type="down" />
+                                导出 <DownOutlined />
                             </Button>
                         </Dropdown>
                         <Button onClick={this.save} type='primary'>保存</Button>
@@ -447,7 +448,7 @@ class Index extends Component {
                     </div>
                 </div>
             </div>
-        )
+        );
     }
 }
 

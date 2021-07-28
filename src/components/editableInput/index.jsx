@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import '@ant-design/compatible/assets/index.css';
 import { Input, InputNumber, Form } from 'antd';
 
 
