@@ -452,4 +452,5 @@ class Index extends Component {
     }
 }
 
-export default Form.create()(Index);
+// export default Form.create()(Index);
+export default Index;

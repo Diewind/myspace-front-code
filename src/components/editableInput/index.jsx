@@ -51,5 +51,5 @@ class EditableInput extends Component {
       return <EditableContext.Consumer>{this.renderCell}</EditableContext.Consumer>;
     }
 }
-const EditableInputs = Form.create()(EditableInput);
-export default EditableInputs;
+// const EditableInputs = Form.create()(EditableInput);
+export default EditableInput;

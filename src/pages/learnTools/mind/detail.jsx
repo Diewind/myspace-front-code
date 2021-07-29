@@ -384,4 +384,5 @@ class MindDetail extends Component {
     }
 }
 
-export default Form.create()(MindDetail);
+// export default Form.create()(MindDetail);
+export default MindDetail;
