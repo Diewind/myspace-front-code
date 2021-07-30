@@ -274,254 +274,286 @@ module.exports = {
     "wrap-iife": 2,
     // 要求或禁止 “Yoda” 条件
     "yoda": 2,
-
-
-
-    // 禁止 catch 子句的参数与外层作用域中的变量同名
-    "no-catch-shadow": 0,
+    /**
+     * 要求或禁止使用严格模式指令
+     */
+    "strict": 2,
+    /**
+     * 变量声明有关
+     */
+    // 要求或禁止 var 声明中的初始化
+    "init-declarations": 2,
+    // 禁止删除变量
+    "no-delete-var": 2,
     // 不允许标签与变量同名
     "no-label-var": 2,
     // 禁用特定的全局变量
     "no-restricted-globals": 2,
-    // 禁止 var 声明 与外层作用域的变量同名
-    "no-shadow": 0,
-    // 禁止覆盖受限制的标识符
+    // 禁止变量声明与外层作用域的变量同名
+    "no-shadow": 2,
+    // 禁止将标识符定义为受限的名字
     "no-shadow-restricted-names": 2,
+    // 禁用未声明的变量，除非它们在 /*global */ 注释中被提到
+    "no-undef": 2,
     // 禁止将变量初始化为 undefined
     "no-undef-init": 2,
     // 禁止将 undefined 作为标识符
-    "no-undefined": 0,
-    // 不允许在变量定义之前使用它们
-    "no-use-before-define": 0,
-    //////////////
-    // 风格指南 //
-    //////////////
-    // 指定数组的元素之间要以空格隔开(, 后面)， never参数：[ 之前和 ] 之后不能带空格，always参数：[ 之前和 ] 之后必须带空格
-    "array-bracket-spacing": [2, "never"],
-    // 禁止或强制在单行代码块中使用空格(禁用)
-    "block-spacing": [1, "never"],
-    //强制使用一致的缩进 第二个参数为 "tab" 时，会使用tab，
-    // if while function 后面的{必须与if在同一行，java风格。
-    "brace-style": [2, "1tbs", {
-      "allowSingleLine": true
-    }],
-    // 控制逗号前后的空格
-    "comma-spacing": [2, {
-      "before": false,
-      "after": true
-    }],
-    // 控制逗号在行尾出现还是在行首出现 (默认行尾)
-    // http://eslint.org/docs/rules/comma-style
-    "comma-style": [2, "last"],
-    //"SwitchCase" (默认：0) 强制 switch 语句中的 case 子句的缩进水平
-    // 以方括号取对象属性时，[ 后面和 ] 前面是否需要空格, 可选参数 never, always
-    "computed-property-spacing": [2, "never"],
-    // 用于指统一在回调函数中指向this的变量名，箭头函数中的this已经可以指向外层调用者，应该没卵用了
-    // e.g [0,"self"] 指定只能 var that = this. self不能指向其他任何值，this也不能赋值给self以外的其他值
-    "consistent-this": [2, "self","that","_self","_that","me","_this"],
-    // 强制使用命名的 function 表达式
-    "func-names": 0,
-    // 文件末尾强制换行
+    "no-undefined": 2,
+    // 禁止出现未使用过的变量
+    "no-unused-vars": 2,
+    // 禁止在变量定义之前使用它们
+    "no-use-before-define": 2,
+    /**
+     * 风格指南
+    */
+    // 在数组开括号后和闭括号前强制换行
+    "array-bracket-newline": 0,
+    // 强制数组方括号中使用一致的空格
+    "array-bracket-spacing": 2,
+    // 强制数组元素间出现换行
+    "array-element-newline": 2,
+    // 禁止或强制在代码块中开括号前和闭括号后有空格
+    "block-spacing": 2,
+    // 强制在代码块中使用一致的大括号风格
+    "brace-style": 2,
+    // 强制使用骆驼拼写法命名约定
+    "camelcase": 2,
+    // 强制或禁止对注释的第一个字母大写
+    "capitalized-comments": 2,
+    // 要求或禁止末尾逗号
+    "comma-dangle": 0,
+    // 强制在逗号前后使用一致的空格
+    "comma-spacing": 2,
+    // 强制使用一致的逗号风格
+    "comma-style": 2,
+    // 强制在计算的属性的方括号中使用一致的空格
+    "computed-property-spacing": 2,
+    // 当获取当前执行环境的上下文时，强制使用一致的命名
+    "consistent-this": 0,
+    // 要求或禁止文件末尾存在空行
     "eol-last": 2,
-    "indent": [
-      "error", 2
-    ],
-    //要求或禁止在函数标识符和其调用之间有空格
+    // 要求或禁止在函数标识符和其调用之间有空格
     "func-call-spacing": 2,
-    // 强制在对象字面量的属性中键和值之间使用一致的间距
-    "key-spacing": [2, {
-      "beforeColon": false,
-      "afterColon": true
-    }],
-    // 要求在注释周围有空行 ( 要求在块级注释之前有一空行)
-    "lines-around-comment": [2, {
-      "beforeBlockComment": true
-    }],
+    // 要求函数名与赋值给它们的变量名或属性名相匹配
+    "func-name-matching": 2,
+    // 要求或禁止使用命名的 function 表达式
+    "func-names": 0,
+    // 强制一致地使用 function 声明或表达式
     "func-style": 0,
-    // 强制回调函数最大嵌套深度 5层
-    "max-nested-callbacks": [2, 5],
-    // 禁止使用指定的标识符
+    // 强制在函数括号内使用一致的换行
+    "function-paren-newline": 0,
+    // 禁用指定的标识符
     "id-blacklist": 0,
-    // 强制标识符的最新和最大长度
+    // 强制标识符的最小和最大长度
     "id-length": 0,
     // 要求标识符匹配一个指定的正则表达式
     "id-match": 0,
+    // 强制隐式返回的箭头函数体的位置
+    "implicit-arrow-linebreak": 2,
+    // 强制使用一致的缩进
+    "indent": ["error", 2],
     // 强制在 JSX 属性中一致地使用双引号或单引号
-    "jsx-quotes": 0,
-    // 强制在关键字前后使用一致的空格 (前后腰需要)
+    "jsx-quotes": ["error", "prefer-single"],
+    // 强制在对象字面量的属性中键和值之间使用一致的间距
+    "key-spacing": 2,
+    // 强制在关键字前后使用一致的空格
     "keyword-spacing": 2,
+    // 强制行注释的位置
+    "line-comment-position": 0,
+    // 强制使用一致的换行风格
+    "linebreak-style": 0,
+    // 要求在注释周围有空行
+    "lines-around-comment": 0,
+    // 要求或禁止类成员之间出现空行
+    "lines-between-class-members": 0,
+    // 强制可嵌套的块的最大深度
+    "max-depth": 0,
     // 强制一行的最大长度
-    "max-len": [2, 200, { "ignoreUrls": true }],
+    "max-len": 0,
     // 强制最大行数
     "max-lines": 0,
-    // 强制 function 定义中最多允许的参数数量
-    "max-params": [1, 5],
-    // 强制 function 块最多允许的的语句数量
-    "max-statements": [1, 200],
+    // 强制函数最大代码行数
+    "max-lines-per-function": 0,
+    // 强制回调函数最大嵌套深度
+    "max-nested-callbacks": 0,
+    // 强制函数定义中最多允许的参数数量
+    "max-params": 0,
+    // 强制函数块最多允许的的语句数量
+    "max-statements": 0,
     // 强制每一行中所允许的最大语句数量
     "max-statements-per-line": 0,
-    // 要求构造函数首字母大写 （要求调用 new 操作符时有首字母大小的函数，允许调用首字母大写的函数时没有 new 操作符。）
-    "new-cap": [2, {
-      "newIsCap": true,
-      "capIsNew": false
-    }],
-    // 要求调用无参构造函数时有圆括号
+    // 强制对多行注释使用特定风格
+    "multiline-comment-style": 0,
+    // 要求或禁止在三元操作数中间换行
+    "multiline-ternary": 0,
+    // 要求构造函数首字母大写
+    "new-cap": 2,
+    // 强制或禁止调用无参构造函数时有圆括号
     "new-parens": 2,
-    // 要求或禁止 var 声明语句后有一行空行
-    "newline-after-var": 0,
-    // 禁止使用 Array 构造函数
+    // 要求方法链中每个调用都有一个换行符
+    "newline-per-chained-call": 0,
+    // 禁用 Array 构造函数
     "no-array-constructor": 2,
     // 禁用按位运算符
     "no-bitwise": 0,
-    // 要求 return 语句之前有一空行
-    "newline-before-return": 0,
-    // 要求方法链中每个调用都有一个换行符
-    "newline-per-chained-call": 1,
     // 禁用 continue 语句
     "no-continue": 0,
-    // 禁止在代码行后使用内联注释
+    // 禁止在代码后使用内联注释
     "no-inline-comments": 0,
     // 禁止 if 作为唯一的语句出现在 else 语句中
-    "no-lonely-if": 0,
+    "no-lonely-if": 2,
     // 禁止混合使用不同的操作符
-    "no-mixed-operators": 0,
-    //禁止空格和 tab 的混合缩进
-    "no-mixed-spaces-and-tabs": [
-      "error", "smart-tabs"
-    ],
-    // 不允许多个空行
-    "no-multiple-empty-lines": [2, {
-      "max": 2
-    }],
-    // 不允许否定的表达式
+    "no-mixed-operators": 2,
+    // 禁止空格和 tab 的混合缩进
+    "no-mixed-spaces-and-tabs": 2,
+    // 禁止连续赋值
+    "no-multi-assign": 2,
+    // 禁止出现多行空行
+    "no-multiple-empty-lines": 0,
+    // 禁用否定的表达式
     "no-negated-condition": 0,
-    // 不允许使用嵌套的三元表达式
+    // 禁用嵌套的三元表达式
     "no-nested-ternary": 0,
-    // 禁止使用 Object 的构造函数
+    // 禁用 Object 的构造函数
     "no-new-object": 2,
-    // 禁止使用一元操作符 ++ 和 --
+    // 禁用一元操作符 ++ 和 --
     "no-plusplus": 0,
-    // 禁止使用特定的语法
+    // 禁用特定的语法
     "no-restricted-syntax": 0,
-    // 禁止 function 标识符和括号之间出现空格
-    "no-spaced-func": 2,
-    // 不允许使用三元操作符
+    // 禁用 tab
+    "no-tabs": 0,
+    // 禁用三元操作符
     "no-ternary": 0,
     // 禁用行尾空格
     "no-trailing-spaces": 2,
-    // 禁止标识符中有悬空下划线_bar
+    // 禁止标识符中有悬空下划线
     "no-underscore-dangle": 0,
     // 禁止可以在有更简单的可替代的表达式时使用三元操作符
     "no-unneeded-ternary": 2,
     // 禁止属性前有空白
     "no-whitespace-before-property": 2,
-    // 要求或禁止在 var 声明周围换行
+    // 强制单个语句的位置
+    "nonblock-statement-body-position": 0,
+    // 强制大括号内换行符的一致性
+    "object-curly-newline": 0,
+    // 强制在大括号中使用一致的空格
+    "object-curly-spacing": 2,
+    // 强制将对象的属性放在不同的行上
+    "object-property-newline": 0,
+    // 强制函数中的变量要么一起声明要么分开声明
+    "one-var": 0,
+    // 要求或禁止在变量声明周围换行
     "one-var-declaration-per-line": 0,
-    // 要求或禁止在可能的情况下要求使用简化的赋值操作符
+    // 要求或禁止在可能的情况下使用简化的赋值操作符
     "operator-assignment": 0,
     // 强制操作符使用一致的换行符
-    "operator-linebreak": [2, "after", {
-      "overrides": {
-        "?": "before",
-        ":": "before"
-      }
-    }],
+    "operator-linebreak": 2,
     // 要求或禁止块内填充
     "padded-blocks": 0,
+    // 要求或禁止在语句间填充空行
+    "padding-line-between-statements": 0,
+    // 禁止使用以对象字面量作为第一个参数的 Object.assign，优先使用对象扩展。
+    "prefer-object-spread": 0,
     // 要求对象字面量属性名称用引号括起来
     "quote-props": 0,
     // 强制使用一致的反勾号、双引号或单引号
-    "quotes": [2, "single", "avoid-escape"],
-    // 要求使用 JSDoc 注释
-    "require-jsdoc": 0,
-    // 要求或禁止使用分号而不是 ASI（这个才是控制行尾部分号的，）
-    // "semi": [2, "always"],
+    "quotes": 0,
+    // 要求或禁止使用分号代替 ASI
+    "semi": 2,
     // 强制分号之前和之后使用一致的空格
     "semi-spacing": 2,
+    // 强制分号的位置
+    "semi-style": 2,
+    // 要求对象属性按序排列
+    "sort-keys": 0,
     // 要求同一个声明块中的变量按顺序排列
     "sort-vars": 0,
     // 强制在块之前使用一致的空格
-    "space-before-blocks": [2, "always"],
+    "space-before-blocks": 0,
     // 强制在 function的左括号之前使用一致的空格
-    "space-before-function-paren": [2, "always"],
+    "space-before-function-paren": 0,
     // 强制在圆括号内使用一致的空格
-    "space-in-parens": [2, "never"],
+    "space-in-parens": 2,
     // 要求操作符周围有空格
     "space-infix-ops": 2,
     // 强制在一元操作符前后使用一致的空格
-    "space-unary-ops": [2, {
-      "words": true,
-      "nonwords": false
-    }],
+    "space-unary-ops": 2,
     // 强制在注释中 // 或 /* 使用一致的空格
-    "spaced-comment": [2, "always", {
-      "markers": ["global", "globals", "eslint", "eslint-disable", "*package", "!"]
-    }],
-    // 要求或禁止 Unicode BOM
-    "unicode-bom": 2,
+    "spaced-comment": 2,
+    // 强制在 switch 的冒号左右有空格
+    "switch-colon-spacing": 2,
+    // 要求或禁止在模板标记和它们的字面量之间有空格
+    "template-tag-spacing": 0,
+    // 要求或禁止 Unicode 字节顺序标记 (BOM)
+    "unicode-bom": 0,
     // 要求正则表达式被括号括起来
     "wrap-regex": 0,
-    //禁止词法声明 (let、const、function 和 class) 出现在 case或default 子句中
-    "no-case-declarations": ["warn"],
-
-    //////////////
-    // ES6.相关 //
-    //////////////
+    /**
+     * ES6 有关
+     */
     // 要求箭头函数体使用大括号
     "arrow-body-style": 2,
     // 要求箭头函数的参数使用圆括号
     "arrow-parens": 2,
-    "arrow-spacing": [2, {
-      "before": true,
-      "after": true
-    }],
+    // 强制箭头函数的箭头前后使用一致的空格
+    "arrow-spacing": 2,
+    // 要求在构造函数中有 super() 的调用
+    "constructor-super": 2,
     // 强制 generator 函数中 * 号周围使用一致的空格
-    "generator-star-spacing": [2, {
-      "before": true,
-      "after": true
-    }],
+    "generator-star-spacing": 2,
     // 禁止修改类声明的变量
     "no-class-assign": 2,
-    // 不允许箭头功能，在那里他们可以混淆的比较
-    "no-confusing-arrow": 0,
+    // 禁止在可能与比较操作符相混淆的地方使用箭头函数
+    "no-confusing-arrow": 2,
     // 禁止修改 const 声明的变量
     "no-const-assign": 2,
     // 禁止类成员中出现重复的名称
     "no-dupe-class-members": 2,
-    // 每个模块只能使用一个import
+    // 禁止重复模块导入
     "no-duplicate-imports": 2,
     // 禁止 Symbolnew 操作符和 new 一起使用
     "no-new-symbol": 2,
-    // 允许指定模块加载时的进口
+    // 禁止使用指定的 import 加载的模块
     "no-restricted-imports": 0,
     // 禁止在构造函数中，在调用 super() 之前使用 this 或 super
     "no-this-before-super": 2,
-    // 禁止不必要的计算性能键对象的文字
-    "no-useless-computed-key": 0,
+    // 禁止在对象中使用不必要的计算属性
+    "no-useless-computed-key": 2,
+    // 禁用不必要的构造函数
+    "no-useless-constructor": 2,
+    // 禁止在 import 和 export 和解构赋值时将引用重命名为相同的名字
+    "no-useless-rename": 2,
     // 要求使用 let 或 const 而不是 var
-    "no-var": 1,
+    "no-var": 2,
     // 要求或禁止对象字面量中方法和属性使用简写语法
-    "object-shorthand": 0,
-    // 要求使用箭头函数作为回调
-    "prefer-arrow-callback": 0,
+    "object-shorthand": 2,
+    // 要求回调函数使用箭头函数
+    "prefer-arrow-callback": 2,
     // 要求使用 const 声明那些声明后不再被修改的变量
-    "prefer-const": 0,
-    // 要求在合适的地方使用 Reflect 方法
-    "prefer-reflect": 0,
+    "prefer-const": 2,
+    // 优先使用数组和对象解构
+    "prefer-destructuring": 2,
+    // 禁用 parseInt() 和 Number.parseInt()，使用二进制，八进制和十六进制字面量
+    "prefer-numeric-literals": 0,
+    // 要求使用剩余参数而不是 arguments
+    "prefer-rest-params": 2,
     // 要求使用扩展运算符而非 .apply()
-    "prefer-spread": 0,
+    "prefer-spread": 2,
     // 要求使用模板字面量而非字符串连接
-    "prefer-template": 0,
-    // Suggest using the rest parameters instead of arguments
-    "prefer-rest-params": 0,
-    // 要求generator 函数内有 yield
+    "prefer-template": 2,
+    // 要求 generator 函数内有 yield
     "require-yield": 2,
+    // 强制剩余和扩展运算符及其表达式之间有空格
+    "rest-spread-spacing": 2,
+    // 强制模块内的 import 排序
+    "sort-imports": 0,
+    // 要求 symbol 描述
+    "symbol-description": 2,
     // 要求或禁止模板字符串中的嵌入表达式周围空格的使用
-    "template-curly-spacing": 1,
+    "template-curly-spacing": 2,
     // 强制在 yield* 表达式中 * 周围使用空格
     "yield-star-spacing": 2,
-
-
+    
 
     // 强制使用一致的换行风格
     "linebreak-style": [2, "unix"],
@@ -577,7 +609,5 @@ module.exports = {
     "react/jsx-filename-extension": [2, {
       "extensions": [".js", ".jsx"]
     }],
-    // 禁止未使用的变量
-    "no-unused-vars": 0,
   }
 };

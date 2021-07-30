@@ -12,34 +12,28 @@ import storageUtils from '../../utils/storageUtils'
 /**
  * 登录组件
  */
-const Login = () => {
-  const handleSubmit = (event) => {
-    // 阻止表单默认行为
-    event.preventDefault();
+const Login = (props) => {
+  const handleSubmit = async (values) => {
     // 对所有的表单字段进行校验
-    this.props.form.validateFields(async (err, values) => {
-        // 校验成功
-        if (!err) {
-            const {username,password} = values;
-            const result = await reqLogin(username,password);
-            if(result.status === 0){// 登录成功
-                // 提示登录成功
-                message.success('登录成功');
-                // 保存user
-                const user = result.data || {};
-                // 保存在cookie中
-                var inFifteenMinutes = new Date(new Date().getTime() + 2 * 60 * 60 * 1000); // 设置过期时间
-                Cookies.set('user', user,{ expires: inFifteenMinutes });
-                memoryUtils.user = user;// 保存在内存中
-                storageUtils.saveUser(user);// 保存在local中
-                // 跳转到管理界面（不需要再回退到登录界面，所以用replace）
-                this.props.history.replace('/home');
-            }else{// 登录失败
-                // 提示错误信息
-                message.error(result.msg);
-            }
-        }
-    });
+    const {username,password} = values;
+    const result = await reqLogin(username,password);
+    if(result.status === 0){// 登录成功
+        // 提示登录成功
+        message.success('登录成功');
+        // 保存user
+        const user = result.data || {};
+        // 保存在cookie中
+        var inFifteenMinutes = new Date(new Date().getTime() + 2 * 60 * 60 * 1000); // 设置过期时间
+        Cookies.set('user', user,{ expires: inFifteenMinutes });
+        memoryUtils.user = user;// 保存在内存中
+        storageUtils.saveUser(user);// 保存在local中
+        // 跳转到管理界面（不需要再回退到登录界面，所以用replace）
+        this.props.history.replace('/home');
+    }else{// 登录失败
+        // 提示错误信息
+        message.error(result.msg);
+    }
+    props.history.replace('/home');
   }
   const validatorPwd = (_,value) => {
     if(!value){
@@ -69,7 +63,7 @@ const Login = () => {
           <section className='login-content'>
               <h2>登录</h2>
               <Form 
-                onSubmit={handleSubmit} 
+                onFinish={handleSubmit} 
                 className="login-form"
               >
                   <Form.Item
