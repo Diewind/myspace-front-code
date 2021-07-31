@@ -453,4 +453,5 @@ class KoniDetail extends Component {
     }
 }
 
-export default Form.create()(KoniDetail);
+// export default Form.create()(KoniDetail);
+export default KoniDetail;

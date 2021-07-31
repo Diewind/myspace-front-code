@@ -106,4 +106,5 @@ class EditForm extends PureComponent {
   }
 }
 
-export default Form.create()(EditForm);
+// export default Form.create()(EditForm);
+export default EditForm;

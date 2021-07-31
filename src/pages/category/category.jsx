@@ -326,5 +326,5 @@ class Category extends Component {
         )
     }
 }
-const EditableCategory = Form.create()(Category);
-export default EditableCategory;
+// const EditableCategory = Form.create()(Category);
+export default Category;

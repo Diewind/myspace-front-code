@@ -298,4 +298,5 @@ class AddUpdate extends Component {
     }
 }
 
-export default Form.create()(AddUpdate)
+// export default Form.create()(AddUpdate)
+export default AddUpdate

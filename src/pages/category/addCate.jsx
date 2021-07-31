@@ -72,4 +72,5 @@ class AddCate extends Component {
         );
     }
 }
-export default Form.create()(AddCate);
+// export default Form.create()(AddCate);
+export default AddCate;
