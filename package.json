@@ -9,6 +9,9 @@
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "precommit": "pretty-quick --staged",
+    "lint": "./node_modules/.bin/eslint 'src/**/*.{js,jsx,tsx,ts}' && npm run lint:style && tsc --noEmit --emitDeclarationOnly false",
+    "lint:fix": "./node_modules/.bin/eslint --quiet --fix 'src/**/*.{js,jsx,tsx,ts}' && npm run lint:style",
+    "lint:style": "stylelint \"src/**/*.less\" --syntax less",
     "lint-staged": "lint-staged"
   },
   "keywords": [],
@@ -100,8 +103,7 @@
   },
   "lint-staged": {
     "*.{js,jsx}": [
-      "eslint --fix",
-      "git add"
+      "./node_modules/.bin/eslint --fix"
     ]
   },
   "browserslist": {
