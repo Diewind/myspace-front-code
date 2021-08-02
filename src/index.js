@@ -15,11 +15,11 @@ import './assets/css/reset.css';
 // 读取local中保存user，保存到内存中
 const user = storageUtils.getUser();
 
-memoryUtils.user = user;
+ memoryUtils.user = user;
 function render() {
   ReactDOM.render((
     <Provider store={store}>
-      <App />
+          <App />
     </Provider>
   ),
     document.getElementById('root'));
