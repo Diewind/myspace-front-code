@@ -26,7 +26,9 @@ module.exports = {
     },
   },
   "plugins": [
-    "react","prettier"
+    "react",
+    "prettier",
+    "plugin:prettier/recommended"
   ],
   "settings": {
     "polyfills": [
