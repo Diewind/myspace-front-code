@@ -29,9 +29,10 @@ module.exports = {
     "react"
   ],
   "settings": {
-    "react": {
-      "version": "16.2.0",
-    }
+    "polyfills": [
+      'fetch',
+      'promises'
+    ],
   },
   /**
    * "off" 或 0 - 关闭规则
@@ -61,7 +62,7 @@ module.exports = {
     // 禁止在正则表达式中使用控制字符
     "no-control-regex": 2,
     // 禁用 debugger
-    "no-debugger": 2,
+    "no-debugger": 1,
     // 禁止 function 定义中出现重名参数
     "no-dupe-args": 2,
     // 禁止对象字面量中出现重复的 key

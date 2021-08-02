@@ -4,13 +4,14 @@
  * @author: diewind
  * @version: 1.0.0
  */
-import React, { Component } from 'react'
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import Login from './pages/login/login'
-import Admin from './pages/admin/admin'
+import React, { Component } from 'react';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import Login from './pages/login/login';
+import Admin from './pages/admin/admin';
 
 export default class App extends Component {
   render() {
+    debugger;
     return (
       <BrowserRouter>
         <Switch>{/* 只匹配其中一个 */}
@@ -18,6 +19,6 @@ export default class App extends Component {
           <Route path='/' component={Admin}></Route>
         </Switch>
       </BrowserRouter>
-    )
+    );
   }
 }
