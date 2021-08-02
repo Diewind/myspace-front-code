@@ -15,7 +15,7 @@ import storageUtils from '../../utils/storageUtils'
 const Login = (props) => {
   const handleSubmit = async (values) => {
     // 对所有的表单字段进行校验
-    const { username, password } = values;
+    const { username, password} = values;
     const result = await reqLogin(username, password);
     if (result.status === 0) {// 登录成功
       // 提示登录成功
@@ -77,7 +77,7 @@ const Login = (props) => {
             initialValue='admin'
           >
             {
-              /* 
+              /*
               用户名/密码的合法性要求
               1.必须输入
               2.必须大于等于4位
