@@ -8,9 +8,6 @@
     "watch": "webpack --watch",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "precommit": "pretty-quick --staged",
-    "lint-staged": "lint-staged",
-    "eslint-fix": "eslint --fix"
   },
   "keywords": [],
   "author": "",
@@ -104,11 +101,11 @@
     }
   },
   "lint-staged": {
-    "src/**/*.+(scss|css)": [  //匹配css文件，只格式化，不做eslint校验，如果有stylelint也可以用stylelint进行格式化
+    "src/**/*.+(scss|css)": [
       "prettier --write",
       "git add -n"
     ],
-    "src/**/*.+(js|jsx)": [ // 匹配js文件，使用eslint进行校验
+    "src/**/*.+(js|jsx)": [
         "prettier --write",
         "eslint --fix",
         "git add -n"

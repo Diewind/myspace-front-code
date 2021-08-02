@@ -12,7 +12,7 @@ import Admin from './pages/admin/admin';
 export default class App extends Component {
   render() {
      debugger;
-     console.log('aaa');
+       console.log('aaa');
     return (
       <BrowserRouter>
         <Switch>{/* 只匹配其中一个 */}
