@@ -98,7 +98,7 @@ module.exports = merge(common, {
     globalObject: 'this',
   },
   module: {
-    
+
   },
   plugins: [
     // 生成 index.html
@@ -110,14 +110,14 @@ module.exports = merge(common, {
     // Makes the public URL available as %PUBLIC_URL% in index.html, e.g.:
     // <link rel="icon" href="%PUBLIC_URL%/favicon.ico">
     new InterpolateHtmlPlugin(HtmlWebpackPlugin, {
-      PUBLIC_URL: publicUrlOrPath+'public',
+      PUBLIC_URL: publicUrlOrPath + 'public',
       // You can pass any key-value pairs, this was just an example.
       // WHATEVER: 42 will replace %WHATEVER% with 42 in index.html.
     }),
     new CreateReactPublicPlugin({
       rootPath: __dirname,
       projectName: 'public',
-      outputFiles: ['favicon.ico','index.html','logo192.png','logo512.png','manifest.json','robots.txt'],
+      outputFiles: ['favicon.ico', 'index.html', 'logo192.png', 'logo512.png', 'manifest.json', 'robots.txt'],
     }),
   ],
 });

@@ -1,4 +1,5 @@
 module.exports = {
+  "root": true,
   "env": {
     "browser": true,
     "commonjs": true,
@@ -6,37 +7,27 @@ module.exports = {
   },
   "parser": "babel-eslint",
   "extends": [
-    "eslint:recommended",
-    "plugin:react/recommended"
+    "plugin:react/recommended",
+    "plugin:react-hooks/recommended",
   ],
   "parserOptions": {
-    "ecmaVersion": 7,
+    // 指定ecma版本
+    "ecmaVersion": 10,
+    // 代码类型script/module
+    "sourceType": "module",
     // 开启实验属性
     "ecmaFeatures": {
+      // 启用扩展运算符
       "experimentalObjectRestSpread": true,
       // 修饰器
       "experimentalDecorators": true,
+      // 启用jsx
       "jsx": true
     },
-    "sourceType": "module"
   },
   "plugins": [
     "react"
   ],
-  "globals": {
-    "__DEV__": false,
-    "__dirname": false,
-    "window": true,
-    "define": true,
-    "history": true,
-    "location": true,
-    "wxjs": true,
-    "$": true,
-    "WeixinJSBridge": true,
-    "wx": true,
-    "process": true,
-    "qq": true,
-  },
   "settings": {
     "react": {
       "version": "16.2.0",
@@ -553,61 +544,5 @@ module.exports = {
     "template-curly-spacing": 2,
     // 强制在 yield* 表达式中 * 周围使用空格
     "yield-star-spacing": 2,
-    
-
-    // 强制使用一致的换行风格
-    "linebreak-style": [2, "unix"],
-    //在JSX中强制布尔属性符号
-    "react/jsx-boolean-value": 2,
-    //在JSX中验证右括号位置
-    // "react/jsx-closing-bracket-location": 1,
-    //在JSX属性和表达式中加强或禁止大括号内的空格。
-    "react/jsx-curly-spacing": [2, {
-      "when": "never",
-      "children": true
-    }],
-    //在数组或迭代器中验证JSX具有key属性
-    "react/jsx-key": 2,
-    // 限制JSX中单行上的props的最大数量
-    "react/jsx-max-props-per-line": [1, {
-      "maximum": 5
-    }],
-    //防止在JSX中重复的props
-    "react/jsx-no-duplicate-props": 2,
-    //  //防止使用未包装的JSX字符串
-    // "react/jsx-no-literals": 0,
-    //在JSX中禁止未声明的变量
-    "react/jsx-no-undef": 2,
-    //为用户定义的JSX组件强制使用PascalCase
-    "react/jsx-pascal-case": 0,
-    //防止反应被错误地标记为未使用
-    "react/jsx-uses-react": 2,
-    //防止在JSX中使用的变量被错误地标记为未使用
-    "react/jsx-uses-vars": 2,
-    //防止在componentDidMount中使用setState
-    "react/no-did-mount-set-state": 2,
-    //防止在componentDidUpdate中使用setState
-    "react/no-did-update-set-state": 2,
-    //防止使用未知的DOM属性
-    "react/no-unknown-property": 2,
-    //为React组件强制执行ES5或ES6类
-    "react/prefer-es6-class": 2,
-    //防止在React组件定义中丢失props验证
-    // "react/prop-types": 1,
-    //使用JSX时防止丢失React
-    "react/react-in-jsx-scope": 2,
-    //防止没有children的组件的额外结束标签
-    "react/self-closing-comp": 0,
-    //禁止不必要的bool转换
-    // "no-extra-boolean-cast": 0,
-    //防止在数组中遍历中使用数组key做索引
-    // "react/no-array-index-key": 0,
-    //不使用弃用的方法
-    "react/no-deprecated": 2,
-    //在JSX属性中强制或禁止等号周围的空格
-    "react/jsx-equals-spacing": 2,
-    "react/jsx-filename-extension": [2, {
-      "extensions": [".js", ".jsx"]
-    }],
   }
 };

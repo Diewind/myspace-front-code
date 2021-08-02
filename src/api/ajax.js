@@ -9,27 +9,27 @@
         在请求成功resolve时：resolve(response.data)
 */
 import axios from 'axios';
-import {message} from 'antd';
-export default function ajax(url,data={},type='GET'){
-    return new Promise((resolve,reject) => {
-        let promise;
-        // 1.执行异步ajax请求
-        if(type === 'GET'){//发GET请求
-            promise = axios.get(url,{//配置对象
-                params:data
-            });
-        }else{//发POST请求
-            promise = axios.post(url,data);
-        }
-        // 2.如果成功了，调用resolve(value)
-        // 3.如果失败了，不调用reject(reason)
-        promise.then(response => {
-            resolve(response.data);
-        }).catch(error => {
-            // reject(error);
-            message.error('请求出错了：'+error.message);
-        });
-        
+import { message } from 'antd';
+export default function ajax(url, data = {}, type = 'GET') {
+  return new Promise((resolve, reject) => {
+    let promise;
+    // 1.执行异步ajax请求
+    if (type === 'GET') {//发GET请求
+      promise = axios.get(url, {//配置对象
+        params: data
+      });
+    } else {//发POST请求
+      promise = axios.post(url, data);
+    }
+    // 2.如果成功了，调用resolve(value)
+    // 3.如果失败了，不调用reject(reason)
+    promise.then(response => {
+      resolve(response.data);
+    }).catch(error => {
+      // reject(error);
+      message.error('请求出错了：' + error.message);
+    });
 
-    })
+
+  })
 }

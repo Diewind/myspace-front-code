@@ -12,10 +12,10 @@ class Minimap extends Component {
   createMinimap = (container) => {
     return new G6Editor.Minimap({
       container: container,
-      viewportBackStyle:'#fff',
-      viewportWindowStyle:'#fff',
-      fitView:true,
-      width:197
+      viewportBackStyle: '#fff',
+      viewportWindowStyle: '#fff',
+      fitView: true,
+      width: 197
     });
   }
 
@@ -33,7 +33,7 @@ class Minimap extends Component {
 
   render() {
     return (
-        <div className="minimap" ref={el => { this.minimapContainer = el }}></div>
+      <div className="minimap" ref={el => { this.minimapContainer = el }}></div>
     )
   }
 

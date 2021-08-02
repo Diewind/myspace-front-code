@@ -10,9 +10,9 @@ const WebpackBar = require('webpackbar');
 
 module.exports = {
   entry: './src/index.js',
-  module:{
+  module: {
     rules: [
-      {  
+      {
         test: /\.css$/,
         use: [
           'style-loader',

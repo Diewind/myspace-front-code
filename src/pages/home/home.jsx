@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React, { Component } from 'react';
 import {
   Chart,
   Geom,
@@ -140,7 +140,7 @@ class Home extends Component {
       },
     };
     return (
-      <div style={{marginTop:'10%'}}>
+      <div style={{ marginTop: '10%' }}>
         <Chart height={400} data={data} scale={cols} forceFit>
           <Legend />
           <Axis name="month" />
