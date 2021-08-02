@@ -5,7 +5,7 @@
  * @version: 1.0.0
  */
 import React, { Component } from 'react'
-import { Form,Input, Tree } from 'antd';
+import { Form, Input, Tree } from 'antd';
 import PropTypes from 'prop-types'
 import menuList from '../../config/menu.config'
 const Item = Form.Item;
