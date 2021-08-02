@@ -26,7 +26,7 @@ module.exports = {
     },
   },
   "plugins": [
-    "react"
+    "react","prettier"
   ],
   "settings": {
     "polyfills": [
@@ -62,7 +62,7 @@ module.exports = {
     // 禁止在正则表达式中使用控制字符
     "no-control-regex": 2,
     // 禁用 debugger
-    "no-debugger": 1,
+    "no-debugger": 2,
     // 禁止 function 定义中出现重名参数
     "no-dupe-args": 2,
     // 禁止对象字面量中出现重复的 key
@@ -191,7 +191,7 @@ module.exports = {
     // 禁止在循环语句中出现包含不安全引用的函数声明
     "no-loop-func": 2,
     // 禁用魔术数字
-    "no-magic-numbers": 2,
+    "no-magic-numbers": 0,
     // 禁止使用多个空格
     "no-multi-spaces": 2,
     // 禁止使用多行字符串
@@ -429,7 +429,10 @@ module.exports = {
     // 强制大括号内换行符的一致性
     "object-curly-newline": 0,
     // 强制在大括号中使用一致的空格
-    "object-curly-spacing": 2,
+    "object-curly-spacing": [
+      2,
+      "always"
+    ],
     // 强制将对象的属性放在不同的行上
     "object-property-newline": 0,
     // 强制函数中的变量要么一起声明要么分开声明
@@ -471,7 +474,7 @@ module.exports = {
     // 强制在一元操作符前后使用一致的空格
     "space-unary-ops": 2,
     // 强制在注释中 // 或 /* 使用一致的空格
-    "spaced-comment": 2,
+    "spaced-comment": 0,
     // 强制在 switch 的冒号左右有空格
     "switch-colon-spacing": 2,
     // 要求或禁止在模板标记和它们的字面量之间有空格

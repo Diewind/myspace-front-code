@@ -9,10 +9,8 @@
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "precommit": "pretty-quick --staged",
-    "lint": "./node_modules/.bin/eslint 'src/**/*.{js,jsx,tsx,ts}' && npm run lint:style && tsc --noEmit --emitDeclarationOnly false",
-    "lint:fix": "./node_modules/.bin/eslint --quiet --fix 'src/**/*.{js,jsx,tsx,ts}' && npm run lint:style",
-    "lint:style": "stylelint \"src/**/*.less\" --syntax less",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "eslint-fix": "eslint --fix"
   },
   "keywords": [],
   "author": "",
@@ -45,7 +43,7 @@
     "draftjs-to-html": "^0.9.0",
     "echarts": "^4.6.0",
     "echarts-for-react": "^2.0.15-beta.1",
-    "eslint": "^7.31.0",
+    "eslint": "^7.32.0",
     "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-prettier": "^3.4.0",
     "eslint-plugin-react": "^7.24.0",
@@ -89,6 +87,11 @@
   },
   "dependencies": {
     "@ant-design/icons": "^4.6.2",
+    "eslint": "^7.32.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "husky": "^7.0.1",
+    "lint-staged": "^11.1.1",
+    "prettier": "^2.3.2",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
@@ -97,13 +100,18 @@
   ],
   "husky": {
     "hooks": {
-      "pre-commit": "npm run lint-staged",
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+        "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
-    "*.{js,jsx}": [
-      "./node_modules/.bin/eslint --fix"
+    "src/**/*.+(scss|css)": [  //匹配css文件，只格式化，不做eslint校验，如果有stylelint也可以用stylelint进行格式化
+      "prettier --write",
+      "git add -n"
+    ],
+    "src/**/*.+(js|jsx)": [ // 匹配js文件，使用eslint进行校验
+        "prettier --write",
+        "eslint --fix",
+        "git add -n"
     ]
   },
   "browserslist": {

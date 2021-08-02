@@ -11,7 +11,7 @@ import Admin from './pages/admin/admin';
 
 export default class App extends Component {
   render() {
-    debugger;
+     debugger;
      console.log('aaa');
     return (
       <BrowserRouter>
