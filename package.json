@@ -8,7 +8,8 @@
     "watch": "webpack --watch",
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
-    "commit": "git-cz"
+    "commit": "git-cz",
+    "lint-staged": "lint-staged && npm run lint-staged"
   },
   "keywords": [],
   "author": "",
@@ -56,6 +57,7 @@
     "jsonp": "^0.2.1",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
+    "lint-staged": "^11.1.1",
     "lodash": "^4.17.21",
     "memoize-one": "^5.1.1",
     "mini-css-extract-plugin": "^2.1.0",
@@ -110,7 +112,15 @@
   },
   "husky": {
     "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,tsx,ts}": "eslint --quiet --fix",
+    "src/**/*.less": "stylelint --syntax less",
+    "src/**/*.{js,ts,tsx,jsx,less}": [
+      "prettier --write",
+      "git add"
+    ]
   }
 }
