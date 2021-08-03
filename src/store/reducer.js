@@ -8,6 +8,7 @@ import {
 // 用来管理头部标题的reducer函数
 const initHeadTitle = '首页';
 function headTitle(state = initHeadTitle, action) {
+  console.log('reducer');
   switch (action.type) {
     case SET_HEAD_TITLE:
       return action.data;
@@ -27,7 +28,7 @@ function user(state = initUser, action) {
   }
 }
 
-/* 向外默认暴露的是合并产生的总的reducer函数 
+/* 向外默认暴露的是合并产生的总的reducer函数
 管理的总的state的结构
 {
     headTitle:'首页',

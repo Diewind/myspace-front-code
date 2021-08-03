@@ -9,7 +9,7 @@
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "commit": "git-cz",
-    "lint-staged": "lint-staged && npm run lint-staged"
+    "lint-staged": "lint-staged"
   },
   "keywords": [],
   "author": "",
@@ -112,15 +112,10 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "npm run lint-staged"
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,tsx,ts}": "eslint --quiet --fix",
-    "src/**/*.less": "stylelint --syntax less",
-    "src/**/*.{js,ts,tsx,jsx,less}": [
-      "prettier --write",
-      "git add"
-    ]
+    "src/**/*.{js,jsx,tsx,ts}": "eslint --fix --ext .js --ext .jsx --ext .jsx src/"
   }
 }
