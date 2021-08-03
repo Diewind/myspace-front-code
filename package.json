@@ -9,7 +9,8 @@
     "start": "webpack-dev-server --open --config webpack.dev.js",
     "build": "webpack --config webpack.prod.js",
     "commit": "git-cz",
-    "lint-staged": "lint-staged"
+    "lint-staged": "lint-staged",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
