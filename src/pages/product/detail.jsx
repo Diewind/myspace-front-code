@@ -1,10 +1,10 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Card, List, Row, Col, message } from 'antd';
-import Item from 'antd/lib/list/Item'
-import LinkButton from '../../components/link-button'
-import { reqCurCategory } from '../../api/index'
-import './product.less'
+import Item from 'antd/lib/list/Item';
+import LinkButton from '@pages/components/link-button';
+import { reqCurCategory } from '../../services/index';
+import './product.less';
 // Product的详情子路由组件
 export default class Detail extends Component {
   state = {
@@ -30,7 +30,7 @@ export default class Detail extends Component {
   render() {
     const { name, desc, price, detail, imgurls } = this.props.location.state.product;
     const { catename } = this.state;
-    const title = (
+    const title =
       <span>
         <LinkButton>
           <ArrowLeftOutlined
@@ -38,8 +38,7 @@ export default class Detail extends Component {
             onClick={() => this.props.history.goBack()} />
         </LinkButton>
         <span>商品详情</span>
-      </span>
-    );
+      </span>;
     return (
       <Card title={title} className='product-detail'>
         <List>
@@ -72,14 +71,13 @@ export default class Detail extends Component {
               <Col span={2} className='left'>商品图片：</Col>
               <Col span={22}>
                 {
-                  (imgurls && imgurls.map(img => (
-                    <img
-                      className='product-img'
-                      key={img}
-                      src={img}
-                      alt='img'
-                    />
-                  ))) || '暂无图片'
+                  imgurls && imgurls.map((img) => <img
+                    className='product-img'
+                    key={img}
+                    src={img}
+                    alt='img'
+                  />
+                  ) || '暂无图片'
                 }
               </Col>
             </Row>
@@ -92,6 +90,6 @@ export default class Detail extends Component {
           </Item>
         </List>
       </Card>
-    )
+    );
   }
 }

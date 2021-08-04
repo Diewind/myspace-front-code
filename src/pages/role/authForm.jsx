@@ -1,14 +1,14 @@
 /**
- * authform - 权限表单
+ * Authform - 权限表单
  * @date: 2021-2-23 20:21:33
  * @author: diewind
  * @version: 1.0.0
  */
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Form, Input, Tree } from 'antd';
-import PropTypes from 'prop-types'
-import menuList from '../../config/menu.config'
-const Item = Form.Item;
+import PropTypes from 'prop-types';
+import menuList from '@config/menu.config';
+const { Item } = Form;
 const { TreeNode } = Tree;
 class AuthForm extends Component {
 
@@ -21,25 +21,23 @@ class AuthForm extends Component {
     const { menus } = this.props.role;
     this.state = {
       checkedKeys: menus
-    }
+    };
   }
 
-  getTreeNode = (menuList) => {
-    return menuList.reduce((pre, item) => {
-      pre.push(
-        <TreeNode title={item.title} key={item.key}>
-          {item.children ? this.getTreeNode(item.children) : null}
-        </TreeNode>
-      )
-      return pre;
-    }, []);
-  }
+  getTreeNode = (menuList) => menuList.reduce((pre, item) => {
+    pre.push(
+      <TreeNode title={item.title} key={item.key}>
+        {item.children ? this.getTreeNode(item.children) : null}
+      </TreeNode>
+    );
+    return pre;
+  }, [])
 
   // 为父组件提交获取menus最新数据的方法
   getMenus = () => this.state.checkedKeys;
 
   // 选中某个node时的回调
-  onCheck = checkedKeys => {
+  onCheck = (checkedKeys) => {
     this.setState({
       checkedKeys
     });
@@ -51,7 +49,7 @@ class AuthForm extends Component {
 
   // 根据新传入的role来更新checkedKeys状态
   componentWillReceiveProps(nextProps) {
-    const menus = nextProps.role.menus;
+    const { menus } = nextProps.role;
     this.setState({
       checkedKeys: menus
     });
@@ -82,7 +80,7 @@ class AuthForm extends Component {
           checkedKeys={checkedKeys}
           onCheck={this.onCheck}
         >
-          <TreeNode title="平台权限" key="all">
+          <TreeNode title='平台权限' key='all'>
             {this.treeNode}
           </TreeNode>
         </Tree>

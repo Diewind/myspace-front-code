@@ -136,18 +136,19 @@ class Home extends Component {
     ];
     const cols = {
       month: {
-        range: [0, 1],
+        range: [0,
+          1],
       },
     };
     return (
       <div style={{ marginTop: '10%' }}>
         <Chart height={400} data={data} scale={cols} forceFit>
           <Legend />
-          <Axis name="month" />
+          <Axis name='month' />
           <Axis
-            name="revenue"
+            name='revenue'
             label={{
-              formatter: val => `${val}亿`,
+              formatter: (val) => `${val}亿`,
             }}
           />
           <Tooltip
@@ -155,10 +156,10 @@ class Home extends Component {
               type: 'y',
             }}
           />
-          <Geom type="line" position="month*revenue" size={2} color={'city'} />
+          <Geom type='line' position='month*revenue' size={2} color={'city'} />
           <Geom
-            type="point"
-            position="month*revenue"
+            type='point'
+            position='month*revenue'
             size={4}
             shape={'circle'}
             color={'city'}
@@ -174,7 +175,9 @@ class Home extends Component {
               end={{ month: 'Dec', revenue: 29 }} // 同 start
               lineStyle={{
                 stroke: '#999', // 线的颜色
-                lineDash: [0, 2, 2], // 虚线的设置
+                lineDash: [0,
+                  2,
+                  2], // 虚线的设置
                 lineWidth: 3, // 线的宽度
               }} // {object} 图形样式配置 https://bizcharts.net/products/bizCharts/api/graphic#线条样式
               text={{

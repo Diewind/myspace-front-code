@@ -1,19 +1,19 @@
 import {
   headerType
-} from '../actionTypes/index'
+} from '../actionTypes/index';
 
-class headerRedcuer {
+class HeaderRedcuer {
   constructor() {
     this.initHeadTitle = '首页';
   }
-  headTitle = (state = this.initHeadTitle, action) => {
+  headTitle(state = this.initHeadTitle, action) {
     switch (action.type) {
-      case headerType.SET_HEAD_TITLE:
-        return action.data;
-      default:
-        return state;
+    case headerType.SET_HEAD_TITLE:
+      return action.data;
+    default:
+      return state;
     }
   }
 }
 
-export default new headerRedcuer();
+export default new HeaderRedcuer();

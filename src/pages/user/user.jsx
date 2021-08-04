@@ -1,24 +1,24 @@
 /**
- * user - 用户管理
+ * User - 用户管理
  * @date: 2021-2-23 20:21:33
  * @author: diewind
  * @version: 1.0.0
  */
-import React, { Component } from 'react'
-import { connect } from 'react-redux'
-import memoize from "memoize-one"
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import memoize from "memoize-one";
 import {
   Card,
   Button,
   Table,
   Modal,
-} from 'antd'
+} from 'antd';
 
-import LinkButton from '../../components/link-button/index'
-import EditForm from './editForm'
-import userAction from '../../store/actions/userAction'
+import LinkButton from '@pages/components/link-button/index';
+import EditForm from './editForm';
+import userAction from '../../store/actions/userAction';
 
-import { PAGE_SIZE } from '../../utils/constants'
+import { PAGE_SIZE } from '@utils/constants';
 
 class User extends Component {
 
@@ -55,7 +55,7 @@ class User extends Component {
     // 表单验证
     this.form.validateFields(async (error, values) => {
       if (!error) {
-        // let param = {};
+        // Let param = {};
         this.setState({
           isShow: false
         });
@@ -65,7 +65,7 @@ class User extends Component {
         }
         this.form.resetFields();
         // 判断是否是新增
-        const hasUserId = !!this.user;
+        const hasUserId = Boolean(this.user);
         updateUser({
           ...values,
           hasUserId,
@@ -90,7 +90,7 @@ class User extends Component {
     this.user = null;// 去除保存的user
     this.setState({
       isShow: true
-    })
+    });
   }
 
   render() {
@@ -123,12 +123,11 @@ class User extends Component {
       },
       {
         title: '操作',
-        render: (user) => (
-          <span>
-            <LinkButton onClick={() => this.showUpdate(user)}>修改</LinkButton>
-            <LinkButton type='danger-button' onClick={() => this.deleteUser(user)}>删除</LinkButton>
-          </span>
-        )
+        render: (user) => <span>
+          <LinkButton onClick={() => this.showUpdate(user)}>修改</LinkButton>
+          <LinkButton type='danger-button' onClick={() => this.deleteUser(user)}>删除</LinkButton>
+        </span>
+
       }
     ];
 
@@ -158,44 +157,42 @@ class User extends Component {
           }}
         >
           <EditForm
-            setForm={(form) => { this.form = form }}
+            setForm={(form) => {
+              this.form = form;
+            }}
             roles={roles}
             user={user}
           />
         </Modal>
       </Card>
-    )
+    );
   }
 }
 
 export default connect(
-  state => {
-    return {
-      users: state.getUser.users,
-      roles: state.getUser.roles,
-      loading: state.getUser.loading
+  (state) => ({
+    users: state.getUser.users,
+    roles: state.getUser.roles,
+    loading: state.getUser.loading
+  }),
+  (dispatch) => ({
+    getUser: () => {
+      const getUserAction = userAction.getUser();
+      dispatch(getUserAction);
+    },
+    delUser: async (userid) => {
+      const delUserAction = userAction.delUser(userid);
+      const getUserAction = userAction.getUser();
+      await dispatch(delUserAction);
+      await dispatch(getUserAction);
+    },
+    updateUser: async (userInfo) => {
+      const updateUserAction = userAction.updateUser(userInfo);
+      const getUserAction = userAction.getUser();
+      await dispatch(updateUserAction);
+      await dispatch(getUserAction);
     }
-  },
-  dispatch => {
-    return {
-      getUser: () => {
-        const getUserAction = userAction.getUser();
-        dispatch(getUserAction);
-      },
-      delUser: async (userid) => {
-        const delUserAction = userAction.delUser(userid);
-        const getUserAction = userAction.getUser();
-        await dispatch(delUserAction);
-        await dispatch(getUserAction);
-      },
-      updateUser: async (userInfo) => {
-        const updateUserAction = userAction.updateUser(userInfo);
-        const getUserAction = userAction.getUser();
-        await dispatch(updateUserAction);
-        await dispatch(getUserAction);
-      }
-    }
-  }
+  })
 )(
   User
-)
+);

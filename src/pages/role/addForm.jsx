@@ -1,13 +1,13 @@
 /**
- * addForm - 角色修改/新增
+ * AddForm - 角色修改/新增
  * @date: 2021-2-23 20:21:33
  * @author: diewind
  * @version: 1.0.0
  */
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { Form, Input } from 'antd';
-import PropsTypes from 'prop-types'
-const Item = Form.Item;
+import PropsTypes from 'prop-types';
+const { Item } = Form;
 class AddForm extends Component {
   static propsTypes = {
     setForm: PropsTypes.func.isRequired
@@ -47,5 +47,5 @@ class AddForm extends Component {
     );
   }
 }
-// export default Form.create()(AddForm);
-export default AddForm
+// Export default Form.create()(AddForm);
+export default AddForm;

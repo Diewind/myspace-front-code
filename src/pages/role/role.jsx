@@ -1,18 +1,18 @@
 /**
- * role - 角色
+ * Role - 角色
  * @date: 2021-2-23 20:21:33
  * @author: diewind
  * @version: 1.0.0
  */
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Card, Button, Table, Modal, message, Popconfirm } from 'antd';
-import { PAGE_SIZE } from '../../utils/constants'
-import { reqRoles, reqAddRole, reqUpdateRole, reqDeleteRole } from '../../api'
-import memoryUtils from '../../utils/memoryUtils'
-import storageUtils from '../../utils/storageUtils'
-import AddForm from './addForm'
-import AuthForm from './authForm'
+import { PAGE_SIZE } from '../../utils/constants';
+import { reqRoles, reqAddRole, reqUpdateRole, reqDeleteRole } from '../../services';
+import memoryUtils from '@utils/memoryUtils';
+import storageUtils from '../../utils/storageUtils';
+import AddForm from './addForm';
+import AuthForm from './authForm';
 class Role extends Component {
   state = {
     roles: [], // 所有角色的列表
@@ -37,7 +37,7 @@ class Role extends Component {
       const roles = result.data;
       this.setState({
         roles
-      })
+      });
     }
   }
   // 添加角色
@@ -59,7 +59,7 @@ class Role extends Component {
           message.error(msg);
         }
       }
-    })
+    });
   }
   // 删除角色
   deleteRole = async () => {
@@ -75,7 +75,7 @@ class Role extends Component {
   }
   // 设置角色权限
   updateRole = async () => {
-    const role = this.state.role;
+    const { role } = this.state;
     // 得到最新的menus
     const menus = this.auth.current.getMenus();
     role.menus = menus;
@@ -119,33 +119,31 @@ class Role extends Component {
         title: '授权人',
         dataIndex: 'authorizer'
       },
-    ]
+    ];
   }
 
-  onRow = (role) => {
-    return {
-      onClick: event => { // 点击行
-        this.setState({
-          role
-        })
-      }
+  onRow = (role) => ({
+    onClick: (event) => { // 点击行
+      this.setState({
+        role
+      });
     }
-  }
+  })
 
   render() {
     const { roles, role, showAddStatus, showAuthStatus } = this.state;
-    const title = (
+    const title =
       <span>
         <Button type='primary' onClick={() => {
           this.setState({
             showAddStatus: true
-          })
+          });
         }}>创建角色</Button>
         <Popconfirm
-          title="确定要删除吗？"
+          title='确定要删除吗？'
           icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
           onConfirm={this.deleteRole}
-          placement="bottomLeft"
+          placement='bottomLeft'
           disabled={!role.id}
         >
           <Button type='danger' style={{ marginLeft: 20 }} disabled={!role.id}>删除角色</Button>
@@ -153,10 +151,10 @@ class Role extends Component {
         <Button type='primary' style={{ marginLeft: 20 }} disabled={!role.id} onClick={() => {
           this.setState({
             showAuthStatus: true
-          })
+          });
         }}>设置角色权限</Button>
-      </span>
-    )
+      </span>;
+
     return (
       <Card title={title}>
         <Table
@@ -170,7 +168,7 @@ class Role extends Component {
           rowSelection={{
             type: 'radio',
             selectedRowKeys: [role.id],
-            onSelect: (role) => {// 选择某个radio的回调
+            onSelect: (role) => { // 选择某个radio的回调
               this.setState({
                 role
               });
@@ -180,7 +178,7 @@ class Role extends Component {
           size='small'
         />
         <Modal
-          title="添加角色"
+          title='添加角色'
           visible={showAddStatus}
           onOk={this.addRole}
           onCancel={() => {
@@ -190,10 +188,10 @@ class Role extends Component {
             this.form.resetFields();
           }}
         >
-          <AddForm setForm={form => this.form = form} />
+          <AddForm setForm={(form) => this.form = form} />
         </Modal>
         <Modal
-          title="设置角色权限"
+          title='设置角色权限'
           visible={showAuthStatus}
           onOk={this.updateRole}
           onCancel={() => {
@@ -208,7 +206,7 @@ class Role extends Component {
           />
         </Modal>
       </Card>
-    )
+    );
   }
 }
 

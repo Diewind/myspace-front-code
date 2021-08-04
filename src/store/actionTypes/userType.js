@@ -1,4 +1,4 @@
-class userType {
+class UserType {
 
   constructor() {
 
@@ -17,4 +17,4 @@ class userType {
   }
 
 }
-export default new userType();
+export default new UserType();

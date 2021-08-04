@@ -1,6 +1,6 @@
-import React, { Component } from 'react'
-import G6Editor from '@antv/g6-editor'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import G6Editor from '@antv/g6-editor';
+import PropTypes from 'prop-types';
 
 class Minimap extends Component {
 
@@ -9,17 +9,15 @@ class Minimap extends Component {
     editor: PropTypes.object
   }
 
-  createMinimap = (container) => {
-    return new G6Editor.Minimap({
-      container: container,
-      viewportBackStyle: '#fff',
-      viewportWindowStyle: '#fff',
-      fitView: true,
-      width: 197
-    });
-  }
+  createMinimap = (container) => new G6Editor.Minimap({
+    container,
+    viewportBackStyle: '#fff',
+    viewportWindowStyle: '#fff',
+    fitView: true,
+    width: 197
+  })
 
-  getCreateMinimap = () => {
+  getCreateMinimap() {
     const { createMinimap } = this.props;
     return createMinimap ? createMinimap : this.createMinimap;
   }
@@ -28,13 +26,17 @@ class Minimap extends Component {
     const { editor } = this.props;
     const createMinimap = this.getCreateMinimap();
     const minimap = createMinimap(this.minimapContainer);
-    editor.add && editor.add(minimap);
+    if (editor.add){
+      editor.add(minimap);
+    }
   }
 
   render() {
     return (
-      <div className="minimap" ref={el => { this.minimapContainer = el }}></div>
-    )
+      <div className='minimap' ref={(el) => {
+        this.minimapContainer = el;
+      }}></div>
+    );
   }
 
 }

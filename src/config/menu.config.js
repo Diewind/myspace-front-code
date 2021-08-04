@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 import { HomeOutlined, AppstoreOutlined, BarsOutlined, CreditCardOutlined, UserOutlined, SolutionOutlined, AreaChartOutlined, BarChartOutlined, LineChartOutlined, PieChartOutlined, PlusOutlined, RetweetOutlined } from '@ant-design/icons';
 
 const menuList = [
   {
-    title: '首页',//菜单标题名称
-    key: '/home',//对应的path
-    icon: <HomeOutlined />,//图标名称
+    title: '首页', //菜单标题名称
+    key: '/home', //对应的path
+    icon: <HomeOutlined />, //图标名称
     isPublic: true
   },
   {
@@ -26,13 +26,13 @@ const menuList = [
     ]
   },
   {
-    title: '用户管理',//菜单标题名称
-    key: '/user',//对应的path
+    title: '用户管理', //菜单标题名称
+    key: '/user', //对应的path
     icon: <UserOutlined />
   },
   {
-    title: '角色管理',//菜单标题名称
-    key: '/role',//对应的path
+    title: '角色管理', //菜单标题名称
+    key: '/role', //对应的path
     icon: <SolutionOutlined />
   },
   {

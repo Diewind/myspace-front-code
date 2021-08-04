@@ -23,13 +23,13 @@ module.exports = {
         test: /\.less$/,
         use: [
           {
-            loader: "style-loader" // creates style nodes from JS strings
+            loader: "style-loader" // Creates style nodes from JS strings
           },
           {
-            loader: "css-loader" // translates CSS into CommonJS
+            loader: "css-loader" // Translates CSS into CommonJS
           },
           {
-            loader: "less-loader" // compiles Less to CSS
+            loader: "less-loader" // Compiles Less to CSS
           }
         ]
       },
@@ -66,7 +66,16 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: [".js", ".jsx", ".json"] //这个是省略获取后缀文件名不加后缀
+    extensions: [".js",
+      ".jsx",
+      ".json"], //这个是省略获取后缀文件名不加后缀
+    alias: {
+      '@assets': path.resolve(__dirname, 'src/assets'),
+      '@config': path.resolve(__dirname, 'src/config'),
+      '@pages': path.resolve(__dirname, 'src/pages'),
+      '@services': path.resolve(__dirname, 'src/services'),
+      '@utils': path.resolve(__dirname, 'src/utils'),
+    },
   },
   output: {
     // 打包文件根目录

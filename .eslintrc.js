@@ -3,7 +3,8 @@ module.exports = {
   "env": {
     "browser": true,
     "commonjs": true,
-    "es6": true
+    "es6": true,
+    "node": true,
   },
   "parser": "babel-eslint",
   "extends": [
@@ -175,7 +176,7 @@ module.exports = {
     // 禁止使用类似 eval() 的方法
     "no-implied-eval": 2,
     // 禁止 this 关键字出现在类和类对象之外
-    "no-invalid-this": 2,
+    "no-invalid-this": 1,
     // 禁用 __iterator__ 属性
     "no-iterator": 2,
     // 禁用标签语句
@@ -389,7 +390,7 @@ module.exports = {
     // 禁止 if 作为唯一的语句出现在 else 语句中
     "no-lonely-if": 2,
     // 禁止混合使用不同的操作符
-    "no-mixed-operators": 2,
+    "no-mixed-operators": 0,
     // 禁止空格和 tab 的混合缩进
     "no-mixed-spaces-and-tabs": 2,
     // 禁止连续赋值

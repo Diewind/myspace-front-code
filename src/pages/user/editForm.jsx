@@ -1,14 +1,14 @@
 /**
- * editform - 用户修改/新增
+ * Editform - 用户修改/新增
  * @date: 2021-2-23 20:21:33
  * @author: diewind
  * @version: 1.0.0
  */
-import React, { PureComponent } from 'react'
+import React, { PureComponent } from 'react';
 import { Form, Input, Select } from 'antd';
-import PropsTypes from 'prop-types'
-const Item = Form.Item;
-const Option = Select.Option;
+import PropsTypes from 'prop-types';
+const { Item } = Form;
+const { Option } = Select;
 class EditForm extends PureComponent {
   static propsTypes = {
     setForm: PropsTypes.func.isRequired,
@@ -48,8 +48,8 @@ class EditForm extends PureComponent {
           }
         </Item>
         {
-          user.id ? null : (
-            <Item label='密码'>
+          user.id ? null
+            : <Item label='密码'>
               {
                 getFieldDecorator('password', {
                   initialValue: user.password,
@@ -62,7 +62,7 @@ class EditForm extends PureComponent {
                 )
               }
             </Item>
-          )
+
         }
         <Item label='手机号'>
           {
@@ -93,8 +93,7 @@ class EditForm extends PureComponent {
             })(
               <Select placeholder='请选择角色'>
                 {
-                  roles.map(role =>
-                    <Option key={role.id} value={role.id}>{role.name}</Option>
+                  roles.map((role) => <Option key={role.id} value={role.id}>{role.name}</Option>
                   )
                 }
               </Select>
@@ -106,5 +105,5 @@ class EditForm extends PureComponent {
   }
 }
 
-// export default Form.create()(EditForm);
+// Export default Form.create()(EditForm);
 export default EditForm;
