@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
 import Cookies from 'js-cookie';
 // Import memoryUtils from '@utils/memoryUtils'
+import { asyncComponent } from '@utils/asyncComponent';
 
 import Left from '@pages/components/left';
 import Header from '@pages/components/header';
@@ -11,8 +12,8 @@ import Product from '../product/product';
 import ProductHome from '../product/home';
 import ProductAddUpdate from '../product/addUpdate';
 import ProductDetail from '../product/detail';
-import Role from '../role/role';
-import User from '../user/user';
+import Role from '../role';
+import User from '../user';
 import Bar from '../charts/bar';
 import Line from '../charts/line';
 import Pie from '../charts/pie';
@@ -25,6 +26,8 @@ import KoniDetail from '../learnTools/koni/detail.jsx';
 import NotFound from '../notFound';
 
 import { Layout } from 'antd';
+
+import routerConfig from '@config/router';
 const { Content, Footer, Sider } = Layout;
 
 // 管理的路由组件
@@ -41,7 +44,7 @@ export default class Admin extends Component {
     // Const user = memoryUtils.user;
     // 如果内存中没有存储user,表示当前没有登录
     const user = Cookies.get('user');
-    if (!user) {
+    if (!!user) {
       // 自动跳转到登录
       return <Redirect to='/login/' />;
     }
@@ -61,7 +64,16 @@ export default class Admin extends Component {
           />
           <Content style={{ margin: 20, backgroundColor: '#fff' }}>
             <Switch>
-              <Redirect exact from='/' to='/home' />
+              {
+                routerConfig.map((v) => {
+                  if (v.components){
+                    return v.components.map((n) => <Route key={n.path} path={n.path} component={asyncComponent(v.component)} />);
+                  }
+                  return <Route key={v.path} path={v.path} component={asyncComponent(v.component)} />;
+                })
+              }
+
+              {/* <Redirect exact from='/' to='/home' />
               <Route path='/home' component={Home} />
               <Route path='/category' component={Category} />
               <Route path='/product' component={Product}>
@@ -103,7 +115,7 @@ export default class Admin extends Component {
                   <Route component={NotFound} />
                 </Switch>
               </Route>
-              <Route component={NotFound} />
+              <Route component={NotFound} /> */}
             </Switch>
           </Content>
           <Footer style={{ textAlign: 'center' }}>本系统由pilot开发，版权所有，盗版必究！</Footer>

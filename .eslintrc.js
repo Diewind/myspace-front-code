@@ -6,10 +6,14 @@ module.exports = {
     "es6": true,
     "node": true,
   },
-  "parser": "babel-eslint",
+  "parser": [
+    "babel-eslint",
+    "@typescript-eslint/parser"
+  ],
   "extends": [
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
   ],
   "parserOptions": {
     // 指定ecma版本
@@ -27,7 +31,8 @@ module.exports = {
     },
   },
   "plugins": [
-    "react"
+    "react",
+    "@typescript-eslint"
   ],
   /**
    * "off" 或 0 - 关闭规则

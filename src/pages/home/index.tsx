@@ -12,7 +12,7 @@ const { Line } = Guide;
 
 class Home extends Component {
   render() {
-    const data = [
+    const data: object[] = [
       {
         month: 'Jan',
         city: 'China',
@@ -134,7 +134,7 @@ class Home extends Component {
         revenue: 4.8,
       },
     ];
-    const cols = {
+    const cols: object = {
       month: {
         range: [0,
           1],

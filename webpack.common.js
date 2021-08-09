@@ -57,6 +57,14 @@ module.exports = {
         use: [
           'file-loader'
         ]
+      },
+      // All files with a `.ts` or `.tsx` extension will be handled by `ts-loader`
+      {
+        test: /\.(ts|tsx)?$/,
+        loader: "ts-loader",
+        options: {
+          configFile: path.resolve(__dirname, 'tsconfig.json')
+　　　　 }
       }
     ]
   },
@@ -66,9 +74,13 @@ module.exports = {
     }),
   ],
   resolve: {
-    extensions: [".js",
+    extensions: [
+      ".js",
       ".jsx",
-      ".json"], //这个是省略获取后缀文件名不加后缀
+      ".ts",
+      ".tsx",
+      ".json"
+    ], // 省略获取后缀文件名不加后缀
     alias: {
       '@assets': path.resolve(__dirname, 'src/assets'),
       '@config': path.resolve(__dirname, 'src/config'),
