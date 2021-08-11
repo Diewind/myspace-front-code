@@ -7,6 +7,7 @@
  */
 const path = require('path');
 const fs = require('fs');
+const webpack = require('webpack');
 const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 const CreateReactPublicPlugin = require('create-react-public-plugin');
@@ -118,6 +119,9 @@ module.exports = merge(common, {
       rootPath: __dirname,
       projectName: 'public',
       outputFiles: ['favicon.ico', 'index.html', 'logo192.png', 'logo512.png', 'manifest.json', 'robots.txt'],
+    }),
+    new webpack.HotModuleReplacementPlugin({
+      // Options...
     }),
   ],
 });
