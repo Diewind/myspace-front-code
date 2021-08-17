@@ -1,15 +1,15 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { PlusOutlined } from '@ant-design/icons';
 import { Select, Input, Button, Card, Table, message } from 'antd';
-import LinkButton from '../../components/link-button'
-import { reqProducts, reqSearchProducts, reqUpdateStatus, delProduct } from '../../api'
-import { PAGE_SIZE } from '../../utils/constants'
-const Option = Select.Option;
+import LinkButton from '@pages/components/link-button';
+import { reqProducts, reqSearchProducts, reqUpdateStatus, delProduct } from '../../services';
+import { PAGE_SIZE } from '../../utils/constants';
+const { Option } = Select;
 
 export default class Home extends Component {
   state = {
-    total: 0,//商品的总数量
-    products: [],//商品的数组
+    total: 0, //商品的总数量
+    products: [], //商品的数组
     loading: false,
     searchName: '', //搜索的关键字
     searchType: 'productName'//根据哪个字段搜索
@@ -25,21 +25,21 @@ export default class Home extends Component {
   }
   // 初始化table的列的数组
   initColumns = () => {
-    // this.setState({
-    //     products:[
+    // This.setState({
+    //     Products:[
     //         {
-    //         id: '1',
-    //         name: '苹果笔记本',
-    //         desc: '网上一直流传有关苹果研发16英寸MacBook Pro的消息,昨日网上也流传出了一组16英寸苹果MacBook Pro 2019的渲染图,而近日有人从最新的macOS beta版系..',
-    //         price:9998,
-    //         status:0
+    //         Id: '1',
+    //         Name: '苹果笔记本',
+    //         Desc: '网上一直流传有关苹果研发16英寸MacBook Pro的消息,昨日网上也流传出了一组16英寸苹果MacBook Pro 2019的渲染图,而近日有人从最新的macOS beta版系..',
+    //         Price:9998,
+    //         Status:0
     //         },
     //         {
-    //         id: '2',
-    //         name: '戴尔笔记本',
-    //         desc: '戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本',
-    //         price:6988,
-    //         status:1
+    //         Id: '2',
+    //         Name: '戴尔笔记本',
+    //         Desc: '戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本戴尔笔记本',
+    //         Price:6988,
+    //         Status:1
     //         }
     //     ]
     // });
@@ -57,40 +57,36 @@ export default class Home extends Component {
       {
         title: '价格',
         dataIndex: 'price',
-        render: (price) => '￥' + price
+        render: (price) => `￥${price}`
       },
       {
         title: '状态',
         dataIndex: 'status',
         width: 230,
-        render: (status, records) => {
-          return (
-            <span>
-              <Button
-                type='primary'
-                onClick={() => {
-                  this.updateStatus(records.id, status === 1 ? 2 : 1);
-                }}
-              >
-                {status === 1 ? '下架' : '上架'}
-              </Button>
-              <span>{status === 1 ? '在售' : '已下架'}</span>
-            </span>
-          )
-        }
+        render: (status, records) => <span>
+          <Button
+            type='primary'
+            onClick={() => {
+              this.updateStatus(records.id, status === 1 ? 2 : 1);
+            }}
+          >
+            {status === 1 ? '下架' : '上架'}
+          </Button>
+          <span>{status === 1 ? '在售' : '已下架'}</span>
+        </span>
+
       },
       {
         title: '操作',
         width: 150,
-        render: (product) => {
-          return (
-            <span>
-              <LinkButton onClick={() => this.props.history.push('/product/detail', { product })}>详情</LinkButton>
-              <LinkButton onClick={() => this.props.history.push('/product/addupdate', { product })}>修改</LinkButton>
-              <LinkButton onClick={() => { this.deletePro(product) }} style={{ color: 'red' }}>删除</LinkButton>
-            </span>
-          )
-        }
+        render: (product) => <span>
+          <LinkButton onClick={() => this.props.history.push('/product/detail', { product })}>详情</LinkButton>
+          <LinkButton onClick={() => this.props.history.push('/product/addupdate', { product })}>修改</LinkButton>
+          <LinkButton onClick={() => {
+            this.deletePro(product);
+          }} style={{ color: 'red' }}>删除</LinkButton>
+        </span>
+
       },
     ];
   }
@@ -153,23 +149,31 @@ export default class Home extends Component {
   render() {
     // 取出商品数组
     const { products, total, loading, searchType, searchName } = this.state;
-    const title = (
+    const title =
       <span>
-        <Select value={searchType} style={{ width: 150 }} onChange={value => { this.setState({ searchType: value }) }}>
+        <Select value={searchType} style={{ width: 150 }} onChange={(value) => {
+          this.setState({ searchType: value });
+        }}>
           <Option value='productName'>按名称搜索</Option>
           <Option value='productDesc'>按描述搜索</Option>
         </Select>
-        <Input placeholder='关键字' style={{ width: 150, margin: '0 15px' }} defaultValue={searchName} onChange={event => { this.setState({ searchName: event.target.value }) }} />
-        <Button type='primary' onClick={() => { this.getProducts(1) }}>搜索</Button>
-      </span>
-    )
+        <Input placeholder='关键字' style={{ width: 150, margin: '0 15px' }} defaultValue={searchName} onChange={(event) => {
+          this.setState({ searchName: event.target.value });
+        }} />
+        <Button type='primary' onClick={() => {
+          this.getProducts(1);
+        }}>搜索</Button>
+      </span>;
 
-    const extra = (
-      <Button type='primary' onClick={() => { this.props.history.push('/product/addupdate') }}>
+
+    const extra =
+      <Button type='primary' onClick={() => {
+        this.props.history.push('/product/addupdate');
+      }}>
         <PlusOutlined />
         添加
-      </Button>
-    )
+      </Button>;
+
 
     return (
       <Card title={title} extra={extra}>
@@ -189,6 +193,6 @@ export default class Home extends Component {
           size='small'
         />
       </Card>
-    )
+    );
   }
 }

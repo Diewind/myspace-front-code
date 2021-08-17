@@ -1,12 +1,12 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Form, Card, Input, Cascader, Button, message } from 'antd';
-import LinkButton from '../../components/link-button'
-import { reqCategory, addProduct, reqCurCategory } from '../../api/index'
-import PicturesWall from './picturesWall'
-import RichTextEditor from './richTextEditor'
-const { Item } = Form
-const { TextArea } = Input
+import LinkButton from '@pages/components/link-button';
+import { reqCategory, addProduct, reqCurCategory } from '../../services/index';
+import PicturesWall from './picturesWall';
+import RichTextEditor from './richTextEditor';
+const { Item } = Form;
+const { TextArea } = Input;
 class AddUpdate extends Component {
 
   constructor(props) {
@@ -29,47 +29,49 @@ class AddUpdate extends Component {
   */
   deepFind = (arr, condition, children) => {
     // 即将返回的数组
-    let main = []
+    const main = [];
 
     // 用try方案方便直接中止所有递归的程序
     try {
       // 开始轮询
       (function poll(arr, level) {
         // 如果传入非数组
-        if (!Array.isArray(arr)) return
+        if (!Array.isArray(arr)) {
+          return;
+        }
 
         // 遍历数组
         for (let i = 0; i < arr.length; i++) {
           // 获取当前项
-          const item = arr[i]
+          const item = arr[i];
 
           // 先占位预设值
-          main[level] = item
+          main[level] = item;
 
           // 检验是否已经找到了
-          const isFind = (condition && condition(item, i, level)) || false
+          const isFind = condition && condition(item, i, level) || false;
 
           // 如果已经找到了
           if (isFind) {
             // 直接抛出错误中断所有轮询
-            throw Error
+            throw Error;
 
             // 如果存在children，那么深入递归
           } else if (children && item[children] && item[children].length) {
-            poll(item[children], level + 1)
+            poll(item[children], level + 1);
 
             // 如果是最后一个且没有找到值，那么通过修改数组长度来删除当前项
           } else if (i === arr.length - 1) {
             // 删除占位预设值
-            main.length = main.length - 1
+            main.length = main.length - 1;
           }
         }
-      })(arr, 0)
+      }(arr, 0));
       // 使用try/catch是为了中止所有轮询中的任务
     } catch (err) { }
 
     // 返回最终数组
-    return main
+    return main;
   }
 
   getCurCategory = async () => {
@@ -81,15 +83,15 @@ class AddUpdate extends Component {
         categoryIds: catearrs
       });
       return catearrs;
-    } else {
-      message.error('请求所在分类失败');
     }
+    message.error('请求所在分类失败');
+
   }
 
   componentWillMount() {
     const { product } = this.props.location.state || {};//如果是添加没值，否则有值
     // 保存是否是更新的标识
-    this.isUpdate = !!product;
+    this.isUpdate = Boolean(product);
     this.product = product || {};
   }
 
@@ -97,11 +99,11 @@ class AddUpdate extends Component {
     this.getCategorys(0);
   }
 
-  /* 
+  /*
   验证价格的自定义函数
   */
   validatePrice = (rule, value, callback) => {
-    if (value * 1 > 0) {
+    if (Number(value) > 0) {
       callback();// 验证通过
     } else {
       callback('价格必须大于0');// 验证没通过
@@ -134,12 +136,12 @@ class AddUpdate extends Component {
             message.error(result.msg);
           }
         } catch (e) {
-          // console.log(e);
+          // Console.log(e);
         }
       } else {
 
       }
-    })
+    });
   }
 
   // 获取一级/二级列表
@@ -150,7 +152,7 @@ class AddUpdate extends Component {
       // 如果是一级分类列表
       if (parentId === 0) {
         this.initOptions(data);
-      } else {//二级列表
+      } else { //二级列表
         return data;
       }
 
@@ -159,10 +161,10 @@ class AddUpdate extends Component {
 
   initOptions = async (categorys) => {
     // 根据categorys生成options数组
-    const options = categorys.map(c => ({
+    const options = categorys.map((c) => ({
       value: c.id,
       label: c.name,
-      isLeaf: c.children ? false : true
+      isLeaf: !c.children
     }));
     // 如果是修改，才去获取当前商品所在分类
     if (this.product.id) {
@@ -170,12 +172,12 @@ class AddUpdate extends Component {
       const { isUpdate } = this;
       if (isUpdate && cateArrs.length > 1) {
         const subCategorys = await this.getCategorys(cateArrs[0]);
-        const childOptions = subCategorys.map(c => ({
+        const childOptions = subCategorys.map((c) => ({
           value: c.id,
           label: c.name,
           isLeaf: true
         }));
-        const targetOption = options.find(option => option.value === cateArrs[0]);
+        const targetOption = options.find((option) => option.value === cateArrs[0]);
         targetOption.children = childOptions;
       }
     }
@@ -186,10 +188,10 @@ class AddUpdate extends Component {
   }
 
   onChange = (value, selectedOptions) => {
-    // console.log(value, selectedOptions);
+    // Console.log(value, selectedOptions);
   };
 
-  loadData = async selectedOptions => {
+  loadData = async (selectedOptions) => {
     const targetOption = selectedOptions[selectedOptions.length - 1];
     targetOption.loading = true;
     // 根据选中的分类，请求获取二级分类列表
@@ -197,13 +199,13 @@ class AddUpdate extends Component {
     targetOption.loading = false;
     if (subCategorys && subCategorys.length > 0) {
       // 生成二级列表options
-      const childOptions = subCategorys.map(c => ({
+      const childOptions = subCategorys.map((c) => ({
         value: c.id,
         label: c.name,
         isLeaf: false
       }));
       targetOption.children = childOptions;
-    } else {//当前选中的分类没有二级分类
+    } else { //当前选中的分类没有二级分类
       targetOption.isLeaf = true;
     }
     // 更新options状态
@@ -217,14 +219,16 @@ class AddUpdate extends Component {
     // 所在级联分类ID的数组
     const { categoryIds } = this.state;
     const { imgurls } = this.product.id ? this.props.location.state.product : [];
-    const title = (
+    const title =
       <span>
-        <LinkButton onClick={() => { this.props.history.goBack() }}>
+        <LinkButton onClick={() => {
+          this.props.history.goBack();
+        }}>
           <ArrowLeftOutlined />
         </LinkButton>
         <span>{isUpdate ? '修改商品' : '添加商品'}</span>
       </span>
-    );
+    ;
     // 指定Item布局的配置对象
     const formItemLayout = {
       labelCol: {
@@ -294,9 +298,9 @@ class AddUpdate extends Component {
           </Item>
         </Form>
       </Card>
-    )
+    );
   }
 }
 
-// export default Form.create()(AddUpdate)
-export default AddUpdate
+// Export default Form.create()(AddUpdate)
+export default AddUpdate;

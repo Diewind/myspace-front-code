@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 import { TreeSelect, Input, Form } from 'antd';
-import PropsTypes from 'prop-types'
-const Item = Form.Item;
+import PropsTypes from 'prop-types';
+const { Item } = Form;
 class AddCate extends Component {
   static propsTypes = {
     setForm: PropsTypes.func.isRequired,
@@ -10,14 +10,15 @@ class AddCate extends Component {
   state = {
     value: 0,
   };
-  componentWillMount() {
+  constructor(props) {
+    super(props);
     // 将form对象通过setForm()传递给父组件
     this.props.setForm(this.props.form);
   }
-  onChange = value => {
+  onChange = (value) => {
     this.props.form.setFields({
       parentId: {
-        value: value,
+        value,
       }
     });
   }
@@ -25,9 +26,9 @@ class AddCate extends Component {
   render() {
     const { getFieldDecorator } = this.props.form;
     const { categorys } = this.props;
-    let newCategorys = new Array(...categorys);
-    let getTreeCate = (arr) => {
-      arr.forEach(v => {
+    const newCategorys = new Array(...categorys);
+    const getTreeCate = (arr) => {
+      arr.forEach((v) => {
         v['title'] = v.name;
         v['key'] = v.id;
         v['value'] = v.id;
@@ -49,7 +50,7 @@ class AddCate extends Component {
                 value={this.state.value}
                 dropdownStyle={{ maxHeight: 400, overflow: 'auto' }}
                 treeData={newCategorys}
-                placeholder="请选择分类"
+                placeholder='请选择分类'
                 treeDefaultExpandAll
                 onChange={this.onChange}
               />
@@ -73,5 +74,5 @@ class AddCate extends Component {
     );
   }
 }
-// export default Form.create()(AddCate);
+// Export default Form.create()(AddCate);
 export default AddCate;

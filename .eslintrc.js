@@ -3,12 +3,17 @@ module.exports = {
   "env": {
     "browser": true,
     "commonjs": true,
-    "es6": true
+    "es6": true,
+    "node": true,
   },
-  "parser": "babel-eslint",
+  "parser": [
+    "babel-eslint",
+    "@typescript-eslint/parser"
+  ],
   "extends": [
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
+    "plugin:@typescript-eslint/recommended",
   ],
   "parserOptions": {
     // 指定ecma版本
@@ -26,13 +31,9 @@ module.exports = {
     },
   },
   "plugins": [
-    "react"
+    "react",
+    "@typescript-eslint"
   ],
-  "settings": {
-    "react": {
-      "version": "16.2.0",
-    }
-  },
   /**
    * "off" 或 0 - 关闭规则
    * "warn" 或 1 - 开启规则，使用警告级别的错误：warn (不会导致程序退出),
@@ -180,7 +181,7 @@ module.exports = {
     // 禁止使用类似 eval() 的方法
     "no-implied-eval": 2,
     // 禁止 this 关键字出现在类和类对象之外
-    "no-invalid-this": 2,
+    "no-invalid-this": 1,
     // 禁用 __iterator__ 属性
     "no-iterator": 2,
     // 禁用标签语句
@@ -190,7 +191,7 @@ module.exports = {
     // 禁止在循环语句中出现包含不安全引用的函数声明
     "no-loop-func": 2,
     // 禁用魔术数字
-    "no-magic-numbers": 2,
+    "no-magic-numbers": 0,
     // 禁止使用多个空格
     "no-multi-spaces": 2,
     // 禁止使用多行字符串
@@ -394,7 +395,7 @@ module.exports = {
     // 禁止 if 作为唯一的语句出现在 else 语句中
     "no-lonely-if": 2,
     // 禁止混合使用不同的操作符
-    "no-mixed-operators": 2,
+    "no-mixed-operators": 0,
     // 禁止空格和 tab 的混合缩进
     "no-mixed-spaces-and-tabs": 2,
     // 禁止连续赋值
@@ -428,7 +429,10 @@ module.exports = {
     // 强制大括号内换行符的一致性
     "object-curly-newline": 0,
     // 强制在大括号中使用一致的空格
-    "object-curly-spacing": 2,
+    "object-curly-spacing": [
+      2,
+      "always"
+    ],
     // 强制将对象的属性放在不同的行上
     "object-property-newline": 0,
     // 强制函数中的变量要么一起声明要么分开声明
@@ -470,7 +474,7 @@ module.exports = {
     // 强制在一元操作符前后使用一致的空格
     "space-unary-ops": 2,
     // 强制在注释中 // 或 /* 使用一致的空格
-    "spaced-comment": 2,
+    "spaced-comment": 0,
     // 强制在 switch 的冒号左右有空格
     "switch-colon-spacing": 2,
     // 要求或禁止在模板标记和它们的字面量之间有空格

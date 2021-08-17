@@ -1,18 +1,18 @@
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { PlusOutlined } from '@ant-design/icons';
 import { Upload, Modal, message } from 'antd';
-import { reqDeleteImg } from '../../api/index'
-import './picturesWall.less'
+import { reqDeleteImg } from '../../services/index';
+import './picturesWall.less';
 function getBase64(file) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.readAsDataURL(file);
     reader.onload = () => resolve(reader.result);
-    reader.onerror = error => reject(error);
+    reader.onerror = (error) => reject(error);
   });
 }
-/* 
+/*
 图片上传组件
 */
 class PicturesWall extends Component {
@@ -26,9 +26,9 @@ class PicturesWall extends Component {
     const { imgs } = this.props;
     if (imgs && imgs.length > 0) {
       fileList = imgs.map((img, index) => ({
-        uid: -index,// 每个file都有自己唯一的id
-        name: img,// 图片文件名
-        status: 'done',// 图片状态:uploading-上传中 done-已上传 removed-已删除
+        uid: -index, // 每个file都有自己唯一的id
+        name: img, // 图片文件名
+        status: 'done', // 图片状态:uploading-上传中 done-已上传 removed-已删除
         url: img
       }));
     }
@@ -36,12 +36,12 @@ class PicturesWall extends Component {
       previewVisible: false, // 是否显示预览模态框
       previewImage: '', // 大图的url
       fileList // 所有已上传图片的数组
-    }
+    };
   }
 
   handleCancel = () => this.setState({ previewVisible: false });
 
-  handlePreview = async file => {
+  handlePreview = async (file) => {
     if (!file.url && !file.preview) {
       file.preview = await getBase64(file.originFileObj);
     }
@@ -53,16 +53,14 @@ class PicturesWall extends Component {
   };
 
   // 获取所有已上传图片文件名的数组
-  getImgs = () => {
-    return this.state.fileList.map(file => file.name);
-  }
+  getImgs = () => this.state.fileList.map((file) => file.name)
 
 
 
-  // file : 当前操作的图片文件（上传/删除）
-  // filelist : 已上传图片的文件数组
+  // File : 当前操作的图片文件（上传/删除）
+  // Filelist : 已上传图片的文件数组
   handleChange = async ({ file, fileList }) => {
-    // console.log(file,fileList);
+    // Console.log(file,fileList);
 
     // 一旦上传成功，将当前上传的file的信息修正(name,url)
     if (file.status === 'done') {
@@ -76,7 +74,7 @@ class PicturesWall extends Component {
       } else {
         message.error('上传图片失败');
       }
-    } else if (file.status === 'removed') {// 删除图片
+    } else if (file.status === 'removed') { // 删除图片
       const result = await reqDeleteImg(file.name);
       if (result.status === 0) {
         message.success('删除图片成功！');
@@ -85,24 +83,23 @@ class PicturesWall extends Component {
       }
     }
 
-    this.setState({ fileList })
+    this.setState({ fileList });
   };
 
   render() {
     const { previewVisible, previewImage, fileList } = this.state;
-    const uploadButton = (
+    const uploadButton =
       <div>
         <PlusOutlined />
         <div>Upload</div>
-      </div>
-    );
+      </div>;
     return (
-      <div className="clearfix imgwrap">
+      <div className='clearfix imgwrap'>
         <Upload
-          action="/admin/product/imgUpload" // 上传图片的接口地址
-          accept="image/*" //只接受图片格式
+          action='/admin/product/imgUpload' // 上传图片的接口地址
+          accept='image/*' //只接受图片格式
           name='image' // 请求参数名
-          listType="picture-card" // 卡片样式
+          listType='picture-card' // 卡片样式
           fileList={fileList} // 所有已上传文件列表
           onPreview={this.handlePreview}
           onChange={this.handleChange}
@@ -110,7 +107,7 @@ class PicturesWall extends Component {
           {fileList.length >= 3 ? null : uploadButton}
         </Upload>
         <Modal visible={previewVisible} footer={null} onCancel={this.handleCancel}>
-          <img alt="example" style={{ width: '100%' }} src={previewImage} />
+          <img alt='example' style={{ width: '100%' }} src={previewImage} />
         </Modal>
       </div>
     );

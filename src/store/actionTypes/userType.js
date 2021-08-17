@@ -1,4 +1,4 @@
-class userType {
+class UserType {
 
   constructor() {
 
@@ -7,6 +7,7 @@ class userType {
     this.UPDATE_USER_ERROR = 'update_user_list_error';
 
     // 获取用户列表状态
+    this.GET_USER_LIST = 'get_useer_list';
     this.GET_USER_SUCCESS = 'get_user_list_success';
     this.GET_USER_ERROR = 'get_user_list_error';
 
@@ -17,4 +18,4 @@ class userType {
   }
 
 }
-export default new userType();
+export default new UserType();

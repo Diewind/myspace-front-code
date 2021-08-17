@@ -1,28 +1,28 @@
-import React, { Component } from 'react'
-import { withRouter } from 'react-router-dom'
-import Cookies from 'js-cookie'
+import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
+import Cookies from 'js-cookie';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
-import { connect } from 'react-redux'
-import LinkButton from '../link-button/index'
-import memoryUtils from '../../utils/memoryUtils'
-import storageUtils from '../../utils/storageUtils'
-import { reqWeather } from '../../api/index'
-import menuConfig from '../../config/menu.config'
-import './index.less'
-/* 
+import { connect } from 'react-redux';
+import LinkButton from '../link-button/index';
+import memoryUtils from '@utils/memoryUtils';
+import storageUtils from '@utils/storageUtils';
+import { reqWeather } from '@services/commonService';
+import menuConfig from '@config/menu.config';
+import './index.less';
+/*
 头部组件
 */
 class Header extends Component {
   state = {
     curTime: new Date(),
-    city: '',//所在区域
-    weatherMax: '',//天气的最高温
-    weatherMin: '',//天气的最低温
-    weatherNotice: '',//天气的提示
-    weatherInfo: '',//天气的信息
+    city: '', //所在区域
+    weatherMax: '', //天气的最高温
+    weatherMin: '', //天气的最低温
+    weatherNotice: '', //天气的提示
+    weatherInfo: '', //天气的信息
   }
-  /* 
+  /*
   第一次render()之后执行一次
   一般执行异步操作：发ajax请求/启动定时器
   */
@@ -57,19 +57,19 @@ class Header extends Component {
   getWeather = async () => {
     // 调用接口请求异步获取天气
     const result = await reqWeather('上海');
-    let city = result.data && result.data.cityInfo && result.data.cityInfo.city;
+    const city = result.data && result.data.cityInfo && result.data.cityInfo.city;
     let { low = '', high = '', type, notice } = result.data && result.data.data && result.data.data.forecast[0];
-    let templow = low.split(' ');
-    let temphigh = high.split(' ');
+    const templow = low.split(' ');
+    const temphigh = high.split(' ');
     low = templow[templow.length - 1];
     high = temphigh[temphigh.length - 1];
     // 更新状态
     this.setState({
-      city,//所在区域
-      high,//天气的最高温
-      low,//天气的最低温
-      notice,//天气的提示
-      type,//天气的信息
+      city, //所在区域
+      high, //天气的最高温
+      low, //天气的最低温
+      notice, //天气的提示
+      type, //天气的信息
     });
 
   }
@@ -77,12 +77,12 @@ class Header extends Component {
     // 得到当前请求路径
     const path = this.props.location.pathname;
     let title = '';
-    menuConfig.forEach(item => {
-      if (item.key === path) {// 如果当前item对象的key与path一样，item的title就是要显示的title
+    menuConfig.forEach((item) => {
+      if (item.key === path) { // 如果当前item对象的key与path一样，item的title就是要显示的title
         title = item.title;
       } else if (item.children) {
         // 在所有子item中查找匹配的
-        const cItem = item.children.find(cItem => path.indexOf(cItem.key) === 0);
+        const cItem = item.children.find((cItem) => path.indexOf(cItem.key) === 0);
         // 如果有值才说明有匹配的
         if (cItem) {
           // 取出它的title
@@ -103,9 +103,9 @@ class Header extends Component {
 
   render() {
     const { curTime, city, low, high, type, notice } = this.state;
-    let { collapsed } = this.props;
-    const username = memoryUtils.user.username;
-    // const title = this.getTitle();
+    const { collapsed } = this.props;
+    const { username } = memoryUtils.user;
+    // Const title = this.getTitle();
     const title = this.props.headTitle;
     return (
       <div className='header'>
@@ -132,7 +132,7 @@ class Header extends Component {
 }
 
 export default connect(
-  state => ({
+  (state) => ({
     headTitle: state.headTitle
   }),
   {}
