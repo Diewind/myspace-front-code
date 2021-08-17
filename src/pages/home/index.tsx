@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component,useEffect } from 'react';
 import {
   Chart,
   Geom,
@@ -7,11 +7,22 @@ import {
   Legend,
   Guide,
 } from 'bizcharts';
+import {useSelector, useDispatch} from 'react-redux';
+import { getUserAsync, setUser,selectUser } from '@store/reducers/userReducer';
 
 const { Line } = Guide;
 
-class Home extends Component {
-  render() {
+const Home = () => {
+   // const {
+  //   loading,
+  //   users,
+  //   roles,
+  // } = useSelector(selectUser);
+  const dispatch:any = useDispatch();
+
+  useEffect(() => {
+    dispatch(getUserAsync())
+  }, [])
     const data: object[] = [
       {
         month: 'Jan',
@@ -195,7 +206,6 @@ class Home extends Component {
         </Chart>
       </div>
     );
-  }
 }
 
 export default Home;

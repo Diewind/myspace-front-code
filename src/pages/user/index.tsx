@@ -4,24 +4,118 @@
  * @author: diewind
  * @version: 1.0.0
  */
-import React, { Component } from 'react';
-// import { connect } from 'react-redux';
-// import memoize from "memoize-one";
-// import {
-//   Card,
-//   Button,
-//   Table,
-//   Modal,
-// } from 'antd';
+import React, { useState, useEffect,useCallback } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { FormInstance } from 'antd/lib/form/Form' //获取form表单的interface
 
-// import LinkButton from '@pages/components/link-button/index';
-// import EditForm from './editForm';
-// import userAction from '../../store/actions/userAction';
+import memoize from "memoize-one";
+import {
+  Card,
+  Button,
+  Table,
+} from 'antd';
 
-// import { PAGE_SIZE } from '@utils/constants';
+import LinkButton from '@pages/components/link-button/index';
 
-const User = () => {
-  return (<h1>user</h1>);
+import { reqUsers } from '@services/userService';
+import { PAGE_SIZE } from '../../utils/constants';
+
+import EditUser from './EditUser';
+
+const User:React.FC = (props:any) => {
+  const [roles, setRoles] = useState([]);
+  const [users, setUsers] = useState([]);
+  const [ editUserVisible, setEditUserVisible ] = useState(false);
+  useEffect(() => {
+    reqUsers();
+  },[]);
+  // 根据role的数组，生成包含所有角色名的对象(属性名用角色id值)
+  // const initRoleNames = memoize((roles) => {
+  //   const roleNames = roles.length && roles.reduce((pre:any, role: any) => {
+  //     pre[role.id] = role.name;
+  //     return pre;
+  //   }, {});
+  //   // 保存
+  //   return roleNames;
+  // })
+  const handleEditUser = (user:any) => {};
+  const handleDeleteUser = (user:any) => {};
+
+  // const roleNames = initRoleNames(roles);
+  const columns = [
+    {
+      title: '用户名',
+      dataIndex: 'username'
+    },
+    {
+      title: '邮箱',
+      dataIndex: 'email'
+    },
+    {
+      title: '电话',
+      dataIndex: 'phone'
+    },
+    {
+      title: '注册时间',
+      dataIndex: 'createTime'
+    },
+    {
+      title: '所属角色',
+      dataIndex: 'roleId',
+      // render: (roleId) => roleNames[roleId]
+    },
+    {
+      title: '操作',
+      render: (user: any) => (<span>
+        <LinkButton onClick={() => handleEditUser(user)}>修改</LinkButton>
+        <LinkButton type='danger-button' onClick={() => handleDeleteUser(user)}>删除</LinkButton>
+      </span>)
+
+    }
+  ];
+
+  const title = <Button type='primary' onClick={ () => setEditUserVisible(true) }>创建用户</Button>;
+
+  let editUserFormRef = null;
+  const editUserRef:any = (form: FormInstance) => {
+    editUserFormRef = form;
+  }
+
+  const handleEditUserOk = () => {
+
+  }
+
+  const handleEditUserCancel = () => {
+    setEditUserVisible(false);
+  }
+
+  const editUserProps = {
+    roles: [],
+    user: {},
+    editUserVisible,
+    onOk: handleEditUserOk,
+    onCancel: handleEditUserCancel,
+    onRef: editUserRef,
+  };
+
+  return (
+    <Card title={title}>
+      <Table
+        bordered
+        columns={columns}
+        rowKey={'id'}
+        dataSource={[]}
+        loading={false}
+        pagination={{
+          defaultPageSize: PAGE_SIZE
+        }}
+        size='small'
+      />
+      <EditUser
+        {...editUserProps}
+      />
+    </Card>
+  );
 }
 
 export default User;

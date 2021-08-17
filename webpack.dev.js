@@ -1,9 +1,8 @@
 /*
- * @Description: webpackDEV配置文件
- * @Author: ZYF <yanfengz.zhang@hand-china.com>
- * @Date: 2021-03-30 19:42:50
+ * @Description: webpack-DEV 配置文件
+ * @Date: 2021-03-30
+ * @Author: harry <sh_fight@163.com>
  * @Version: 0.0.1
- * @Copyright: Copyright (c) 2021, Hand
  */
 const path = require('path');
 const fs = require('fs');
@@ -14,8 +13,6 @@ const CreateReactPublicPlugin = require('create-react-public-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 const getPublicUrlOrPath = require('react-dev-utils/getPublicUrlOrPath');
-
-
 
 // Make sure any symlinks in the project folder are resolved:
 // https://github.com/facebook/create-react-app/issues/637
@@ -75,8 +72,6 @@ const paths = {
   publicUrlOrPath,
 };
 
-
-
 module.exports = merge(common, {
   mode: 'development',
   devtool: 'inline-source-map',
@@ -89,6 +84,7 @@ module.exports = merge(common, {
       disableDotRule: true,
       index: paths.publicUrlOrPath,
     },
+    hot: true,
   },
   output: {
     // webpack uses `publicPath` to determine where the app is being served from.
@@ -119,9 +115,6 @@ module.exports = merge(common, {
       rootPath: __dirname,
       projectName: 'public',
       outputFiles: ['favicon.ico', 'index.html', 'logo192.png', 'logo512.png', 'manifest.json', 'robots.txt'],
-    }),
-    new webpack.HotModuleReplacementPlugin({
-      // Options...
     }),
   ],
 });

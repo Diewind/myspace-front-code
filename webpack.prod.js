@@ -1,9 +1,8 @@
 /*
- * @Description: webpackPROD配置文件
- * @Author: ZYF <yanfengz.zhang@hand-china.com>
- * @Date: 2021-03-30 19:44:18
+ * @Description: webpack-PROD 配置文件
+ * @Date: 2021-03-30
+ * @Author: harry <sh_fight@163.com>
  * @Version: 0.0.1
- * @Copyright: Copyright (c) 2021, Hand
  */
 const path = require('path');
 const { merge } = require('webpack-merge');

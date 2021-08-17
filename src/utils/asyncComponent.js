@@ -13,7 +13,6 @@ export const asyncComponent = (fn) => {
         componentDidMount() {
             // fn是一个异步的promise调用这时给组件进行复制重新渲染
             fn().then(module => {
-                console.log(module);
                 this.setState({
                     C: module.default
                     // module.default就是页面引进的真正要加载的组件

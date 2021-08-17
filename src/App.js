@@ -1,15 +1,15 @@
-/**
- * App - 应用根组件
- * @date: 2021年2月23日20:23:16
- * @author: diewind
- * @version: 1.0.0
+/*
+ * @Description: App 应用根组件
+ * @Date: 2021-03-30
+ * @Author: harry <sh_fight@163.com>
+ * @Version: 0.0.1
  */
 import React, { Component } from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Login from './pages/login/login';
 import Admin from './pages/admin/admin';
 
-export default class App extends Component {
+class App extends Component {
   render() {
     return (
       <BrowserRouter>
@@ -21,3 +21,5 @@ export default class App extends Component {
     );
   }
 }
+
+export default App;
