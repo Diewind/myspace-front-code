@@ -7,15 +7,9 @@
 import React from 'react';
 import { Form, Input, Modal } from 'antd';
 
+import { FORM_ITEM_LAYOUT_ONE_IN_FIVE} from '@utils/constants';
+
 const FormItem = Form.Item;
-const formItemLayout: object = {
-  labelCol: {
-    span: 4
-  },
-  wrapperCol: {
-    span: 18
-  }
-};
 
 interface Prop{
   roleVisible: boolean,
@@ -40,7 +34,7 @@ const EditRole: React.FC<Prop> = (props) => {
         form={form}
       >
         <FormItem
-          {...formItemLayout}
+          {...FORM_ITEM_LAYOUT_ONE_IN_FIVE}
           label="角色名称"
           name="roleName"
           rules={[{

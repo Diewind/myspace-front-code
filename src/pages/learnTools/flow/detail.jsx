@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { DownOutlined } from '@ant-design/icons';
 import { Form, Row, Tooltip, Button, Input, Card, Menu, Dropdown, Select } from 'antd';
-import { FOEM_ITEM_LAYOUT } from '../../../utils/constants';
+import { FORM_ITEM_LAYOUT_ONE_IN_FIVE } from '../../../utils/constants';
 import G6Editor from '@antv/g6-editor';
 import '../mind/index.less';
 import flowDatas from './flowDatas.json';
@@ -372,14 +372,14 @@ class Index extends Component {
             <div className='mindbox-body-bd-sidebar' ref='sidebar'>
               <Card className='mindbox-body-bd-sidebar-nodeinfo' size='small' type='inner' title={nodeType}>
                 {(nodeType === 'node' || nodeType === 'edge') && <Form layout='horizontal'>
-                  <Form.Item label='Label' {...FOEM_ITEM_LAYOUT}>
+                  <Form.Item label='Label' {...FORM_ITEM_LAYOUT_ONE_IN_FIVE}>
                     {getFieldDecorator('labelName', {
 
                     })(<Input autoComplete='off' onChange={this.handleChange} onBlur={this.handleBlur} />)}
                   </Form.Item>
                 </Form>}
                 {nodeType === 'edge' && <Form layout='horizontal'>
-                  <Form.Item label='Shape' {...FOEM_ITEM_LAYOUT}>
+                  <Form.Item label='Shape' {...FORM_ITEM_LAYOUT_ONE_IN_FIVE}>
                     {getFieldDecorator('labelShape', {
 
                     })(

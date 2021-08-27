@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { ArrowLeftOutlined, DownOutlined } from '@ant-design/icons';
 import { Form, Row, Button, Input, Card, Menu, Dropdown, Select } from 'antd';
-import { FOEM_ITEM_LAYOUT } from '../../../utils/constants';
+import { FORM_ITEM_LAYOUT_ONE_IN_THREE } from '../../../utils/constants';
 import G6Editor from '@antv/g6-editor';
 import mindDatas from './mindDatas.json';
 import './index.less';
@@ -177,7 +177,7 @@ class MindDetail extends Component {
               </Dropdown>
               <Button onClick={this.save} type='primary'>保存</Button>
             </Row>
-            <Form {...formItemLayout}>
+            <Form {...FORM_ITEM_LAYOUT_ONE_IN_THREE}>
               <Form.Item label='标题'>
                 {getFieldDecorator('title', {
                   rules: [
@@ -298,7 +298,7 @@ class MindDetail extends Component {
               <div className='mindbox-body-bd-sidebar' ref='sidebar'>
                 <Card className='mindbox-body-bd-sidebar-nodeinfo' size='small' type='inner' title={nodeType}>
                   {nodeType === 'node' && <Form layout='horizontal'>
-                    <Form.Item label='Label' {...FOEM_ITEM_LAYOUT}>
+                    <Form.Item label='Label' {...FORM_ITEM_LAYOUT_ONE_IN_FIVE}>
                       {getFieldDecorator('labelName', {
 
                       })(<Input autoComplete='off' onChange={this.handleChange} onBlur={this.handleBlur} />)}

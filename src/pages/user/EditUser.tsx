@@ -4,7 +4,7 @@
  * @author: diewind
  * @version: 1.0.0
  */
-import React, { PureComponent } from 'react';
+import React from 'react';
 import { Form, Input, Select, Modal } from 'antd';
 const { Option } = Select;
 

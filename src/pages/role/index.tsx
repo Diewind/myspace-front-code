@@ -8,20 +8,22 @@ import React, { useState, useEffect, useRef } from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Card, Button, Table, message, Popconfirm } from 'antd';
 import { FormInstance } from 'antd/lib/form/Form' //获取form表单的interface
-import { PAGE_SIZE } from '../../utils/constants';
-import { reqRoles, reqAddRole, reqUpdateRole, reqDeleteRole } from '../../services/roleService';
-import memoryUtils from '../../utils/memoryUtils';
-import storageUtils from '../../utils/storageUtils';
+
+import { PAGE_SIZE } from '@utils/constants';
+import { reqRoles, reqAddRole, reqUpdateRole, reqDeleteRole } from '@services/roleService';
+import memoryUtils from '@utils/memoryUtils';
+import storageUtils from '@utils/storageUtils';
 
 import EditRole from './EditRole';
 import EditRoleAuth from './EditRoleAuth';
 
 const Role: React.FC = () => {
-  const [roleList,setRoleList] = useState([]);// 所有角色的列表
+  const [roleList,setRoleList] = useState([]);// 所有角色列表
   const [selectedRole,setSelectedRole] = useState({
     id: '',
     name: '',
   });
+
   const [roleVisible, setRoleVisible] = useState(false);
   const [roleAuthVisible,setRoleAuthVisible] = useState(false);
   const column = [
@@ -45,8 +47,8 @@ const Role: React.FC = () => {
   const getRoles = async () => {
     const result = await reqRoles();
     if (result.status === 0) {
-      const roles = result.data;
-      setRoleList(roles);
+      const { data = [] } = result;
+      setRoleList(data);
     }
   };
   useEffect(() => {
@@ -66,7 +68,7 @@ const Role: React.FC = () => {
     }
   }
   const onRow = (role:any) => ({
-    onClick: (event:any) => { // 点击行
+    onClick: () => { // 点击行
       setSelectedRole(role);
     }
   });

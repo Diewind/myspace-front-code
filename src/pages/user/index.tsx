@@ -89,6 +89,18 @@ const User:React.FC = (props:any) => {
     setEditUserVisible(false);
   }
 
+  const tableProps:object = {
+    bordered: true,
+    columns,
+    // rowKey: 'id',
+    dataSource: [],
+    loading: false,
+    pagination: {
+      defaultPageSize: PAGE_SIZE
+    },
+    size: 'small',
+  };
+
   const editUserProps = {
     roles: [],
     user: {},
@@ -101,15 +113,7 @@ const User:React.FC = (props:any) => {
   return (
     <Card title={title}>
       <Table
-        bordered
-        columns={columns}
-        rowKey={'id'}
-        dataSource={[]}
-        loading={false}
-        pagination={{
-          defaultPageSize: PAGE_SIZE
-        }}
-        size='small'
+        {...tableProps}
       />
       <EditUser
         {...editUserProps}
