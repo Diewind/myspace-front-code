@@ -6,9 +6,11 @@
  */
 import React, { useState } from 'react';
 import { Form, Input, Modal, Tree } from 'antd';
-import menuList from '../../config/menu.config';
 
-const { Item } = Form;
+import menuList from '@config/menu.config';
+import { FORM_ITEM_LAYOUT_ONE_IN_FIVE } from '@utils/constants';
+
+const FormItem = Form.Item;
 const { TreeNode } = Tree;
 
 interface Prop{
@@ -29,15 +31,6 @@ const EditRoleAuth: React.FC<Prop> = (props) => {
     onOk,
   } = props;
   const [checkedKeys,setCheckedKeys] = useState();
-  // 指定Item布局的配置对象
-  const formItemLayout = {
-    labelCol: {
-      span: 4
-    },
-    wrapperCol: {
-      span: 18
-    }
-  };
   const getTreeNode = (menuList:any) => menuList.reduce((pre: any, item: any) => {
     pre.push(
       <TreeNode title={item.title} key={item.key}>
@@ -56,11 +49,11 @@ const EditRoleAuth: React.FC<Prop> = (props) => {
       onOk={onOk}
       onCancel={onCancel}
     >
-      <Item label='角色名称' {...formItemLayout}>
+      <FormItem label='角色名称' {...FORM_ITEM_LAYOUT_ONE_IN_FIVE}>
         {
           <Input disabled value={selectedRole.name} />
         }
-      </Item>
+      </FormItem>
       <Tree
         checkable
         defaultExpandAll

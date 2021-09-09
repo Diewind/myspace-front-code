@@ -29,6 +29,7 @@
     }
   },
   "include": [
+    "./image.d.ts",
     "src"
   ]
 }

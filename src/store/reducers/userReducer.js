@@ -1,7 +1,7 @@
 import { message } from 'antd';
 import { createSlice } from '@reduxjs/toolkit';
 import {
-  reqUsers,
+  fetchUser,
 } from '../../services/userService'
 
 export const userSlice = createSlice({
@@ -26,7 +26,7 @@ export const userSlice = createSlice({
       state.users.push(action.payload);
     },
     getUser: state => {
-      const user = reqUsers();
+      const user = fetchUser();
       console.log(user);
       state.users.push({
         name: '1'
@@ -97,7 +97,7 @@ export const selectUser = state => state.user;
 
 
 export const getUserAsync = (state) => dispatch => {
-  const res = reqUsers();
+  const res = fetchUser();
   // if(1){
     // dispatch(setUser({
     //   name:2

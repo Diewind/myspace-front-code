@@ -6,7 +6,7 @@ import { PAGE_SIZE } from '../../utils/constants';
 // 可编辑单元格组件
 // Import EditableInputs from '../../components/editableInput/index'
 import { reqCategory, reqAddCategory, reqUpdateCategory, reqDeleteCategory } from '@services/categoryService';
-import AddCate from './addCate';
+import AddCate from './AddCate';
 import './index.less';
 /*
 商品分类路由

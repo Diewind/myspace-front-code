@@ -8,20 +8,22 @@ import React, { useState, useEffect, useRef } from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import { Card, Button, Table, message, Popconfirm } from 'antd';
 import { FormInstance } from 'antd/lib/form/Form' //获取form表单的interface
-import { PAGE_SIZE } from '../../utils/constants';
-import { reqRoles, reqAddRole, reqUpdateRole, reqDeleteRole } from '../../services/roleService';
-import memoryUtils from '../../utils/memoryUtils';
-import storageUtils from '../../utils/storageUtils';
+
+import { PAGE_SIZE } from '@utils/constants';
+import { fetchRole, addRole, updateRole, deleteRole } from '@services/roleService';
+import memoryUtils from '@utils/memoryUtils';
+import storageUtils from '@utils/storageUtils';
 
 import EditRole from './EditRole';
 import EditRoleAuth from './EditRoleAuth';
 
 const Role: React.FC = () => {
-  const [roleList,setRoleList] = useState([]);// 所有角色的列表
+  const [roleList,setRoleList] = useState([]);// 所有角色列表
   const [selectedRole,setSelectedRole] = useState({
     id: '',
     name: '',
   });
+
   const [roleVisible, setRoleVisible] = useState(false);
   const [roleAuthVisible,setRoleAuthVisible] = useState(false);
   const column = [
@@ -43,10 +45,10 @@ const Role: React.FC = () => {
     },
   ];
   const getRoles = async () => {
-    const result = await reqRoles();
+    const result = await fetchRole();
     if (result.status === 0) {
-      const roles = result.data;
-      setRoleList(roles);
+      const { data = [] } = result;
+      setRoleList(data);
     }
   };
   useEffect(() => {
@@ -54,10 +56,10 @@ const Role: React.FC = () => {
   },[]);
   let roleFormRef:FormInstance;
   // 删除角色
-  const deleteRole = async () => {
+  const handleDeleteRole = async () => {
     const { id = '' } = selectedRole;
     // 请求更新
-    const result = await reqDeleteRole(id);
+    const result = await deleteRole(id);
     if (result.status === 0) {
       message.success('删除角色成功!');
       getRoles();
@@ -66,7 +68,7 @@ const Role: React.FC = () => {
     }
   }
   const onRow = (role:any) => ({
-    onClick: (event:any) => { // 点击行
+    onClick: () => { // 点击行
       setSelectedRole(role);
     }
   });
@@ -78,7 +80,7 @@ const Role: React.FC = () => {
       <Popconfirm
         title='确定要删除吗？'
         icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-        onConfirm={deleteRole}
+        onConfirm={handleDeleteRole}
         placement='bottomLeft'
         disabled={!selectedRole.id}
       >
@@ -100,7 +102,7 @@ const Role: React.FC = () => {
     .then(async (values: any) => {
       const { roleName } = values;
       roleFormRef.resetFields();
-      const result = await reqAddRole(roleName);
+      const result = await addRole(roleName);
       const { msg, status } = result;
       if (status === 0) {
         message.success(msg);
@@ -119,14 +121,15 @@ const Role: React.FC = () => {
       authorizer: memoryUtils.user.username
     };
     // 请求更新
-    const result = await reqUpdateRole(params);
+    const result = await updateRole(params);
     if (result.status === 0) {
       // 如果更新的是自己角色的权限，强制退出
       if (selectedRole.id === memoryUtils.user.role.id) {
         memoryUtils.user = {
           username: '',
           role: {
-            id: ''
+            id: '',
+            menus: [],
           }
         };
         storageUtils.removeUser();

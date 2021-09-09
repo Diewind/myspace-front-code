@@ -6,6 +6,7 @@ interface userInfo {
     username:string,
     role: {
       id: string,
+      menus: object[],
     }
   }
 }
@@ -13,7 +14,8 @@ const memoryObj: userInfo = {
   user: {
     username: '',
     role: {
-      id: ''
+      id: '',
+      menus: [],
     }
   } // 保存当前登录的user
 }

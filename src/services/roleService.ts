@@ -1,32 +1,38 @@
 import ajax from './ajax';
-import cityobj from './city';
-const adminUrl = '/admin/';
 
-// 获取所有角色的列表
-const reqRoles = <Promise>() => ajax(`${adminUrl}role/rolelist`);
-// 添加
-const reqAddRole = <Promise>(roleName: object) => ajax(`${adminUrl}role/add`, { roleName }, 'POST');
-// 更新
-const reqUpdateRole = <Promise>(role: object) => ajax(`${adminUrl}role/update`, role, 'POST');
-// 删除
-const reqDeleteRole = <Promise>(id: string) => ajax(`${adminUrl}role/delete`, { id }, 'POST');
+const adminPrefix = '/admin/';
 
-// 获取所有用户的列表
-const reqUsers = <Promise>() => ajax(`${adminUrl}user/userlist`);
-// 添加
-const reqAddUser = <Promise>(user: object) => ajax(`${adminUrl}user/add`, user, 'POST');
-// 更新
-const reqUpdateUser = <Promise>(user: object) => ajax(`${adminUrl}user/update`, user, 'POST');
-// 删除
-const reqDeleteUser = <Promise>(id: object) => ajax(`${adminUrl}user/delete`, { id }, 'POST');
+/**
+ * fetchRole - 获取角色
+ * @returns {object} res
+ */
+export const fetchRole = () => {
+  return ajax(`${adminPrefix}role/rolelist`);
+};
 
-export {
-  reqRoles,
-  reqAddRole,
-  reqUpdateRole,
-  reqDeleteRole,
-  reqUsers,
-  reqAddUser,
-  reqUpdateUser,
-  reqDeleteUser,
+/**
+ * addRole - 添加角色
+ * @param {object} roleName - 角色名
+ * @returns {object} res
+ */
+export const addRole = (roleName: object) => {
+  return ajax(`${adminPrefix}role/add`, { roleName }, 'POST');
+}
+
+/**
+ * updateRole - 更新橘色
+ * @param {object} role - 角色信息
+ * @returns
+ */
+export const updateRole = (role: object) => {
+  return ajax(`${adminPrefix}role/update`, role, 'POST');
+}
+
+/**
+ * deleteRole - 删除角色
+ * @param {string} id - 删除的角色id
+ * @returns
+ */
+export const deleteRole = (id: string) => {
+  return ajax(`${adminPrefix}role/delete`, { id }, 'POST');
 }

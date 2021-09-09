@@ -1,13 +1,38 @@
 import ajax from './ajax';
 
-const adminUrl = '/admin/';
+const adminPrefix = '/admin/';
 
-// 获取所有用户的列表
-export const reqUsers = () => ajax(`${adminUrl}user/userlist`);
-// // 添加
-export const reqAddUser = (user:object) => ajax(`${adminUrl}user/add`, user, 'POST');
-// // 更新
-export const reqUpdateUser = (user:object) => ajax(`${adminUrl}user/update`, user, 'POST');
-// // 删除
-export const reqDeleteUser = (id:string) => ajax(`${adminUrl}user/delete`, { id }, 'POST');
+/**
+ * fetchUser - 获取用户
+ * @returns {object} res
+ */
+export const fetchUser = () => {
+  return ajax(`${adminPrefix}user/userlist`);
+};
 
+/**
+ * addUser - 添加用户
+ * @param {number} user - 用户信息
+ * @returns {object} res
+ */
+export const addUser = ( user:object ) => {
+  return ajax(`${adminPrefix}user/add`, user, 'POST');
+}
+
+/**
+ * updateUser - 更新用户
+ * @param {object} user - 用户信息
+ * @returns {object} res
+ */
+export const updateUser = ( user:object ) => {
+  return ajax(`${adminPrefix}user/update`, user, 'POST');
+}
+
+/**
+ * deleteUser - 删除用户
+ * @param {string} id - 要删除用户的id
+ * @returns {object} res
+ */
+export const deleteUser = ( id:string ) => {
+  return ajax(`${adminPrefix}user/delete`, { id }, 'POST');
+}

@@ -4,19 +4,19 @@ import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Form, Input, Button, message } from 'antd';
 import Cookies from 'js-cookie';
 import './login.less';
-import logo from '../../assets/images/logo.png';
-import { reqLogin } from '../../services/index';
+import logo from '@assets/images/logo.png';
+import { fetchLogin } from '@services/commonService';
 import memoryUtils from '@utils/memoryUtils';
 import storageUtils from '@utils/storageUtils';
 
 /**
  * 登录组件
  */
-const Login = (props) => {
-  const handleSubmit = async (values) => {
+const Login:React.FC = (props: any) => {
+  const handleSubmit = async (values:any) => {
     // 对所有的表单字段进行校验
     const { username, password } = values;
-    const result = await reqLogin(username, password);
+    const result = await fetchLogin(username, password);
     if (result.status === 0) { // 登录成功
       // 提示登录成功
       message.success('登录成功');
@@ -28,14 +28,14 @@ const Login = (props) => {
       memoryUtils.user = user;// 保存在内存中
       storageUtils.saveUser(user);// 保存在local中
       // 跳转到管理界面（不需要再回退到登录界面，所以用replace）
-      this.props.history.replace('/home');
+      props.history.replace('/home');
     } else { // 登录失败
       // 提示错误信息
       message.error(result.msg);
     }
     props.history.replace('/home');
   };
-  const validatorPwd = (_, value) => {
+  const validatorPwd = (_:any, value:any) => {
     if (!value) {
       return Promise.reject('密码必须输入');
     } else if (value.length < 4) {
