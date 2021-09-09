@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import LinkButton from '../link-button/index';
 import memoryUtils from '@utils/memoryUtils';
 import storageUtils from '@utils/storageUtils';
-import { reqWeather } from '@services/commonService';
+import { fetchWeather } from '@services/commonService';
 import menuConfig from '@config/menu.config';
 import './index.less';
 /*
@@ -56,7 +56,7 @@ class Header extends Component {
 
   getWeather = async () => {
     // 调用接口请求异步获取天气
-    const result = await reqWeather('上海');
+    const result = await fetchWeather('上海');
     const city = result.data && result.data.cityInfo && result.data.cityInfo.city;
     let { low = '', high = '', type, notice } = result.data && result.data.data && result.data.data.forecast[0];
     const templow = low.split(' ');

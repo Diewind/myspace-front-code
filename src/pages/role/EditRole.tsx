@@ -7,7 +7,7 @@
 import React from 'react';
 import { Form, Input, Modal } from 'antd';
 
-import { FORM_ITEM_LAYOUT_ONE_IN_FIVE} from '@utils/constants';
+import { FORM_ITEM_LAYOUT_ONE_IN_FIVE } from '@utils/constants';
 
 const FormItem = Form.Item;
 

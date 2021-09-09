@@ -3,23 +3,19 @@ import { DownOutlined } from '@ant-design/icons';
 import { Form, Row, Tooltip, Button, Input, Card, Menu, Dropdown, Select } from 'antd';
 import { FORM_ITEM_LAYOUT_ONE_IN_FIVE } from '../../../utils/constants';
 import G6Editor from '@antv/g6-editor';
-import '../mind/index.less';
-import flowDatas from './flowDatas.json';
+import '../Mind/index.less';
+import koniDatas from './koniDatas.json';
 
 const { TextArea } = Input;
 const { Option } = Select;
 
-class Index extends Component {
+class KoniDetail extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
       nodeType: 'canvas', // 节点类型
-      data: {
-        nodes: [],
-        edges: []
-      }
-      // Data:flowDatas
+      // Data:koniDatas
     };
   }
 
@@ -40,11 +36,12 @@ class Index extends Component {
     const { minimap } = this.refs;
     const editor = new G6Editor();
     const { setFieldsValue } = this.props.form;
+    // Const {data} = this.state;
 
     const toolBox = new G6Editor.Toolbar({
       container: tool
     });
-    const contentBox = new G6Editor.Flow({
+    const contentBox = new G6Editor.Koni({
       // DefaultData: data,
       graph: {
         container: content,
@@ -125,10 +122,8 @@ class Index extends Component {
       });
     }); // 选中后
     currentPage.on('beforeitemunselected', (ev) => {
-
     }); // 取消选中前
     currentPage.on('afteritemunselected', (ev) => {
-
     }); // 取消选中后
     // CurrentPage.read(data);
   }
@@ -169,7 +164,7 @@ class Index extends Component {
 
   // 导入
   importFile = () => {
-    const ndata = flowDatas;
+    const ndata = koniDatas;
     this.setState({
       data: ndata
     }, () => {
@@ -187,7 +182,7 @@ class Index extends Component {
 
   save = () => {
     // Const currentPage = this.editor.getCurrentPage();
-    // Const data = currentPage.save(); alt=""
+    // Const data = currentPage.save();
   }
 
   render() {
@@ -230,7 +225,7 @@ class Index extends Component {
                     message: '请输入标题',
                   },
                 ],
-              })(<Input autoComplete='off' placeholder='流程编辑器' />)}
+              })(<Input autoComplete='off' placeholder='拓扑编辑器' />)}
             </Form.Item>
             <Form.Item label='描述'>
               {getFieldDecorator('desc', {
@@ -240,7 +235,7 @@ class Index extends Component {
                     message: '请输入描述',
                   },
                 ],
-              })(<TextArea autoComplete='off' rows={4} placeholder='千言万语不如一张图，流程图是表示算法思路的好方法' />)}
+              })(<TextArea autoComplete='off' rows={4} placeholder='拓扑结构图是指由网络节点设备和通信介质构成的网络结构图' />)}
             </Form.Item>
           </Form>
         </div>
@@ -355,16 +350,22 @@ class Index extends Component {
             <div className='mindbox-body-bd-sidebar mindbox-body-bd-flow-sidebar-left' ref='itempanel'>
               <Card>
                 <div className='optbox'>
-                  <img draggable='false' alt='' src='https://gw.alipayobjects.com/zos/rmsportal/ZnPxbVjKYADMYxkTQXRi.svg' data-type='node' data-shape='flow-circle' data-size='72*72' data-color='#FA8C16' data-label='起止节点' className='getItem' />
+                  <img draggable='false'
+                    src='https://gw.alipayobjects.com/zos/rmsportal/NKmorGEesOtYawmMJkhi.svg'
+                    alt=''
+                    data-type='node' data-size='40' data-color='#69C0FF' data-label='Bank' className='getItem' />
                 </div>
                 <div className='optbox'>
-                  <img draggable='false' alt='' src='https://gw.alipayobjects.com/zos/rmsportal/wHcJakkCXDrUUlNkNzSy.svg' data-type='node' data-shape='flow-rect' data-size='80*48' data-color='#1890FF' data-label='常规节点' className='getItem' />
+                  <img draggable='false'
+                    src='https://gw.alipayobjects.com/zos/rmsportal/qXItsPCgijgVkgLiattJ.svg'
+                    alt=''
+                    data-type='node' data-size='40' data-color='#5CDBD3' data-label='Person' className='getItem' />
                 </div>
                 <div className='optbox'>
-                  <img draggable='false' alt='' src='https://gw.alipayobjects.com/zos/rmsportal/SnWIktArriZRWdGCnGfK.svg' data-type='node' data-shape='flow-rhombus' data-size='80*72' data-color='#13C2C2' data-label='分叉节点' className='getItem' />
-                </div>
-                <div className='optbox'>
-                  <img draggable='false' alt='' src='https://gw.alipayobjects.com/zos/rmsportal/rQMUhHHSqwYsPwjXxcfP.svg' data-type='node' data-shape='flow-capsule' data-size='80*48' data-color='#722ED1' data-label='模型节点' className='getItem' />
+                  <img draggable='false'
+                    src='https://gw.alipayobjects.com/zos/rmsportal/msMyjRAdZvDOLOeimTYF.svg'
+                    alt=''
+                    data-type='node' data-size='40' data-color='#B37FEB' data-label='Country' className='getItem' />
                 </div>
               </Card>
             </div>
@@ -451,5 +452,5 @@ class Index extends Component {
   }
 }
 
-// Export default Form.create()(Index);
-export default Index;
+// Export default Form.create()(KoniDetail);
+export default KoniDetail;

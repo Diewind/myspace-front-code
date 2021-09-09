@@ -11,7 +11,7 @@ import storageUtils from './utils/storageUtils';
 import memoryUtils from './utils/memoryUtils';
 import { Provider } from 'react-redux';
 import store from './store/stores/index';
-import './assets/css/reset.css';
+import '@assets/css/reset.css';
 
 // 读取local中保存user，保存到内存中
 const user = storageUtils.getUser();

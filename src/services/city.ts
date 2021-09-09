@@ -1,4 +1,4 @@
-export default {
+const cityObj:object = {
   '北京': 101010100,
   '朝阳': 101010300,
   '顺义': 101010400,
@@ -445,5 +445,5 @@ export default {
   '盘锦': 101071301,
   '大连': 101070201,
   '锦州': 101070701,
-
 }
+export default cityObj;
