@@ -30,6 +30,14 @@ const config: object[] = [
         icon: 'CreditCardOutlined',
         title: '商品管理',
         component: () => import('../pages/Product'),
+      },
+      {
+        path: '/product/product-manage/detail',
+        key: '/product/product-manage/detail',
+        icon: 'CreditCardOutlined',
+        title: '商品管理-详情',
+        hideMenu: true,
+        component: () => import('../pages/Product/Detail'),
       }
     ]
   },
@@ -90,6 +98,14 @@ const config: object[] = [
         component: () => import('../pages/Learn/Mind'),
       },
       {
+        path: '/learn/mind-detail',
+        key: '/learn/mind-detail',
+        icon: 'RetweetOutlined',
+        title: '思维导图-详情',
+        hideMenu: true,
+        component: () => import('../pages/Learn/Mind/Detail'),
+      },
+      {
         path: '/learn/flow',
         key: '/learn/flow',
         icon: 'RetweetOutlined',
@@ -97,11 +113,27 @@ const config: object[] = [
         component: () => import('../pages/Learn/Flow'),
       },
       {
+        path: '/learn/flow-detail',
+        key: '/learn/flow-detail',
+        icon: 'RetweetOutlined',
+        title: '流程图-详情',
+        hideMenu: true,
+        component: () => import('../pages/Learn/Flow/Detail'),
+      },
+      {
         path: '/learn/koni',
         key: '/learn/koni',
         icon: 'RetweetOutlined',
         title: '拓扑图',
         component: () => import('../pages/Learn/Koni'),
+      },
+      {
+        path: '/learn/koni-detail',
+        key: '/learn/koni-detail',
+        icon: 'RetweetOutlined',
+        title: '拓扑图-详情',
+        hideMenu: true,
+        component: () => import('../pages/Learn/Koni/Detail'),
       }
     ]
   },

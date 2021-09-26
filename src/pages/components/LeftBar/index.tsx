@@ -3,7 +3,6 @@ import { Link, withRouter } from 'react-router-dom';
 import { useLocation } from 'react-router';
 import { connect } from 'react-redux';
 import { Menu } from 'antd';
-import menuList from '@config/menu.config';
 import routers from '@config/router';
 import './index.less';
 import logo from '@assets/images/logo.png';
@@ -12,11 +11,15 @@ import { headerAction } from '../../../store/actions/index';
 
 import renderIcon from './renderIcon';
 
+type LeftBarProps = React.PropsWithChildren<{
+  collapsed: boolean,
+}>;
+
 const { SubMenu } = Menu;
 /*
 左侧导航组件
 */
-const LeftNav:React.FC = (props:any) => {
+const LeftNav:React.FC<LeftBarProps> = (props:any) => {
 
 
   /**
@@ -59,14 +62,16 @@ const LeftNav:React.FC = (props:any) => {
             // props.setHeadTitle(item.title);
           }
           console.log('ssss',item);
-          pre.push(
-            <Menu.Item key={item.key}>
-              <Link to={item.key}>
-                {renderIcon(item.icon)}
-                <span>{item.title}</span>
-              </Link>
-            </Menu.Item>
-          );
+          if(item.hideMenu !== true){
+            pre.push(
+              <Menu.Item key={item.key}>
+                <Link to={item.key}>
+                  {renderIcon(item.icon)}
+                  <span>{item.title}</span>
+                </Link>
+              </Menu.Item>
+            );
+          }
         } else {
           // 查找一个与当前路径匹配的子Item
           // const cItem = item.children.find((cItem:any) => path.indexOf(cItem.key) === 0);
@@ -75,19 +80,21 @@ const LeftNav:React.FC = (props:any) => {
           //   openKey = item.key;
           // }
           console.log('sss22s',item);
-          pre.push(
-            <SubMenu
-              key={item.key}
-              title={
-                <span>
-                  {renderIcon(item.icon)}
-                  <span>{item.title}</span>
-                </span>
-              }
-            >
-              {getMenuNodes(item.children)}
-            </SubMenu>
-          );
+          if(item.hideMenu !== true){
+            pre.push(
+              <SubMenu
+                key={item.key}
+                title={
+                  <span>
+                    {renderIcon(item.icon)}
+                    <span>{item.title}</span>
+                  </span>
+                }
+              >
+                {getMenuNodes(item.children)}
+              </SubMenu>
+            );
+          }
         }
       }
       // 向pre添加<SubMenu>
@@ -95,7 +102,6 @@ const LeftNav:React.FC = (props:any) => {
     }, []);
   }
   const menuNodes = getMenuNodes(routers);
-  console.log('mmmmm',menuNodes);
 
   // 得到当前请求的路由路径
   // let path = props.location.pathname;

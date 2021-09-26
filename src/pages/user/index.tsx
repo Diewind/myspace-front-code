@@ -16,7 +16,7 @@ import { FormInstance } from 'antd/lib/form/Form';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import memoize from "memoize-one";
 
-import LinkButton from '@pages/components/link-button/index';
+import LinkButton from '@pages/components/LinkButton/index';
 import { fetchUser, deleteUser, updateUser, addUser } from '@services/userService';
 import { PAGE_SIZE } from '@utils/constants';
 

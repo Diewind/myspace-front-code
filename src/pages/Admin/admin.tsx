@@ -4,8 +4,9 @@ import Cookies from 'js-cookie';
 // Import memoryUtils from '@utils/memoryUtils'
 import { asyncComponent } from '@utils/asyncComponent';
 
-import Left from '@pages/components/left';
-import Header from '@pages/components/header';
+import Left from '@pages/components/LeftBar';
+import Header from '@pages/components/Header';
+import NotFound from '@pages/NotFound';
 
 import { Layout } from 'antd';
 
@@ -34,6 +35,7 @@ const Admin:React.FC = (props:any) => {
         />
         <Content style={{ margin: 20, backgroundColor: '#fff' }}>
           <Switch>
+            <Redirect exact from="/" to="/home" />
             {
               routerConfig.map((v:any) => {
                 if (v.children){
@@ -42,6 +44,7 @@ const Admin:React.FC = (props:any) => {
                 return <Route key={v.path} path={v.path} component={asyncComponent(v.component)} />;
               })
             }
+            <Route component={NotFound} />
           </Switch>
         </Content>
         <Footer style={{ textAlign: 'center' }}>本系统由pilot开发，版权所有，盗版必究！</Footer>

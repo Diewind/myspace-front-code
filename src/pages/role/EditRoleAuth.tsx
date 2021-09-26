@@ -7,7 +7,7 @@
 import React, { useState } from 'react';
 import { Form, Input, Modal, Tree } from 'antd';
 
-import menuList from '@config/menu.config';
+import routers from '@config/router';
 import { FORM_ITEM_LAYOUT_ONE_IN_FIVE } from '@utils/constants';
 
 const FormItem = Form.Item;
@@ -61,7 +61,7 @@ const EditRoleAuth: React.FC<Prop> = (props) => {
         onCheck={handleSelected}
       >
         <TreeNode title='平台权限' key='all'>
-          {getTreeNode(menuList)}
+          {getTreeNode(routers)}
         </TreeNode>
       </Tree>
     </Modal>

@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
 import { ArrowLeftOutlined } from '@ant-design/icons';
 import { Form, Card, Input, Cascader, Button, message } from 'antd';
-import LinkButton from '@pages/components/link-button';
+import LinkButton from '@pages/components/LinkButton';
 import { reqCategory, addProduct, reqCurCategory } from '../../services/index';
 import PicturesWall from './picturesWall';
-import RichTextEditor from './richTextEditor';
+import RichTextEditor from './components/RichTextEditor';
 const { Item } = Form;
 const { TextArea } = Input;
 class AddUpdate extends Component {
@@ -155,7 +155,6 @@ class AddUpdate extends Component {
       } else { //二级列表
         return data;
       }
-
     }
   }
 
