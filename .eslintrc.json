@@ -1,4 +1,4 @@
-module.exports = {
+{
   "root": true,
   "env": {
     "browser": true,
@@ -6,14 +6,11 @@ module.exports = {
     "es6": true,
     "node": true,
   },
-  "parser": [
-    "babel-eslint",
-    "@typescript-eslint/parser"
-  ],
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "parserOptions": {
     // 指定ecma版本
@@ -549,4 +546,4 @@ module.exports = {
     // 强制在 yield* 表达式中 * 周围使用空格
     "yield-star-spacing": 2,
   }
-};
+}
