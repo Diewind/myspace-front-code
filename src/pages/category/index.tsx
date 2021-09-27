@@ -19,7 +19,7 @@ const Category: React.FC = () => {
     queryCategory();
   }, []);
   const queryCategory = async () => {
-    const res = await fetchCategory();
+    const res:any = await fetchCategory();
     const data = res.map((v:any) => v._status = 'update');
     setDataSource(data);
   };
@@ -29,7 +29,7 @@ const Category: React.FC = () => {
       const newDataSource = [...dataSource];
       setDataSource(newDataSource.filter(item => item.id !== record.id));
     }else{
-      const res = await deleteCategory(record.id);
+      const res:any = await deleteCategory(record.id);
       if(res.status === 0){
         message.success('删除成功!');
         queryCategory();
@@ -109,12 +109,11 @@ const Category: React.FC = () => {
           return v;
         }
       });
-      const result = await saveCategory(tableData);
+      const result:any = await saveCategory(tableData);
       if(result.status === 0){
         message.success('保存成功!');
         queryCategory();
       }
-      console.log('tableData',tableData);
     });
   };
 

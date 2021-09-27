@@ -63,7 +63,7 @@ const Mind: React.FC = () => {
   ];
 
   const fetchList = async () => {
-    const result = await fetchMindList();
+    const result:any = await fetchMindList();
     try {
       if (result.status === 0) {
         // 取出分页数据，更新状态，显示分页列表
@@ -86,7 +86,7 @@ const Mind: React.FC = () => {
 
   const handleDelete = async (record:any) => {
     const { id } = record;
-    const result = await deleteMindList(id);
+    const result:any = await deleteMindList(id);
     try {
       if (result.status === 0) {
         message.success('删除成功！');

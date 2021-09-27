@@ -7,7 +7,6 @@ import routers from '@config/router';
 import './index.less';
 import logo from '@assets/images/logo.png';
 import memoryUtils from '@utils/memoryUtils';
-import { headerAction } from '../../../store/actions/index';
 
 import renderIcon from './renderIcon';
 

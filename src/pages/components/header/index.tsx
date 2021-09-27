@@ -56,7 +56,7 @@ const Header:React.FC<HeaderProps> = (props) => {
   }
   const queryWeather = async () => {
     // 调用接口请求异步获取天气
-    const result = await fetchWeather('上海');
+    const result:any = await fetchWeather('上海');
     const city = result.data && result.data.cityInfo && result.data.cityInfo.city;
     let { low = '', high = '', type, notice } = result.data && result.data.data && result.data.data.forecast[0];
     const templow = low.split(' ');

@@ -11,17 +11,15 @@ import 'antd/dist/antd.css';
 import Login from './pages/Login/login';
 import Admin from './pages/Admin/admin';
 
-class App extends Component {
-  render() {
-    return (
-      <BrowserRouter>
-        <Switch>{/* 只匹配其中一个 */}
-          <Route path='/login' component={Login}></Route>
-          <Route path='/' component={Admin}></Route>
-        </Switch>
-      </BrowserRouter>
-    );
-  }
+const App: React.FC = () => {
+  return (
+    <BrowserRouter>
+      <Switch>
+        <Route path='/login' component={Login}></Route>
+        <Route path='/' component={Admin}></Route>
+      </Switch>
+    </BrowserRouter>
+  );
 }
 
 export default App;

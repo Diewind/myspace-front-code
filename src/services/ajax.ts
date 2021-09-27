@@ -10,7 +10,7 @@
 */
 import axios from 'axios';
 import { message } from 'antd';
-export default function ajax(url, data = {}, type = 'GET') {
+export default function ajax(url:any, data = {}, type = 'GET') {
   return new Promise((resolve) => {
     let promise = null;
     // 1.执行异步ajax请求

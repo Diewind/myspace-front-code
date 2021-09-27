@@ -21,7 +21,6 @@ import { fetchUser, deleteUser, updateUser, addUser } from '@services/userServic
 import { PAGE_SIZE } from '@utils/constants';
 
 import EditUser from './EditUser';
-import { getUser } from '@store/reducers/userReducer';
 
 interface editUserProps {
   roles: object[],
@@ -40,7 +39,7 @@ const User:React.FC = () => {
   });
   const [ editUserVisible, setEditUserVisible ] = useState(false);
   useEffect(() => {
-    fetchUser().then(res => {
+    fetchUser().then((res:any) => {
       if(res.data){
         setUsers(res.data.users);
         setRoles(res.data.roles);
@@ -143,7 +142,7 @@ const User:React.FC = () => {
         message.success(msg);
         editUserFormRef.resetFields();
         setEditUserVisible(false);
-        getUser();
+        fetchUser();
       } else {
         message.error(msg);
       }

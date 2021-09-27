@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { EditorState, convertToRaw, ContentState } from 'draft-js';
@@ -11,21 +11,26 @@ interface RichTextEditorProps {
 }
 
 const RichTextEditor: React.FC<RichTextEditorProps> = (props) => {
-  let editorState:any = null;
+
   const [state, setState] = useState<any>({
     editorState: ''
   });
   const { detail } = props;
-  if(detail){
-    const contentBlock = htmlToDraft(detail);
-    const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
-    editorState = EditorState.createWithContent(contentState);
-  }else{
-    editorState = EditorState.createEmpty(); // 创建一个没有内容的编辑对象
-  }
-  setState({
-    editorState
-  });
+
+  useEffect(() => {
+    let initEditorState:any = null;
+    if(detail){
+      const contentBlock = htmlToDraft(detail);
+      const contentState = ContentState.createFromBlockArray(contentBlock.contentBlocks);
+      initEditorState = EditorState.createWithContent(contentState);
+    }else{
+      initEditorState = EditorState.createEmpty(); // 创建一个没有内容的编辑对象
+    }
+    setState({
+      editorState: initEditorState
+    });
+  }, []);
+
   const handleEditorChange:any = (editorState:string) => {
     setState({
       editorState
@@ -36,6 +41,7 @@ const RichTextEditor: React.FC<RichTextEditorProps> = (props) => {
     // 返回输入的html格式的文本
     return draftToHtml(convertToRaw(editorState.getCurrentContent()));
   }
+  const { editorState } = state;
   return (
     <Editor
       editorState={editorState}

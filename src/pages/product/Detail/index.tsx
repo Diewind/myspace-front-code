@@ -19,7 +19,7 @@ interface ProductDetailProps {
 }
 
 const ProductDetail: React.FC<ProductDetailProps> = () => {
-  const form:any = Form.useForm();
+
   const location:any = useLocation();
   const history:any = useHistory();
   const uploadRef:any = useRef();
@@ -33,9 +33,12 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
     fetchCategoryName();
     getCategorys(0);
   }, []);
+  const { name = '', desc, price, detail = '', imgurls = [], editable = true } = location.state || {};
+  const { catename, options } = state;
+  let form:any = Form.useForm();
   const fetchCategoryName = async () => {
     const { categoryId } = location.state;
-    const result = await queryProductInCategory(categoryId, editable ? 'edit' : 'detail');
+    const result:any = await queryProductInCategory(categoryId, editable ? 'edit' : 'detail');
     if (result.status === 0) {
       message.success('请求所在分类成功');
       setState({
@@ -115,7 +118,7 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
         id: id ? id : '',
         pageflag: id ? 'edit' : 'add'// 判断是否是新增页面
       };
-      const result = await addProduct(params);
+      const result:any = await addProduct(params);
       try {
         if (result.status === 0) {
           message.success('更新商品成功！');
@@ -131,7 +134,7 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
 
   // 获取一级/二级列表
   const getCategorys = async (parentId:any) => {
-    const result = await queryProductInCategory(parentId, editable ? 'edit' : 'detail');
+    const result:any = await queryProductInCategory(parentId, editable ? 'edit' : 'detail');
     if (result.status === 0) {
       const { data } = result;
       // 如果是一级分类列表
@@ -194,8 +197,6 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
     });
   };
 
-  const { name, desc, price, detail, imgurls = [], editable } = location.state;
-  const { catename, options } = state;
   const title = (
     <span>
       <LinkButton>
@@ -210,11 +211,11 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
     <Card title={title} className='product-detail'>
       <List>
         <Form
-          name="basic"
           {...FORM_ITEM_LAYOUT_ONE_IN_ELEVEN}
-          initialValues={location.state}
+          // initialValues={location.state || {}}
+          name='productEditForm'
           autoComplete="off"
-          form={form}
+          // form={form}
         >
           {
             editable ? (
@@ -267,19 +268,24 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
           }
           {
             editable ? (
-              <Item>
-                <span>商品图片：</span>
+              <Form.Item
+                label="商品图片："
+                name="productImg"
+                rules={[{ required: true, message: '商品图片不能为空!' }]}
+              >
                 <Upload ref={uploadRef} imgs={imgurls} />
-              </Item>
+              </Form.Item>
             ) : null
           }
           <Row>
             {
               editable ? (
-                <Item {...FORM_ITEM_LAYOUT_ONE_IN_ELEVEN}>
-                  <span>商品详情：</span>
+                <Form.Item
+                  label="商品详情："
+                  name="productDetail"
+                >
                   <RichTextEditor ref={editorRef} detail={detail} />
-                </Item>
+                </Form.Item>
               ) : <Col span={22} dangerouslySetInnerHTML={{ __html: detail }}></Col>
             }
           </Row>

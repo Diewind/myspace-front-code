@@ -63,7 +63,7 @@ const Koni: React.FC = () => {
   ];
 
   const fetchList = async () => {
-    const result = await fetchKoniList();
+    const result:any = await fetchKoniList();
     try {
       if (result.status === 0) {
         // 取出分页数据，更新状态，显示分页列表
@@ -86,7 +86,7 @@ const Koni: React.FC = () => {
 
   const handleDelete = async (record:any) => {
     const { id } = record;
-    const result = await deleteKoniList(id);
+    const result:any = await deleteKoniList(id);
     try {
       if (result.status === 0) {
         message.success('删除成功！');

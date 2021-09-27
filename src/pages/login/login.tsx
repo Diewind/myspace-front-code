@@ -16,7 +16,7 @@ const Login:React.FC = (props: any) => {
   const handleSubmit = async (values:any) => {
     // 对所有的表单字段进行校验
     const { username, password } = values;
-    const result = await fetchLogin(username, password);
+    const result:any = await fetchLogin(username, password);
     if (result.status === 0) { // 登录成功
       // 提示登录成功
       message.success('登录成功');

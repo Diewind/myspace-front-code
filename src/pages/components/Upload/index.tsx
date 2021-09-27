@@ -61,7 +61,7 @@ const CommonUpload: React.FC<UploadProps> = (props) => {
         message.error('上传图片失败');
       }
     } else if (file.status === 'removed') { // 删除图片
-      const result = await deleteProductImg(file.name);
+      const result:any = await deleteProductImg(file.name);
       if (result.status === 0) {
         message.success('删除图片成功！');
       } else {

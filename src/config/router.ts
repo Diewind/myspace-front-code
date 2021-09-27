@@ -18,22 +18,22 @@ const config: object[] = [
     title: '商品',
     children: [
       {
-        path: '/product/category-manage',
-        key: '/product/category-manage',
+        path: '/product/category',
+        key: '/product/category',
         icon: 'BarsOutlined',
         title: '品类管理',
         component: () => import('../pages/Category'),
       },
       {
-        path: '/product/product-manage',
-        key: '/product/product-manage',
+        path: '/product/product',
+        key: '/product/product',
         icon: 'CreditCardOutlined',
         title: '商品管理',
         component: () => import('../pages/Product'),
       },
       {
-        path: '/product/product-manage/detail',
-        key: '/product/product-manage/detail',
+        path: '/product/product-detail',
+        key: '/product/product-detail',
         icon: 'CreditCardOutlined',
         title: '商品管理-详情',
         hideMenu: true,

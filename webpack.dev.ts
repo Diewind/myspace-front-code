@@ -8,7 +8,7 @@ const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
-const common = require('./webpack.common.js');
+const common = require('./webpack.common.ts');
 const CreateReactPublicPlugin = require('create-react-public-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
@@ -79,7 +79,7 @@ module.exports = merge(common, {
     // contentBase: paths.appPublic,
     // contentBasePublicPath: paths.publicUrlOrPath,
     publicPath: paths.publicUrlOrPath.slice(0, -1),
-    port: 9000,
+    port: 9008,
     historyApiFallback: {
       disableDotRule: true,
       index: paths.publicUrlOrPath,

@@ -23,7 +23,7 @@ const Product: React.FC = () => {
     fetchList();
   }, []);
   const updateStatus = async (productId:any, status:any) => {
-    const result = await updateProductStatus(productId, status);
+    const result:any = await updateProductStatus(productId, status);
     if (result.status === 0) {
       message.success('更新状态成功');
       fetchList();
@@ -70,8 +70,8 @@ const Product: React.FC = () => {
       width: 150,
       render: (product:any) => (
         <span>
-          <LinkButton onClick={() => handleJump('/product/detail', product)}>详情</LinkButton>
-          <LinkButton onClick={() => handleJump('/product/addupdate', product)}>修改</LinkButton>
+          <LinkButton onClick={() => handleJump('/product/product-detail', product)}>详情</LinkButton>
+          <LinkButton onClick={() => handleJump('/product/product-detail', product)}>修改</LinkButton>
           <LinkButton onClick={() => {
             handleDelete(product);
           }} style={{ color: 'red' }}>删除</LinkButton>
@@ -81,7 +81,7 @@ const Product: React.FC = () => {
   ];
   const handleDelete = async (product:any) => {
     const { id } = product;
-    const result = await deleteProduct(id);
+    const result:any = await deleteProduct(id);
     try {
       if (result.status === 0) {
         message.success('删除商品成功！');
@@ -97,7 +97,7 @@ const Product: React.FC = () => {
     setState({ loading: true });
     const { searchName, searchType, pageNum } = state;
     // 如果搜索关键字有值，说明要搜索分页
-    let result;
+    let result:any;
     if (searchName) {
       result = await searchProduct({ pageNum, pageSize: PAGE_SIZE, searchName, searchType });
     } else {
@@ -146,13 +146,13 @@ const Product: React.FC = () => {
 
   const handleJump = (flag: any, record?: any) => {
     if(flag === 'add'){
-      history.push('/product/addupdate');
+      history.push('/product/product-detail');
     }else if(flag === 'edit'){
-      history.push('/product/addupdate', {
+      history.push('/product/product-detail', {
         state: record
       });
     }else{
-      history.push('/product/detail');
+      history.push('/product/product-detail');
     }
   }
 
