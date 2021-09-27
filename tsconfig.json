@@ -30,6 +30,7 @@
   },
   "include": [
     "./image.d.ts",
+    "./g6-editor.d.ts",
     "src"
   ]
 }

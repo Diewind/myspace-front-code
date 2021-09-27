@@ -5,7 +5,7 @@ const adminPrefix = '/admin/';
 /**
  * fetchWeather - 请求天气
  * @param {string} city - 所在城市
- * @returns
+ * @returns {object} res
  */
 export const fetchWeather = (city:string) => {
   let citynum;
@@ -18,7 +18,6 @@ export const fetchWeather = (city:string) => {
     citynum
   }, 'GET');
 };
-
 
 /**
  * fetchLogin - 登录

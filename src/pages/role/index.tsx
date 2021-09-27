@@ -45,7 +45,7 @@ const Role: React.FC = () => {
     },
   ];
   const getRoles = async () => {
-    const result = await fetchRole();
+    const result:any = await fetchRole();
     if (result.status === 0) {
       const { data = [] } = result;
       setRoleList(data);
@@ -59,7 +59,7 @@ const Role: React.FC = () => {
   const handleDeleteRole = async () => {
     const { id = '' } = selectedRole;
     // 请求更新
-    const result = await deleteRole(id);
+    const result:any = await deleteRole(id);
     if (result.status === 0) {
       message.success('删除角色成功!');
       getRoles();
@@ -102,7 +102,7 @@ const Role: React.FC = () => {
     .then(async (values: any) => {
       const { roleName } = values;
       roleFormRef.resetFields();
-      const result = await addRole(roleName);
+      const result:any = await addRole(roleName);
       const { msg, status } = result;
       if (status === 0) {
         message.success(msg);
@@ -121,7 +121,7 @@ const Role: React.FC = () => {
       authorizer: memoryUtils.user.username
     };
     // 请求更新
-    const result = await updateRole(params);
+    const result:any = await updateRole(params);
     if (result.status === 0) {
       // 如果更新的是自己角色的权限，强制退出
       if (selectedRole.id === memoryUtils.user.role.id) {
