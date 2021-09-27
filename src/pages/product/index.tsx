@@ -90,7 +90,7 @@ const Product: React.FC = () => {
         message.error('删除商品失败');
       }
     } catch (error) {
-      console.log(error);
+
     }
   }
   const fetchList = async () => {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Form, Input, Button, message } from 'antd';
 import Cookies from 'js-cookie';
@@ -13,7 +13,9 @@ import storageUtils from '@utils/storageUtils';
  * 登录组件
  */
 const Login:React.FC = (props: any) => {
+  const history = useHistory();
   const handleSubmit = async (values:any) => {
+    history.replace('/home');
     // 对所有的表单字段进行校验
     const { username, password } = values;
     const result:any = await fetchLogin(username, password);
@@ -28,12 +30,11 @@ const Login:React.FC = (props: any) => {
       memoryUtils.user = user;// 保存在内存中
       storageUtils.saveUser(user);// 保存在local中
       // 跳转到管理界面（不需要再回退到登录界面，所以用replace）
-      props.history.replace('/home');
+      history.replace('/home');
     } else { // 登录失败
       // 提示错误信息
       message.error(result.msg);
     }
-    props.history.replace('/home');
   };
   const validatorPwd = (_:any, value:any) => {
     if (!value) {

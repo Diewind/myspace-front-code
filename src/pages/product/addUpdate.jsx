@@ -136,7 +136,7 @@ class AddUpdate extends Component {
             message.error(result.msg);
           }
         } catch (e) {
-          // Console.log(e);
+
         }
       } else {
 
@@ -187,7 +187,7 @@ class AddUpdate extends Component {
   }
 
   onChange = (value, selectedOptions) => {
-    // Console.log(value, selectedOptions);
+
   };
 
   loadData = async (selectedOptions) => {

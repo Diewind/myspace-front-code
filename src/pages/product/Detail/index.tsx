@@ -127,7 +127,7 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
           message.error(result.msg);
         }
       } catch (e) {
-        // Console.log(e);
+
       }
     });
   }
