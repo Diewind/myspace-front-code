@@ -134,6 +134,6 @@
     }
   },
   "lint-staged": {
-    "src/**/*.{js,jsx,tsx,ts}": "eslint --fix --ext .js --ext .jsx --ext .jsx src/"
+    "src/**/*.{js,jsx,tsx,ts}": "eslint --fix --ext .ts,.tsx,.jsx,.js src/"
   }
 }

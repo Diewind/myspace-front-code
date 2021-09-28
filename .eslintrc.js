@@ -1,10 +1,10 @@
-{
+module.exports = {
   "root": true,
   "env": {
     "browser": true,
     "commonjs": true,
     "es6": true,
-    "node": true,
+    "node": true
   },
   "parser": "@typescript-eslint/parser",
   "extends": [
@@ -24,8 +24,8 @@
       // 修饰器
       "experimentalDecorators": true,
       // 启用jsx
-      "jsx": true
-    },
+      "jsx": true,
+    }
   },
   "plugins": [
     "react",
@@ -545,5 +545,7 @@
     "template-curly-spacing": 2,
     // 强制在 yield* 表达式中 * 周围使用空格
     "yield-star-spacing": 2,
+    /* TS相关 */
+    '@typescript-eslint/no-unused-vars': [1],
   }
 }
