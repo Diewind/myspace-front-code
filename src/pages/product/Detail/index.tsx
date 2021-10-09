@@ -201,7 +201,7 @@ const ProductDetail: React.FC<ProductDetailProps> = () => {
     <span>
       <LinkButton>
         <ArrowLeftOutlined
-          style={{ color: 'green', marginRight: 15, fontSize: 20 }}
+          style={{ marginRight: 15, fontSize: 20 }}
           onClick={() => history.goBack()} />
       </LinkButton>
       <span>商品详情</span>
