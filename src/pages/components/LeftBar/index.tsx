@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import { useLocation } from 'react-router';
-import { connect } from 'react-redux';
 import { Menu } from 'antd';
 import routers from '@config/router';
 import './index.less';
@@ -60,7 +59,6 @@ const LeftNav:React.FC<LeftBarProps> = (props:any) => {
             // 更新redux中的headTitle状态
             // props.setHeadTitle(item.title);
           }
-          console.log('ssss',item);
           if(item.hideMenu !== true){
             pre.push(
               <Menu.Item key={item.key}>
@@ -78,7 +76,6 @@ const LeftNav:React.FC<LeftBarProps> = (props:any) => {
           // if (cItem) {
           //   openKey = item.key;
           // }
-          console.log('sss22s',item);
           if(item.hideMenu !== true){
             pre.push(
               <SubMenu

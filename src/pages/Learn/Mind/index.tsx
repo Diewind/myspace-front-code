@@ -75,7 +75,7 @@ const Mind: React.FC = () => {
         message.error('获取列表失败！');
       }
     } catch (error) {
-      console.log(error);
+
     }
   }
 
@@ -95,7 +95,7 @@ const Mind: React.FC = () => {
         message.error('删除失败！');
       }
     } catch (error) {
-      console.log(error);
+
     }
   }
 

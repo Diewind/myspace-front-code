@@ -27,8 +27,6 @@ const EditUser: React.FC<Prop> = (props) => {
   const [form] = Form.useForm();
   onRef(form);
 
-  console.log('user',user);
-
   return (
     <Modal
       title='添加角色'

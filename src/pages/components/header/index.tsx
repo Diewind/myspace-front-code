@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 import Cookies from 'js-cookie';
 import { Modal } from 'antd';
 import { MenuUnfoldOutlined, MenuFoldOutlined } from '@ant-design/icons';
@@ -17,6 +17,7 @@ type HeaderProps = React.PropsWithChildren<{
   toggle: () => void,
 }>;
 const Header:React.FC<HeaderProps> = (props) => {
+  const history = useHistory();
   const [currentTime, setCurrentTime] = useState(new Date());
   const [weather, setWeather] = useState({
     city: '', // 所在城市
@@ -50,7 +51,7 @@ const Header:React.FC<HeaderProps> = (props) => {
         // memoryUtils.user = {};
         Cookies.remove('user');
         // 跳转到login
-        // props.history.replace('/login');
+        history.replace('/login');
       }
     });
   }

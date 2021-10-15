@@ -4,16 +4,13 @@ module.exports = {
     "browser": true,
     "commonjs": true,
     "es6": true,
-    "node": true,
+    "node": true
   },
-  "parser": [
-    "babel-eslint",
-    "@typescript-eslint/parser"
-  ],
+  "parser": "@typescript-eslint/parser",
   "extends": [
     "plugin:react/recommended",
     "plugin:react-hooks/recommended",
-    "plugin:@typescript-eslint/recommended",
+    "plugin:@typescript-eslint/recommended"
   ],
   "parserOptions": {
     // 指定ecma版本
@@ -27,8 +24,8 @@ module.exports = {
       // 修饰器
       "experimentalDecorators": true,
       // 启用jsx
-      "jsx": true
-    },
+      "jsx": true,
+    }
   },
   "plugins": [
     "react",
@@ -548,5 +545,7 @@ module.exports = {
     "template-curly-spacing": 2,
     // 强制在 yield* 表达式中 * 周围使用空格
     "yield-star-spacing": 2,
+    /* TS相关 */
+    '@typescript-eslint/no-unused-vars': [1],
   }
-};
+}
