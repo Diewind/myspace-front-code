@@ -1,13 +1,14 @@
 import ajax from './ajax';
+import { API_PREFIX } from '@utils/constants';
+// const adminPrefix = '/admin/';
 
-const adminPrefix = '/admin/';
 
 /**
  * fetchUser - 获取用户
  * @returns {object} res
  */
 export const fetchUser = () => {
-  return ajax(`${adminPrefix}user/userlist`);
+  return ajax(`${API_PREFIX}user/list`, {}, 'POST');
 };
 
 /**
@@ -16,7 +17,7 @@ export const fetchUser = () => {
  * @returns {object} res
  */
 export const addUser = ( user:object ) => {
-  return ajax(`${adminPrefix}user/add`, user, 'POST');
+  return ajax(`${API_PREFIX}user/add`, user, 'POST');
 }
 
 /**
@@ -25,7 +26,7 @@ export const addUser = ( user:object ) => {
  * @returns {object} res
  */
 export const updateUser = ( user:object ) => {
-  return ajax(`${adminPrefix}user/update`, user, 'POST');
+  return ajax(`${API_PREFIX}user/update`, user, 'POST');
 }
 
 /**
@@ -34,5 +35,5 @@ export const updateUser = ( user:object ) => {
  * @returns {object} res
  */
 export const deleteUser = ( id:string ) => {
-  return ajax(`${adminPrefix}user/delete`, { id }, 'POST');
+  return ajax(`${API_PREFIX}user/delete`, { id }, 'POST');
 }

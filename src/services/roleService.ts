@@ -7,7 +7,8 @@ const adminPrefix = '/admin/';
  * @returns {object} res
  */
 export const fetchRole = () => {
-  return ajax(`${adminPrefix}role/rolelist`);
+  // return ajax(`${adminPrefix}role/rolelist`);
+  return ajax(`/api/user/findAll`, undefined, 'POST');
 };
 
 /**

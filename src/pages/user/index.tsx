@@ -22,16 +22,16 @@ import { PAGE_SIZE } from '@utils/constants';
 
 import EditUser from './EditUser';
 
-interface editUserProps {
-  roles: object[],
-  user: object,
+export interface editUserProps {
+  roles: Array<[]>,
+  user: Object,
   editUserVisible: boolean,
   onOk: () => void,
   onCancel: () => void,
-  onRef: (form: FormInstance) => void,
+  onRef: () => void,
 }
 
-const User:React.FC = () => {
+const User: React.FC = () => {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
   const [selectedUser, setSelectedUser] = useState({
@@ -39,11 +39,13 @@ const User:React.FC = () => {
   });
   const [ editUserVisible, setEditUserVisible ] = useState(false);
   useEffect(() => {
-    fetchUser().then((res:any) => {
-      if(res.data){
-        setUsers(res.data.users);
-        setRoles(res.data.roles);
-      }
+    fetchUser().then(({user, role} : any) => {
+      setUsers(user);
+      setRoles(role);
+      // if(res.data){
+        // setUsers(res.data.users);
+        // setRoles(res.data.roles);
+      // }
     })
   },[]);
 

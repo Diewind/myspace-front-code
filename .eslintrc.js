@@ -291,7 +291,7 @@ module.exports = {
     // 禁止出现未使用过的变量
     "no-unused-vars": 2,
     // 禁止在变量定义之前使用它们
-    "no-use-before-define": 2,
+    "no-use-before-define": 0,
     /**
      * 风格指南
     */
@@ -546,6 +546,6 @@ module.exports = {
     // 强制在 yield* 表达式中 * 周围使用空格
     "yield-star-spacing": 2,
     /* TS相关 */
-    '@typescript-eslint/no-unused-vars': [1],
+    '@typescript-eslint/no-unused-vars': [1]
   }
-}
+};

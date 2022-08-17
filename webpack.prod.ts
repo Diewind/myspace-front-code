@@ -10,17 +10,23 @@ const common = require('./webpack.common.ts');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
+const paths = require('./path.ts');
+
 module.exports = merge(common, {
   mode: 'production',
   devtool: 'source-map',
   output: {
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'dist'),
+    // webpack uses `publicPath` to determine where the app is being served from.
+    // It requires a trailing slash, or the file assets will get an incorrect path.
+    // We inferred the "public path" (such as / or /my-project) from homepage.
+    publicPath: paths.publicUrlOrPath,
   },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
-      title: 'prod'
+      template: path.resolve('public/index.html'),
     }),
   ]
 });
