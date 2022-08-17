@@ -137,5 +137,34 @@ const config: object[] = [
       }
     ]
   },
+  {
+    path: '/apiStudy',
+    key: '/apiStudy',
+    icon: 'QuestionOutlined',
+    title: 'API学习',
+    children: [
+      {
+        path: '/apiStudy/html',
+        key: '/apiStudy/html',
+        icon: 'Html5Outlined',
+        title: 'HTML',
+        component: () => import('../pages/ApiStudy/Html'),
+      },
+      {
+        path: '/apiStudy/css',
+        key: '/apiStudy/css',
+        icon: 'Html5Outlined',
+        title: 'CSS',
+        component: () => import('../pages/ApiStudy/Css'),
+      },
+      {
+        path: '/apiStudy/js',
+        key: '/apiStudy/js',
+        icon: 'Html5Outlined',
+        title: 'JS',
+        component: () => import('../pages/ApiStudy/js'),
+      },
+    ],
+  },
 ];
 export default config;

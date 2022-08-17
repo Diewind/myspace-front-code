@@ -28,6 +28,15 @@ module.exports = merge(common, {
       index: paths.publicUrlOrPath,
     },
     hot: true,
+    proxy: {
+      "/ms": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+        pathRewrite: {
+          '^/ms': ''
+        }
+      },
+    }
   },
   output: {
     // webpack uses `publicPath` to determine where the app is being served from.

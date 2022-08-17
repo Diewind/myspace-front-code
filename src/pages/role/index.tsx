@@ -46,6 +46,7 @@ const Role: React.FC = () => {
   ];
   const getRoles = async () => {
     const result:any = await fetchRole();
+    setRoleList(result);
     if (result.status === 0) {
       const { data = [] } = result;
       setRoleList(data);
