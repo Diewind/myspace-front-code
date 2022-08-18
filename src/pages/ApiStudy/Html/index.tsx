@@ -1,5 +1,8 @@
 import React from 'react';
 
+import Header from '../components/Header';
+import Content from '../components/Content';
+
 
 interface Props {
 
@@ -7,8 +10,11 @@ interface Props {
 
 const Index: React.FC<Props> = (props) => {
   return (
-    <div>Html</div>
-  )
+    <div>
+      <Header />
+      <Content />
+    </div>
+  );
 }
 
 export default Index;
