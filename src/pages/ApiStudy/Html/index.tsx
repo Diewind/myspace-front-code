@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import Header from '../components/Header';
 import Content from '../components/Content';
 
+const Index: React.FC = () => {
+  const [loadUrl, setLoadUrl] = useState('');
 
-interface Props {
-
-}
-
-const Index: React.FC<Props> = (props) => {
+  const handleLoad = (url: string) => {
+    setLoadUrl(url);
+  }
   return (
     <div>
-      <Header />
-      <Content />
+      <Header handleLoad={handleLoad} setLoadUrl={setLoadUrl} loadUrl={loadUrl} />
+      <Content loadUrl={loadUrl} />
     </div>
   );
 }

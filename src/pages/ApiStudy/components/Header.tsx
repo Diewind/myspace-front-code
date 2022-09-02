@@ -1,12 +1,18 @@
 import React from 'react';
 import { Row, Col, Input, Button } from 'antd';
 
-type Props = {}
+type Props = {
+  handleLoad: (val: string) => void,
+  setLoadUrl: (val: string) => void,
+  loadUrl: string,
+}
 
-const Header = (props: Props) => {
-  const handleLoad = () => {
-
-  };
+const Header: React.FC<Props> = (props: Props) => {
+  const {
+    handleLoad,
+    setLoadUrl,
+    loadUrl,
+  } = props;
   return (
     <div style={{
       padding: 15.
@@ -14,11 +20,11 @@ const Header = (props: Props) => {
       <Row gutter={[8, 8]} align='middle' justify='center'>
         <Col>loadUrl：</Col>
         <Col span={18}>
-          <Input />
+          <Input value={loadUrl} onChange={(e) => setLoadUrl(e.target.value)} />
         </Col>
         <Col>
-          <Button type='primary' onClick={handleLoad}>
-            加载
+          <Button type='primary' onClick={() => handleLoad('')}>
+            重置
           </Button>
         </Col>
       </Row>

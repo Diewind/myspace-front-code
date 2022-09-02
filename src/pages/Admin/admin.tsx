@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { Redirect, Route, Switch } from 'react-router-dom';
-import Cookies from 'js-cookie';
 // Import memoryUtils from '@utils/memoryUtils'
 import { asyncComponent } from '@utils/asyncComponent';
 
@@ -14,7 +13,7 @@ import routerConfig from '@config/router';
 const { Content, Footer, Sider } = Layout;
 
 // 管理的路由组件
-const Admin:React.FC = (props:any) => {
+const Admin:React.FC = () => {
   const [collapsed, setCollapsed] = useState(false);
   const toggle = () => {
     setCollapsed(!collapsed);

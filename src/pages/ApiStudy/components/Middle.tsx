@@ -1,10 +1,17 @@
 import React from 'react'
 
-type Props = {}
+type Props = {
+  loadUrl: string,
+}
 
-const Middle = (props: Props) => {
+const Middle: React.FC<Props> = (props: Props) => {
+  const {
+    loadUrl = '',
+  } = props;
   return (
-    <div>Middle</div>
+    <iframe width='100%' height='100%' src={loadUrl}>
+      content
+    </iframe>
   )
 }
 
