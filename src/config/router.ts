@@ -162,7 +162,7 @@ const config: object[] = [
         key: '/apiStudy/js',
         icon: 'Html5Outlined',
         title: 'JS',
-        component: () => import('../pages/ApiStudy/js'),
+        component: () => import('../pages/ApiStudy/Js'),
       },
     ],
   },

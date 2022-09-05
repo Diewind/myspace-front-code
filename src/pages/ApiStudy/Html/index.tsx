@@ -1,14 +1,20 @@
-import React from 'react';
+import React, { useState } from 'react';
 
+import Header from '../components/Header';
+import Content from '../components/Content';
 
-interface Props {
+const Index: React.FC = () => {
+  const [loadUrl, setLoadUrl] = useState('');
 
-}
-
-const Index: React.FC<Props> = (props) => {
+  const handleLoad = (url: string) => {
+    setLoadUrl(url);
+  }
   return (
-    <div>Html</div>
-  )
+    <div>
+      <Header handleLoad={handleLoad} setLoadUrl={setLoadUrl} loadUrl={loadUrl} />
+      <Content loadUrl={loadUrl} />
+    </div>
+  );
 }
 
 export default Index;

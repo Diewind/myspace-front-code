@@ -4,9 +4,8 @@
  * @Author: harry <sh_fight@163.com>
  * @Version: 0.0.1
  */
-import React, { Component } from 'react';
+import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import 'antd/dist/antd.css';
 
 import Login from './pages/Login/login';
 import Admin from './pages/Admin/admin';
