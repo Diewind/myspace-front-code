@@ -1,27 +1,19 @@
 import React from 'react';
-import { Row, Col} from 'antd';
+import { Row, Col, Typography } from 'antd';
 
-import Left from './Left';
-import Tip from './Tip';
-import Middle from './Middle';
+const { Title } = Typography;
 
 type Props = {
-  loadUrl: string,
+  children: object,
 }
 
 const Content: React.FC<Props> = (props: Props) => {
-  const {
-    loadUrl
-  } = props;
   return (
-    <Row gutter={[8,8]} style={{
-      height: '70vh',
-    }}>
-      <Col span={2}><Left /></Col>
-      <Col span={18}><Middle loadUrl={loadUrl} /></Col>
-      <Col span={4}><Tip /></Col>
+    <Row className='content'>
+      <Title level={4}>Usage:</Title>
+      <div className='content-box'>{props.children}</div>
     </Row>
   )
 }
 
-export default Content
+export default Content;
