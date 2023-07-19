@@ -9,6 +9,7 @@ import memoryUtils from '@utils/memoryUtils';
 import storageUtils from '@utils/storageUtils';
 import { fetchWeather } from '@services/commonService';
 import router from '@config/router';
+import { removeToken } from '@utils/authorize';
 
 import './index.less';
 
@@ -49,7 +50,7 @@ const Header:React.FC<HeaderProps> = (props) => {
         // 删除保存的user数据
         storageUtils.removeUser();
         // memoryUtils.user = {};
-        Cookies.remove('user');
+        removeToken();
         // 跳转到login
         history.replace('/login');
       }

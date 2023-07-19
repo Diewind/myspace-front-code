@@ -141,4 +141,4 @@ export const PAGE_SIZE_OPTIONS = ['5', '10', '20', '50', '100'];
 export const BASE_IMG_URL: string = 'localhost:8888';//图片统一路径前缀
 
 // 接口请求前缀
-export const API_PREFIX: string = 'ms/';
+export const API_PREFIX: string = '/';

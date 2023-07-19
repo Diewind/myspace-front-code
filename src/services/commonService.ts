@@ -1,5 +1,10 @@
 import ajax from './ajax';
 import cityobj from './city';
+
+import axios from 'axios';
+
+import request from '@utils/request';
+
 const adminPrefix = '/admin/';
 
 /**
@@ -26,5 +31,11 @@ export const fetchWeather = (city:string) => {
  * @returns {object} res
  */
 export const fetchLogin = (username:any, password:any) => {
-  return ajax(`${adminPrefix}user/login`, { username, password }, 'POST');
-}
+  // return ajax(`${adminPrefix}user/login`, { username, password }, 'POST');
+  const res = request({
+    method: 'post',
+    url: '/admin/sys/sys-user/login/namePwdLogin',
+    data: { userName: username, password },
+  });
+  return res;
+};

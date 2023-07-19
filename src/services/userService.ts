@@ -1,4 +1,4 @@
-import ajax from './ajax';
+import request from '@utils/request';
 import { API_PREFIX } from '@utils/constants';
 // const adminPrefix = '/admin/';
 
@@ -8,7 +8,15 @@ import { API_PREFIX } from '@utils/constants';
  * @returns {object} res
  */
 export const fetchUser = () => {
-  return ajax(`${API_PREFIX}user/list`, {}, 'POST');
+  const res = request({
+    method: 'get',
+    url: `${API_PREFIX}back/user/getListOfUser`,
+    // params: { 
+    //   pageNum: 1,
+    //   pageSize: 10,
+    // },
+  });
+  return res;
 };
 
 /**
@@ -17,7 +25,13 @@ export const fetchUser = () => {
  * @returns {object} res
  */
 export const addUser = ( user:object ) => {
-  return ajax(`${API_PREFIX}user/add`, user, 'POST');
+  const res = request({
+    method: 'post',
+    url: `${API_PREFIX}add`,
+    data: user,
+  });
+  return res;
+  // return request(`${API_PREFIX}user/add`, user, 'POST');
 }
 
 /**
@@ -26,7 +40,13 @@ export const addUser = ( user:object ) => {
  * @returns {object} res
  */
 export const updateUser = ( user:object ) => {
-  return ajax(`${API_PREFIX}user/update`, user, 'POST');
+  const res = request({
+    method: 'post',
+    url: `${API_PREFIX}update`,
+    data: user,
+  });
+  return res;
+  // return request(`${API_PREFIX}user/update`, user, 'POST');
 }
 
 /**
@@ -35,5 +55,11 @@ export const updateUser = ( user:object ) => {
  * @returns {object} res
  */
 export const deleteUser = ( id:string ) => {
-  return ajax(`${API_PREFIX}user/delete`, { id }, 'POST');
+  const res = request({
+    method: 'post',
+    url: `${API_PREFIX}delete`,
+    data: { id },
+  });
+  return res;
+  // return request(`${API_PREFIX}user/delete`, { id }, 'POST');
 }
