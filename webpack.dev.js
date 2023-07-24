@@ -8,12 +8,12 @@ const path = require('path');
 const fs = require('fs');
 const webpack = require('webpack');
 const { merge } = require('webpack-merge');
-const common = require('./webpack.common.ts');
+const common = require('./webpack.common.js');
 const CreateReactPublicPlugin = require('create-react-public-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
 
-const paths = require('./path.ts');
+const paths = require('./path.js');
 
 module.exports = merge(common, {
   mode: 'development',
@@ -22,19 +22,22 @@ module.exports = merge(common, {
     // contentBase: paths.appPublic,
     // contentBasePublicPath: paths.publicUrlOrPath,
     publicPath: paths.publicUrlOrPath.slice(0, -1),
-    port: 9008,
+    port: 8000,
     historyApiFallback: {
       disableDotRule: true,
       index: paths.publicUrlOrPath,
     },
     hot: true,
     proxy: {
-      "/ms": {
+      "/": {
         target: "http://localhost:8080",
-        changeOrigin: true,
-        pathRewrite: {
-          '^/ms': ''
-        }
+        ws: true,
+        bypass(req) {
+          if (req.headers.accept.indexOf('html') !== -1) {
+            return '/index.html';
+          }
+          return null;
+        },
       },
     }
   },

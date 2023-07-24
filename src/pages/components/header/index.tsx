@@ -9,6 +9,8 @@ import memoryUtils from '@utils/memoryUtils';
 import storageUtils from '@utils/storageUtils';
 import { fetchWeather } from '@services/commonService';
 import router from '@config/router';
+import { removeToken } from '@utils/authorize';
+import { sysLogin } from '@services/sysService';
 
 import './index.less';
 
@@ -30,7 +32,7 @@ const Header:React.FC<HeaderProps> = (props) => {
   const tick = () => setCurrentTime(new Date());
   const clearTimerId = () => clearInterval(timerId);
   useEffect(() => {
-    queryWeather();
+    // queryWeather();
     // getTitle();
     timerId = setInterval(
       tick,
@@ -45,13 +47,17 @@ const Header:React.FC<HeaderProps> = (props) => {
     // 显示确认框
     Modal.confirm({
       title: '确认退出吗?',
-      onOk: () => {
-        // 删除保存的user数据
-        storageUtils.removeUser();
-        // memoryUtils.user = {};
-        Cookies.remove('user');
-        // 跳转到login
-        history.replace('/login');
+      onOk: async () => {
+        const { username } = memoryUtils.user;
+        // const res = await sysLogin(username);
+        // if(res){
+          // 删除保存的user数据
+          storageUtils.removeUser();
+          // memoryUtils.user = {};
+          removeToken();
+          // 跳转到login
+          history.replace('/login');
+        // }
       }
     });
   }

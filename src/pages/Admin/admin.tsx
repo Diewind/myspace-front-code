@@ -4,8 +4,9 @@ import { Redirect, Route, Switch } from 'react-router-dom';
 import { asyncComponent } from '@utils/asyncComponent';
 
 import Left from '@pages/components/LeftBar';
-import Header from '@pages/components/Header';
-import NotFound from '@pages/NotFound';
+import Header from '@pages/components/header';
+import NotFound from '@pages/notFound';
+import { getToken } from '@utils/authorize';
 
 import { Layout } from 'antd';
 
@@ -18,6 +19,11 @@ const Admin:React.FC = () => {
   const toggle = () => {
     setCollapsed(!collapsed);
   };
+  const userToken = getToken();
+  if(!userToken){
+    // 自动跳转到登录
+    return <Redirect to='/login/' />;
+  }
   return (
     <Layout style={{ minHeight: '100%' }}>
       <Sider

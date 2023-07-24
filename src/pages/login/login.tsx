@@ -1,39 +1,47 @@
-import React from 'react';
+import React,{ useState } from 'react';
 import { Redirect, useHistory } from 'react-router-dom';
 import { LockOutlined, UserOutlined } from '@ant-design/icons';
 import { Form, Input, Button, message } from 'antd';
 import Cookies from 'js-cookie';
 import './login.less';
 import logo from '@assets/images/logo.png';
-import { fetchLogin } from '@services/commonService';
+import { getToken } from '@services/commonService';
 import memoryUtils from '@utils/memoryUtils';
 import storageUtils from '@utils/storageUtils';
+import { setToken } from '@utils/authorize';
+import { sysLogin } from '@services/sysService';
 
 /**
  * 登录组件
  */
 const Login:React.FC = (props: any) => {
   const history = useHistory();
+  const [loginLoading, setLoginLoading] = useState(false); // 登录loading
   const handleSubmit = async (values:any) => {
-    history.replace('/home');
     // 对所有的表单字段进行校验
     const { username, password } = values;
-    const result:any = await fetchLogin(username, password);
-    if (result.status === 0) { // 登录成功
+    setLoginLoading(true);
+    const result:any = await sysLogin(username, password);
+    const { data } = result;
+    if (data.code === 200) { // 登录成功
+      setLoginLoading(false);
       // 提示登录成功
-      message.success('登录成功');
+      // message.success('登录成功');
+      // 保存 token
+      setToken(data.data.token);
       // 保存user
-      const user = result.data || {};
-      // 保存在cookie中
-      const inFifteenMinutes = new Date(new Date().getTime() + 2 * 60 * 60 * 1000); // 设置过期时间
-      Cookies.set('user', user, { expires: inFifteenMinutes });
-      memoryUtils.user = user;// 保存在内存中
-      storageUtils.saveUser(user);// 保存在local中
+      // const user = result.data || {};
+      // // 保存在cookie中
+      // const inFifteenMinutes = new Date(new Date().getTime() + 2 * 60 * 60 * 1000); // 设置过期时间
+      // Cookies.set('user', user, { expires: inFifteenMinutes });
+      // memoryUtils.user = user;// 保存在内存中
+      // storageUtils.saveUser(user);// 保存在local中
       // 跳转到管理界面（不需要再回退到登录界面，所以用replace）
       history.replace('/home');
     } else { // 登录失败
       // 提示错误信息
-      message.error(result.msg);
+      setLoginLoading(false);
+      // message.error(result.msg);
     }
   };
   const validatorPwd = (_:any, value:any) => {
@@ -104,7 +112,7 @@ const Login:React.FC = (props: any) => {
             />
           </Form.Item>
           <Form.Item>
-            <Button type='primary' htmlType='submit' block>
+            <Button type='primary' htmlType='submit' block loading={loginLoading}>
               登录
             </Button>
           </Form.Item>

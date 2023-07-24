@@ -1,23 +1,34 @@
-import ajax from './ajax';
-import { API_PREFIX } from '@utils/constants';
-// const adminPrefix = '/admin/';
-
+import request from '@utils/request';
+import { API_PREFIX, API_PREFIX_USER } from '@utils/constants';
 
 /**
  * fetchUser - 获取用户
  * @returns {object} res
  */
 export const fetchUser = () => {
-  return ajax(`${API_PREFIX}user/list`, {}, 'POST');
+  const res = request({
+    method: 'get',
+    url: `${API_PREFIX}${API_PREFIX_USER}/getListOfUser`,
+    // params: { 
+    //   pageNum: 1,
+    //   pageSize: 10,
+    // },
+  });
+  return res;
 };
 
 /**
- * addUser - 添加用户
+ * saveUser - 添加用户
  * @param {number} user - 用户信息
  * @returns {object} res
  */
-export const addUser = ( user:object ) => {
-  return ajax(`${API_PREFIX}user/add`, user, 'POST');
+export const saveUser = ( user:object ) => {
+  const res = request({
+    method: 'post',
+    url: `${API_PREFIX}${API_PREFIX_USER}/saveUser`,
+    data: user,
+  });
+  return res;
 }
 
 /**
@@ -26,14 +37,25 @@ export const addUser = ( user:object ) => {
  * @returns {object} res
  */
 export const updateUser = ( user:object ) => {
-  return ajax(`${API_PREFIX}user/update`, user, 'POST');
+  const res = request({
+    method: 'post',
+    url: `${API_PREFIX}update`,
+    data: user,
+  });
+  return res;
 }
 
 /**
  * deleteUser - 删除用户
  * @param {string} id - 要删除用户的id
+ * @param {string} name - 要删除用户的name
  * @returns {object} res
  */
-export const deleteUser = ( id:string ) => {
-  return ajax(`${API_PREFIX}user/delete`, { id }, 'POST');
+export const deleteUser = ( id:string, name: string ) => {
+  const res = request({
+    method: 'delete',
+    url: `${API_PREFIX}${API_PREFIX_USER}/deleteUser`,
+    params: { name },
+  });
+  return res;
 }

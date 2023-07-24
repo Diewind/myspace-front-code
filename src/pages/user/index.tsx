@@ -11,13 +11,14 @@ import {
   Table,
   Popconfirm,
   message,
+  notification,
 } from 'antd';
 import { FormInstance } from 'antd/lib/form/Form';
 import { QuestionCircleOutlined } from '@ant-design/icons';
 import memoize from "memoize-one";
 
 import LinkButton from '@pages/components/LinkButton/index';
-import { fetchUser, deleteUser, updateUser, addUser } from '@services/userService';
+import { fetchUser, deleteUser, updateUser, saveUser } from '@services/userService';
 import { PAGE_SIZE } from '@utils/constants';
 
 import EditUser from './EditUser';
@@ -26,6 +27,7 @@ export interface editUserProps {
   roles: Array<[]>,
   user: Object,
   editUserVisible: boolean,
+  saveLoading: boolean,
   onOk: () => void,
   onCancel: () => void,
   onRef: () => void,
@@ -34,19 +36,26 @@ export interface editUserProps {
 const User: React.FC = () => {
   const [users, setUsers] = useState([]);
   const [roles, setRoles] = useState([]);
+  const [saveLoading, setSaveLoading] = useState(false);
   const [selectedUser, setSelectedUser] = useState({
     id: '',
   });
   const [ editUserVisible, setEditUserVisible ] = useState(false);
-  useEffect(() => {
-    fetchUser().then(({user, role} : any) => {
-      setUsers(user);
-      setRoles(role);
-      // if(res.data){
-        // setUsers(res.data.users);
+  
+
+  const queryUser = () => {
+    fetchUser().then((res : any) => {
+      // setUsers(user);
+      // setRoles(role);
+      if(res.data){
+        setUsers(res.data.data.user);
         // setRoles(res.data.roles);
-      // }
-    })
+      }
+    });
+  };
+
+  useEffect(() => {
+    queryUser();
   },[]);
 
   // 根据role的数组，生成包含所有角色名的对象(属性名用角色id值)
@@ -66,8 +75,8 @@ const User: React.FC = () => {
   };
 
   const handleDeleteUser = async (user:any):Promise<void> => {
-    await deleteUser(user.id);
-    await fetchUser();
+    await deleteUser(user.id, user.name);
+    await queryUser();
   };
 
   const roleNames = initRoleNames(roles);
@@ -75,7 +84,7 @@ const User: React.FC = () => {
   const columns = [
     {
       title: '用户名',
-      dataIndex: 'username'
+      dataIndex: 'name'
     },
     {
       title: '邮箱',
@@ -83,7 +92,7 @@ const User: React.FC = () => {
     },
     {
       title: '电话',
-      dataIndex: 'phone'
+      dataIndex: 'mobile'
     },
     {
       title: '注册时间',
@@ -128,6 +137,7 @@ const User: React.FC = () => {
         id: '',
       };
       let result:any;
+      setSaveLoading(true);
       // 如果是更新，需要user中有id
       if(Object.keys(selectedUser).length > 0){
         param.id = selectedUser.id;
@@ -135,23 +145,35 @@ const User: React.FC = () => {
           ...values,
           ...param,
         }
-        result = await updateUser(params);
+        result = await saveUser(params);
       }else{
-        result = await addUser(values);
+        result = await saveUser(values);
       }
-      const { msg, status } = result;
-      if (status === 0) {
-        message.success(msg);
+      const { code, message } = result.data;
+      if (code === 200) {
+        notification.success({
+          message: code,
+          description: message,
+          placement: 'bottomRight',
+        });
         editUserFormRef.resetFields();
+        setSaveLoading(false);
         setEditUserVisible(false);
-        fetchUser();
+        queryUser();
       } else {
-        message.error(msg);
+        notification.error({
+          message: code,
+          description: message,
+          placement: 'bottomRight',
+        });
+        setSaveLoading(false);
       }
+
     });
   };
 
   const handleEditUserCancel = ():void => {
+    editUserFormRef.resetFields();
     setEditUserVisible(false);
   };
 
@@ -164,7 +186,7 @@ const User: React.FC = () => {
     pagination: {
       defaultPageSize: PAGE_SIZE
     },
-    size: 'small',
+    // size: 'small',
   };
 
   const editUserProps: editUserProps = {
@@ -174,6 +196,7 @@ const User: React.FC = () => {
     onOk: handleEditUserOk,
     onCancel: handleEditUserCancel,
     onRef: bindEditUserRef,
+    saveLoading,
   };
 
   return (
