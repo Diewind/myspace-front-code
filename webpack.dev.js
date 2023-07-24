@@ -29,12 +29,15 @@ module.exports = merge(common, {
     },
     hot: true,
     proxy: {
-      "/admin": {
+      "/": {
         target: "http://localhost:8080",
-        changeOrigin: true,
-        pathRewrite: {
-          '^/admin': ''
-        }
+        ws: true,
+        bypass(req) {
+          if (req.headers.accept.indexOf('html') !== -1) {
+            return '/index.html';
+          }
+          return null;
+        },
       },
     }
   },

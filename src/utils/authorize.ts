@@ -2,7 +2,7 @@
 import Cookies from 'js-cookie';
 
 // 设置 token 存储的 key
-const TokenKey = 'Admin-Token';
+const TokenKey = 'Token';
 
 // 获取 token
 export function getToken() {

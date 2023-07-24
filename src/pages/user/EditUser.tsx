@@ -17,23 +17,25 @@ interface Prop{
   roles: object[],
   user: object,
   editUserVisible: boolean,
+  saveLoading: boolean,
   onOk: () => void,
   onCancel: () => void,
   onRef: (ref: FormInstance) => void,
 }
 
 const EditUser: React.FC<Prop> = (props) => {
-  const { roles, user, editUserVisible, onOk, onCancel, onRef } = props;
+  const { roles, user, editUserVisible, saveLoading, onOk, onCancel, onRef } = props;
   const [form] = Form.useForm();
   onRef(form);
 
   return (
     <Modal
       title='添加角色'
-      visible={editUserVisible}
+      open={editUserVisible}
       forceRender
       onOk={onOk}
       onCancel={onCancel}
+      confirmLoading={saveLoading}
     >
       <Form
         form={form}
@@ -42,13 +44,15 @@ const EditUser: React.FC<Prop> = (props) => {
         <FormItem
           {...FORM_ITEM_LAYOUT_ONE_IN_THREE}
           label="用户名"
-          name="username"
+          name="name"
           rules={[{
             required: true,
             message: '用户名不能为空!'
           }]}
         >
-          <Input />
+          <Input
+            autoComplete='off'
+          />
         </FormItem>
         <FormItem
           {...FORM_ITEM_LAYOUT_ONE_IN_THREE}
@@ -59,36 +63,42 @@ const EditUser: React.FC<Prop> = (props) => {
             message: '密码不能为空!'
           }]}
         >
-          <Input />
+          <Input.Password
+            autoComplete='off'
+          />
         </FormItem>
         <FormItem
           {...FORM_ITEM_LAYOUT_ONE_IN_THREE}
           label="手机号"
-          name="password"
+          name="mobile"
           rules={[{
             required: true,
             message: '手机号不能为空!'
           }]}
         >
-          <Input />
+          <Input
+            autoComplete='off'
+          />
         </FormItem>
         <FormItem
           {...FORM_ITEM_LAYOUT_ONE_IN_THREE}
           label="邮箱"
-          name="password"
+          name="email"
           rules={[{
             required: true,
             message: '邮箱不能为空!'
           }]}
         >
-          <Input />
+          <Input
+            autoComplete='off'
+          />
         </FormItem>
         <FormItem
           {...FORM_ITEM_LAYOUT_ONE_IN_THREE}
           label="角色"
-          name="password"
+          name="role"
           rules={[{
-            required: true,
+            required: false,
             message: '角色不能为空!'
           }]}
         >

@@ -142,3 +142,12 @@ export const BASE_IMG_URL: string = 'localhost:8888';//图片统一路径前缀
 
 // 接口请求前缀
 export const API_PREFIX: string = '/';
+
+// 接口请求sys前缀
+export const API_PREFIX_SYS: string = 'sys';
+
+// 接口请求user前缀
+export const API_PREFIX_USER: string = 'back/user';
+
+// 接口请求role前缀
+export const API_PREFIX_ROLE: string = 'role';

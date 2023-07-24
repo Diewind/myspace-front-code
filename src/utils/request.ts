@@ -19,7 +19,7 @@ const request = axios.create({
   // 统一 url 配置，定义访问前缀 baseURL
   baseURL: '/',
   // 定义请求超时时间
-  timeout: 10000,
+  timeout: 5 * 60 * 1000,
   // 请求带上 cookie
   withCredentials: true,
   // 定义消息头
@@ -32,7 +32,7 @@ const request = axios.create({
 request.interceptors.request.use(
   config => {
       // 让每个请求携带 token
-      config.headers['Admin-Token'] = getToken();
+      config.headers['Token'] = getToken();
       return config;
   },
   error => {
@@ -53,6 +53,14 @@ request.interceptors.response.use(
         placement: 'bottomRight',
       });
       // window.location.href = '/login';
+    }
+    if(res.code === 500){
+      notification.error({
+        message: res.code,
+        description: res.message,
+        placement: 'bottomRight',
+      });
+      
     }
     // 未找到页面时，跳转到 404 页面
     if (res && res.code === 404) {
