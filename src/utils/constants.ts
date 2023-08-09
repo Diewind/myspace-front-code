@@ -150,4 +150,4 @@ export const API_PREFIX_SYS: string = 'sys';
 export const API_PREFIX_USER: string = 'back/user';
 
 // 接口请求role前缀
-export const API_PREFIX_ROLE: string = 'role';
+export const API_PREFIX_ROLE: string = 'back/role';

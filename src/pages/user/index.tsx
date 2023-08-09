@@ -19,7 +19,7 @@ import memoize from "memoize-one";
 
 import LinkButton from '@pages/components/LinkButton/index';
 import { fetchUser, deleteUser, updateUser, saveUser } from '@services/userService';
-import { PAGE_SIZE } from '@utils/constants';
+import { parseTableParams } from '@utils/util';
 
 import EditUser from './EditUser';
 
@@ -29,26 +29,28 @@ export interface editUserProps {
   editUserVisible: boolean,
   saveLoading: boolean,
   onOk: () => void,
+  onSetUser: () => void,
   onCancel: () => void,
   onRef: () => void,
 }
 
 const User: React.FC = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState({});
+  const [userPagination, setUserPagination] = useState({});
   const [roles, setRoles] = useState([]);
   const [saveLoading, setSaveLoading] = useState(false);
-  const [selectedUser, setSelectedUser] = useState({
-    id: '',
-  });
+  const [selectedUser, setSelectedUser] = useState({});
   const [ editUserVisible, setEditUserVisible ] = useState(false);
   
 
-  const queryUser = () => {
-    fetchUser().then((res : any) => {
+  const queryUser = (params = {size: 10, current: 1}) => {
+    fetchUser(params).then((res : any) => {
       // setUsers(user);
       // setRoles(role);
       if(res.data){
-        setUsers(res.data.data.user);
+        setUsers(res.data.data.page);
+        const userPage = parseTableParams(res.data.data.page);
+        setUserPagination(userPage);
         // setRoles(res.data.roles);
       }
     });
@@ -69,14 +71,22 @@ const User: React.FC = () => {
   });
 
   const handleEditUser = (user:any):void => {
-    setSelectedUser(user);
+    // setSelectedUser(user);
     editUserFormRef.setFieldsValue(user);
     setEditUserVisible(true);
   };
 
   const handleDeleteUser = async (user:any):Promise<void> => {
-    await deleteUser(user.id, user.name);
-    await queryUser();
+    const res = await deleteUser(user.id, user.name);
+    const { code, message } = res.data;
+    if(code === 200){
+      notification.success({
+        message: code,
+        description: message,
+        placement: 'bottomRight',
+      });
+      await queryUser();
+    }
   };
 
   const roleNames = initRoleNames(roles);
@@ -122,7 +132,7 @@ const User: React.FC = () => {
     }
   ];
 
-  const title = <Button type='primary' onClick={ () => setEditUserVisible(true) }>创建用户</Button>;
+  const title = <Button type='primary' onClick={ () => handleAddEditUser() }>创建用户</Button>;
 
   let editUserFormRef: FormInstance;
 
@@ -145,7 +155,7 @@ const User: React.FC = () => {
           ...values,
           ...param,
         }
-        result = await saveUser(params);
+        result = await updateUser(params);
       }else{
         result = await saveUser(values);
       }
@@ -156,10 +166,11 @@ const User: React.FC = () => {
           description: message,
           placement: 'bottomRight',
         });
-        editUserFormRef.resetFields();
+        editUserFormRef.setFieldsValue({});
+        setSelectedUser({});
         setSaveLoading(false);
         setEditUserVisible(false);
-        queryUser();
+        await queryUser();
       } else {
         notification.error({
           message: code,
@@ -173,20 +184,41 @@ const User: React.FC = () => {
   };
 
   const handleEditUserCancel = ():void => {
-    editUserFormRef.resetFields();
+    setSelectedUser({});
+    editUserFormRef.setFieldsValue({});
     setEditUserVisible(false);
+  };
+
+  const handleAddEditUser = ():void => {
+    // setSelectedUser({});
+    // editUserFormRef.setFieldsValue({});
+    setEditUserVisible(true);
+  };
+
+  const handleSetUser = ():void => {
+    setSelectedUser({});
+    // editUserFormRef.resetFields({});
+    setEditUserVisible(false);
+  };
+
+  const handleOnChange = (page:any):void => {
+    const { pageSize = 10, current = 1, } = page;
+    const searchParams = {
+      size: pageSize,
+      current,
+    };
+    queryUser(searchParams);
   };
 
   const tableProps: object = {
     rowKey: 'id',
     bordered: true,
     columns,
-    dataSource: users,
+    dataSource: users.records,
     loading: false,
-    pagination: {
-      defaultPageSize: PAGE_SIZE
-    },
-    // size: 'small',
+    pagination: userPagination,
+    size: 'small',
+    onChange: handleOnChange,
   };
 
   const editUserProps: editUserProps = {
@@ -195,6 +227,7 @@ const User: React.FC = () => {
     editUserVisible,
     onOk: handleEditUserOk,
     onCancel: handleEditUserCancel,
+    onSetUser: handleSetUser,
     onRef: bindEditUserRef,
     saveLoading,
   };

@@ -19,7 +19,7 @@ const request = axios.create({
   // 统一 url 配置，定义访问前缀 baseURL
   baseURL: '/',
   // 定义请求超时时间
-  timeout: 5 * 60 * 1000,
+  timeout: 2 * 60 * 1000,
   // 请求带上 cookie
   withCredentials: true,
   // 定义消息头

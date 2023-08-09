@@ -11,7 +11,8 @@ export function getToken() {
 
 // 设置 token
 export function setToken(token: string) {
-  return Cookies.set(TokenKey, token);
+  const inFifteenMinutes = new Date(new Date().getTime() + 2 * 60 * 60 * 1000); // 设置过期时间
+  return Cookies.set(TokenKey, token, { expires: inFifteenMinutes });
 }
 
 // 移除 token

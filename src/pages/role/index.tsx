@@ -4,21 +4,24 @@
  * @author: harry
  * @version: 1.0.0
  */
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import { QuestionCircleOutlined } from '@ant-design/icons';
-import { Card, Button, Table, message, Popconfirm } from 'antd';
+import { Card, Button, Table, message, Popconfirm, notification } from 'antd';
 import { FormInstance } from 'antd/lib/form/Form' //获取form表单的interface
 
 import { PAGE_SIZE } from '@utils/constants';
-import { fetchRole, addRole, updateRole, deleteRole } from '@services/roleService';
+import { fetchRole, deleteRole, updateRole, saveRole } from '@services/roleService';
 import memoryUtils from '@utils/memoryUtils';
 import storageUtils from '@utils/storageUtils';
+import { parseTableParams } from '@utils/util';
 
 import EditRole from './EditRole';
 import EditRoleAuth from './EditRoleAuth';
 
-const Role: React.FC = () => {
+const Role: React.FC = forwardRef(() => {
   const [roleList,setRoleList] = useState([]);// 所有角色列表
+  const [rolePagination, setRolePagination] = useState({});
+  const [saveLoading, setSaveLoading] = useState(false);
   const [selectedRole,setSelectedRole] = useState({
     id: '',
     name: '',
@@ -37,35 +40,39 @@ const Role: React.FC = () => {
     },
     {
       title: '授权时间',
-      dataIndex: 'authTime'
+      dataIndex: 'updateTime'
     },
     {
       title: '授权人',
       dataIndex: 'authorizer'
     },
   ];
-  const getRoles = async () => {
-    const result:any = await fetchRole();
-    setRoleList(result);
-    if (result.status === 0) {
-      const { data = [] } = result;
-      setRoleList(data);
-    }
+  const queryRole = (params = {size: 10, current: 1}) => {
+    fetchRole(params).then((res : any) => {
+      if(res.data){
+        setRoleList(res.data.data.page);
+        const rolePage = parseTableParams(res.data.data.page);
+        setRolePagination(rolePage);
+      }
+    });
   };
   useEffect(() => {
-    getRoles();
+    queryRole();
   },[]);
   let roleFormRef:FormInstance;
   // 删除角色
   const handleDeleteRole = async () => {
-    const { id = '' } = selectedRole;
+    const { id = '', name = '' } = selectedRole;
     // 请求更新
-    const result:any = await deleteRole(id);
-    if (result.status === 0) {
-      message.success('删除角色成功!');
-      getRoles();
-    } else {
-      message.error(result.msg);
+    const res:any = await deleteRole(id, name);
+    const { code, message } = res.data;
+    if(code === 200){
+      notification.success({
+        message: code,
+        description: message,
+        placement: 'bottomRight',
+      });
+      await queryRole();
     }
   }
   const onRow = (role:any) => ({
@@ -103,23 +110,37 @@ const Role: React.FC = () => {
     .then(async (values: any) => {
       const { roleName } = values;
       roleFormRef.resetFields();
-      const result:any = await addRole(roleName);
-      const { msg, status } = result;
-      if (status === 0) {
-        message.success(msg);
+      const result:any = await saveRole({
+        name: roleName,
+        authorizer: 'admin',
+      });
+      const { code, message } = result.data;
+      if (code === 200) {
+        notification.success({
+          message: code,
+          description: message,
+          placement: 'bottomRight',
+        });
         setRoleVisible(false);
-        getRoles();
+        setSaveLoading(false);
+        queryRole();
       } else {
-        message.error(msg);
+        notification.error({
+          message: code,
+          description: message,
+          placement: 'bottomRight',
+        });
+        setSaveLoading(false);
       }
     });
   }
   const roleAuthRef:any = useRef(null);
   const handleRoleAuthOk = async() => {
-    const menus = roleAuthRef.current.getMenus();
+    const authorizedMenu = roleAuthRef.current.getMenus();
     const params = {
-      menus,
-      authorizer: memoryUtils.user.username
+      ...selectedRole,
+      authorizedMenu,
+      authorizer: memoryUtils.user.username || 'admin',
     };
     // 请求更新
     const result:any = await updateRole(params);
@@ -139,11 +160,19 @@ const Role: React.FC = () => {
       } else {
         message.success('设置角色权限成功!');
         setRoleAuthVisible(false);
-        getRoles();
+        queryRole();
       }
     } else {
       message.error(result.msg);
     }
+  };
+  const handleOnChange = (page:any):void => {
+    const { pageSize = 10, current = 1, } = page;
+    const searchParams = {
+      size: pageSize,
+      current,
+    };
+    queryRole(searchParams);
   };
   const handleRoleAuthCancel = () => setRoleAuthVisible(false);
   const rowSelection:object = {
@@ -153,15 +182,16 @@ const Role: React.FC = () => {
       setSelectedRole(role);
     }
   };
-  const tableProps = {
+  const tableProps:object = {
     bordered: true,
     columns: column,
     rowKey: 'id',
-    dataSource: roleList,
-    pagination:{
-      defaultPageSize: PAGE_SIZE
-    },
+    dataSource: roleList.records,
+    loading: false,
+    pagination: rolePagination,
     rowSelection,
+    size: 'small',
+    onChange: handleOnChange,
     onRow,
   };
   const editRoleProps = {
@@ -190,6 +220,6 @@ const Role: React.FC = () => {
       />
     </Card>
   );
-}
+});
 
 export default Role;

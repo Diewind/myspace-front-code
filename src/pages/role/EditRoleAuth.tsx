@@ -4,7 +4,7 @@
  * @author: harry
  * @version: 1.0.0
  */
-import React, { useState } from 'react';
+import React, { useState, forwardRef, useImperativeHandle } from 'react';
 import { Form, Input, Modal, Tree } from 'antd';
 
 import routers from '@config/router';
@@ -23,7 +23,7 @@ interface Prop{
   ref: (ref: object) => void,
 }
 
-const EditRoleAuth: React.FC<Prop> = (props) => {
+const EditRoleAuth: React.FC<Prop> = forwardRef((props: any, ref) => {
   const {
     selectedRole,
     roleAuthVisible,
@@ -42,10 +42,17 @@ const EditRoleAuth: React.FC<Prop> = (props) => {
   const handleSelected = (checked:any) => {
     setCheckedKeys(checked);
   };
+  // 为父组件提交获取menus最新数据的方法
+  const getMenus = () => checkedKeys;
+  useImperativeHandle(ref, () => {
+    return {
+      getMenus,
+    };
+  });
   return (
     <Modal
       title='设置角色权限'
-      visible={roleAuthVisible}
+      open={roleAuthVisible}
       onOk={onOk}
       onCancel={onCancel}
     >
@@ -66,6 +73,6 @@ const EditRoleAuth: React.FC<Prop> = (props) => {
       </Tree>
     </Modal>
   );
-}
+});
 
 export default EditRoleAuth;

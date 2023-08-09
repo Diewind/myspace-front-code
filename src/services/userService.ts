@@ -5,14 +5,11 @@ import { API_PREFIX, API_PREFIX_USER } from '@utils/constants';
  * fetchUser - 获取用户
  * @returns {object} res
  */
-export const fetchUser = () => {
+export const fetchUser = (params: any) => {
   const res = request({
     method: 'get',
     url: `${API_PREFIX}${API_PREFIX_USER}/getListOfUser`,
-    // params: { 
-    //   pageNum: 1,
-    //   pageSize: 10,
-    // },
+    params,
   });
   return res;
 };
@@ -39,7 +36,7 @@ export const saveUser = ( user:object ) => {
 export const updateUser = ( user:object ) => {
   const res = request({
     method: 'post',
-    url: `${API_PREFIX}update`,
+    url: `${API_PREFIX}${API_PREFIX_USER}/updateUser`,
     data: user,
   });
   return res;

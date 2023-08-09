@@ -4,7 +4,7 @@
  * @author: diewind
  * @version: 1.0.0
  */
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Form, Input, Select, Modal } from 'antd';
 import { FormInstance } from 'antd/lib/form/Form';
 
@@ -20,11 +20,12 @@ interface Prop{
   saveLoading: boolean,
   onOk: () => void,
   onCancel: () => void,
+  onSetUser: () => void,
   onRef: (ref: FormInstance) => void,
 }
 
 const EditUser: React.FC<Prop> = (props) => {
-  const { roles, user, editUserVisible, saveLoading, onOk, onCancel, onRef } = props;
+  const { roles, user, editUserVisible, saveLoading, onOk, onCancel, onRef, onSetUser } = props;
   const [form] = Form.useForm();
   onRef(form);
 
@@ -32,7 +33,8 @@ const EditUser: React.FC<Prop> = (props) => {
     <Modal
       title='添加角色'
       open={editUserVisible}
-      forceRender
+      destroyOnClose
+      // forceRender // 有bug，弹窗关掉后值不会清空
       onOk={onOk}
       onCancel={onCancel}
       confirmLoading={saveLoading}
@@ -40,7 +42,18 @@ const EditUser: React.FC<Prop> = (props) => {
       <Form
         form={form}
         initialValues={user}
+        preserve={false}
       >
+        <FormItem
+          {...FORM_ITEM_LAYOUT_ONE_IN_THREE}
+          label="用户id"
+          name="id"
+          hidden
+        >
+          <Input
+            autoComplete='off'
+          />
+        </FormItem>
         <FormItem
           {...FORM_ITEM_LAYOUT_ONE_IN_THREE}
           label="用户名"
@@ -54,6 +67,7 @@ const EditUser: React.FC<Prop> = (props) => {
             autoComplete='off'
           />
         </FormItem>
+
         <FormItem
           {...FORM_ITEM_LAYOUT_ONE_IN_THREE}
           label="密码"
