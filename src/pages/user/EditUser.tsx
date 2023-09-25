@@ -110,7 +110,7 @@ const EditUser: React.FC<Prop> = (props) => {
         <FormItem
           {...FORM_ITEM_LAYOUT_ONE_IN_THREE}
           label="角色"
-          name="role"
+          name="roleId"
           rules={[{
             required: false,
             message: '角色不能为空!'

@@ -19,6 +19,7 @@ import memoize from "memoize-one";
 
 import LinkButton from '@pages/components/LinkButton/index';
 import { fetchUser, deleteUser, updateUser, saveUser } from '@services/userService';
+import { fetchRole } from '@services/roleService';
 import { parseTableParams } from '@utils/util';
 
 import EditUser from './EditUser';
@@ -45,13 +46,15 @@ const User: React.FC = () => {
 
   const queryUser = (params = {size: 10, current: 1}) => {
     fetchUser(params).then((res : any) => {
-      // setUsers(user);
-      // setRoles(role);
       if(res.data){
         setUsers(res.data.data.page);
         const userPage = parseTableParams(res.data.data.page);
         setUserPagination(userPage);
-        // setRoles(res.data.roles);
+        fetchRole({size: 100, current: 1}).then((roleRes : any) => {
+          if(roleRes.data){
+            setRoles(roleRes.data.data.page.records);
+          }
+        })
       }
     });
   };
@@ -154,10 +157,15 @@ const User: React.FC = () => {
         const params = {
           ...values,
           ...param,
+          'roleName': roleNames[values.roleId]
         }
         result = await updateUser(params);
       }else{
-        result = await saveUser(values);
+        const params = {
+          ...values,
+          'roleName': roleNames[values.roleId]
+        }
+        result = await saveUser(params);
       }
       const { code, message } = result.data;
       if (code === 200) {

@@ -18,7 +18,8 @@ const { SubMenu } = Menu;
 左侧导航组件
 */
 const LeftNav:React.FC<LeftBarProps> = (props:any) => {
-
+  let defaultSelectedKeys: any;
+  let openKey: any;
 
   /**
    * hasAuth - 判断当前登录用户对item是否有权限
@@ -58,6 +59,7 @@ const LeftNav:React.FC<LeftBarProps> = (props:any) => {
           if (item.key === path || path.indexOf(item.key) === 0) {
             // 更新redux中的headTitle状态
             // props.setHeadTitle(item.title);
+            defaultSelectedKeys = item.key;
           }
           if(item.hideMenu !== true){
             pre.push(
@@ -71,11 +73,11 @@ const LeftNav:React.FC<LeftBarProps> = (props:any) => {
           }
         } else {
           // 查找一个与当前路径匹配的子Item
-          // const cItem = item.children.find((cItem:any) => path.indexOf(cItem.key) === 0);
+          const cItem = item.children.find((cItem:any) => path.indexOf(cItem.key) === 0);
           // 如果存在，说明当前item所对应的子列表需要展开
-          // if (cItem) {
-          //   openKey = item.key;
-          // }
+          if (cItem) {
+            openKey = item.key;
+          }
           if(item.hideMenu !== true){
             pre.push(
               <SubMenu
@@ -100,23 +102,29 @@ const LeftNav:React.FC<LeftBarProps> = (props:any) => {
   const menuNodes = getMenuNodes(routers);
 
   // 得到当前请求的路由路径
-  // let path = props.location.pathname;
-  // switch (true) {
-  // case path.indexOf('/product') === 0:
-  //   path = '/product';
-  //   break;
-  // case path.indexOf('/learnTools/mind') === 0:
-  //   path = '/learnTools/mind';
-  //   break;
-  // case path.indexOf('/learnTools/flow') === 0:
-  //   path = '/learnTools/flow';
-  //   break;
-  // case path.indexOf('/learnTools/koni') === 0:
-  //   path = '/learnTools/koni';
-  //   break;
-  // default:
-  //   break;
-  // }
+  let path = location.pathname;
+  switch (true) {
+  case path.indexOf('/product/category') === 0:
+    path = '/product/category';
+    break;
+  case path.indexOf('/product/product') === 0:
+    path = '/product/product';
+    break;
+  case path.indexOf('/product/product-detail') === 0:
+    path = '/product/product-detail';
+    break;
+  case path.indexOf('/learnTools/mind') === 0:
+    path = '/learnTools/mind';
+    break;
+  case path.indexOf('/learnTools/flow') === 0:
+    path = '/learnTools/flow';
+    break;
+  case path.indexOf('/learnTools/koni') === 0:
+    path = '/learnTools/koni';
+    break;
+  default:
+    break;
+  }
   // 得到当前需要打开菜单项的key
   // const { openKey } = this;
   return (
@@ -126,7 +134,7 @@ const LeftNav:React.FC<LeftBarProps> = (props:any) => {
           <img src={logo} alt='logo' />
           {props.collapsed ? '' : <h1>MySpace后台</h1>}
         </Link>
-        <Menu theme='dark' mode='inline'>
+        <Menu theme='dark' mode='inline' selectedKeys={[path]} defaultOpenKeys={[openKey]}>
           {menuNodes}
         </Menu>
       </div>

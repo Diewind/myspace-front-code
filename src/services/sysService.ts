@@ -32,3 +32,15 @@ export const sysLogout = ( userName:string ) => {
   });
   return res;
 }
+
+/**
+ * fetchUserInfo - 获取用户信息
+ * @returns {object} res
+ */
+export const fetchUserInfo = () => {
+  const res = request({
+    method: 'get',
+    url: `${API_PREFIX}${API_PREFIX_SYS}/sys-user/info`,
+  });
+  return res;
+}

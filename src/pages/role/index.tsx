@@ -144,26 +144,31 @@ const Role: React.FC = forwardRef(() => {
     };
     // 请求更新
     const result:any = await updateRole(params);
-    if (result.status === 0) {
+    const { code, message } = result.data;
+    if (code === 200) {
       // 如果更新的是自己角色的权限，强制退出
-      if (selectedRole.id === memoryUtils.user.role.id) {
-        memoryUtils.user = {
-          username: '',
-          role: {
-            id: '',
-            menus: [],
-          }
-        };
-        storageUtils.removeUser();
-        // this.props.history.replace('/login');
-        message.info('当前用户角色权限修改了，重新登录!');
-      } else {
-        message.success('设置角色权限成功!');
+      // if (selectedRole.id === memoryUtils.user.role.id) {
+      //   memoryUtils.user = {
+      //     username: '',
+      //     role: {
+      //       id: '',
+      //       menus: [],
+      //     }
+      //   };
+      //   storageUtils.removeUser();
+      //   // this.props.history.replace('/login');
+      //   message.info('当前用户角色权限修改了，重新登录!');
+      // } else {
+        notification.success({
+          message: code,
+          description: message,
+          placement: 'bottomRight',
+        });
         setRoleAuthVisible(false);
         queryRole();
-      }
+      // }
     } else {
-      message.error(result.msg);
+      message.error(message);
     }
   };
   const handleOnChange = (page:any):void => {

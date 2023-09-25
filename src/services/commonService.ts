@@ -1,25 +1,28 @@
-import ajax from './ajax';
-import cityobj from './city';
-
-import axios from 'axios';
-
+/**
+ * commonService - 公共service
+ */
 import request from '@utils/request';
+import { API_PREFIX, API_PREFIX_SYS } from '@utils/constants';
 
-const adminPrefix = '/admin/';
+import cityMaps from '@utils/city.json';
 
 /**
- * fetchWeather - 请求天气
- * @param {string} city - 所在城市
+ * fetchWeather - 获取天气信息
  * @returns {object} res
  */
-export const fetchWeather = (city:string) => {
-  let citynum;
-  let cityMaps:any = cityobj;
+export const fetchWeather = (city: any) => {
+  let cityNum;
+  let cityobj:any = cityMaps;
   if (city in cityobj) {
-    citynum = cityMaps[city];
+    cityNum = cityMaps[city] || '101020100';
   }
-  const url = `${adminPrefix}weather/query`;
-  return ajax(url, {
-    citynum
-  }, 'GET');
-};
+  const res = request({
+    method: 'get',
+    url: `${API_PREFIX}${API_PREFIX_SYS}/sys-user/weather-info`,
+    params: {
+      cityNum,
+    }
+  });
+  return res;
+}
+

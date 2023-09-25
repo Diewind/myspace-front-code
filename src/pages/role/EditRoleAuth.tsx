@@ -40,6 +40,7 @@ const EditRoleAuth: React.FC<Prop> = forwardRef((props: any, ref) => {
     return pre;
   }, []);
   const handleSelected = (checked:any) => {
+    console.log('fff', checked);
     setCheckedKeys(checked);
   };
   // 为父组件提交获取menus最新数据的方法
@@ -53,6 +54,7 @@ const EditRoleAuth: React.FC<Prop> = forwardRef((props: any, ref) => {
     <Modal
       title='设置角色权限'
       open={roleAuthVisible}
+      destroyOnClose
       onOk={onOk}
       onCancel={onCancel}
     >
@@ -64,7 +66,8 @@ const EditRoleAuth: React.FC<Prop> = forwardRef((props: any, ref) => {
       <Tree
         checkable
         defaultExpandAll
-        checkedKeys={checkedKeys}
+        // checkedKeys={checkedKeys}
+        defaultCheckedKeys={selectedRole.authorizedMenu}
         onCheck={handleSelected}
       >
         <TreeNode title='平台权限' key='all'>

@@ -10,7 +10,7 @@ import storageUtils from '@utils/storageUtils';
 import { fetchWeather } from '@services/commonService';
 import router from '@config/router';
 import { removeToken } from '@utils/authorize';
-import { sysLogin } from '@services/sysService';
+import { sysLogin, fetchUserInfo } from '@services/sysService';
 
 import './index.less';
 
@@ -28,12 +28,14 @@ const Header:React.FC<HeaderProps> = (props) => {
     info: '', // 天气信息
     notice: '', // 天气提示
   });
+  const [userInfo, setUserInfo] = useState({});
   let timerId:any = null;
   const tick = () => setCurrentTime(new Date());
   const clearTimerId = () => clearInterval(timerId);
   useEffect(() => {
-    // queryWeather();
+    queryWeather();
     // getTitle();
+    queryUserInfo();
     timerId = setInterval(
       tick,
       1000
@@ -64,21 +66,39 @@ const Header:React.FC<HeaderProps> = (props) => {
   const queryWeather = async () => {
     // 调用接口请求异步获取天气
     const result:any = await fetchWeather('上海');
-    const city = result.data && result.data.cityInfo && result.data.cityInfo.city;
-    let { low = '', high = '', type, notice } = result.data && result.data.data && result.data.data.forecast[0];
-    const templow = low.split(' ');
-    const temphigh = high.split(' ');
-    low = templow[templow.length - 1];
-    high = temphigh[temphigh.length - 1];
-    // 更新状态
-    setWeather({
-      city, //所在区域
-      highOf: high, //天气的最高温
-      lowOf: low, //天气的最低温
-      notice, //天气的提示
-      info: type, //天气的信息
-    });
-
+    const { code, data } = result.data;
+    if(code === 200){
+      const {
+        weather: {
+          cityInfo: {
+            city,
+          },
+          data: {
+            forecast,
+          }
+        },
+      } = data;
+      let { low = '', high = '', type, notice } = forecast[0];
+      const templow = low.split(' ');
+      const temphigh = high.split(' ');
+      low = templow[templow.length - 1];
+      high = temphigh[temphigh.length - 1];
+      // 更新状态
+      setWeather({
+        city, //所在区域
+        highOf: high, //天气的最高温
+        lowOf: low, //天气的最低温
+        notice, //天气的提示
+        info: type, //天气的信息
+      });
+    }
+  }
+  const queryUserInfo = async () => {
+    const res:any = await fetchUserInfo();
+    const { code, data } = res.data;
+    if(code === 200){
+      setUserInfo(data.user);
+    }
   }
   const getTitle = () => {
     const location = useLocation();
@@ -106,6 +126,7 @@ const Header:React.FC<HeaderProps> = (props) => {
     toggle,
   } = props;
   const { username } = memoryUtils.user;
+  const { name } = userInfo;
   const title = getTitle();
   return (
     <div className='header'>
@@ -113,7 +134,7 @@ const Header:React.FC<HeaderProps> = (props) => {
         <span className='collapse' onClick={toggle}>
           {collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
         </span>
-        <span>欢迎，{username || '游客'}</span>
+        <span>欢迎，{name || '游客'}</span>
         <LinkButton onClick={logout}>退出</LinkButton>
       </div>
       <div className='header-bottom'>
@@ -123,7 +144,7 @@ const Header:React.FC<HeaderProps> = (props) => {
           <span style={{ margin: '0 10px' }}>{info}</span>
           <span style={{ color: 'green' }}>{lowOf}</span>~<span style={{ color: 'red' }}>{highOf}</span>
           <span style={{ marginLeft: '10px' }}>{city}</span>
-          <span style={{ color: '#F44336', marginLeft: '10px' }}>{notice}</span>
+          <span style={{ color: '#1890ff', marginLeft: '10px' }}>{notice}</span>
         </div>
       </div>
     </div>
